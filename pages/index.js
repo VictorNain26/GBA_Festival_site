@@ -1,0 +1,350 @@
+import { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
+import ResponsiveNavigation from '@/components/ResponsiveNavigation';
+import FixedArtDecoOrnament from '@/components/FixedArtDecoOrnament';
+import Frame from '@/components/Frame';
+import OptimizedImage from '@/components/OptimizedImage';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { 
+  NAV_LABELS, 
+  HERO_CONTENT, 
+  ABOUT_CONTENT, 
+  PARTNER_CATEGORIES, 
+  PARTNERS_INTRO,
+  ON_THE_WAY_CONTENT,
+  DECO_BALL_CONTENT,
+  CONTACT_CONTENT 
+} from '@/constants/content';
+
+/**
+ * The main landing page for the festival site with a fixed background
+ * and vertical navigation. Content scrolls over the background image
+ * while the navigation remains fixed on the right side.
+ */
+export default function Home() {
+  const [lang, setLang] = useState('fr');
+  const prefersReducedMotion = useReducedMotion();
+
+  /**
+   * Helper to render a paragraph with highlighted words. Because
+   * internationalisation often requires emphasis on certain phrases
+   * the paragraphs are defined as arrays of React fragments rather
+   * than plain strings. Each paragraph is represented as a JSX
+   * element which may contain nested spans with accent colouring.
+   */
+  const renderParagraphs = (paragraphs) => {
+    return paragraphs.map((p, idx) => (
+      <p
+        key={idx}
+        className="mb-6 leading-relaxed text-lg md:text-xl text-primary"
+      >
+        {p}
+      </p>
+    ));
+  };
+
+  // Memoize animation variants to prevent recreation on each render
+  const getAnimationVariants = useMemo(() => {
+    return (delay = 0) => {
+      if (prefersReducedMotion) {
+        return {
+          initial: { opacity: 0 },
+          whileInView: { opacity: 1 },
+          transition: { duration: 0.1, delay: Math.min(delay, 0.1) }
+        };
+      }
+      
+      return {
+        initial: { opacity: 0, y: 40 },
+        whileInView: { opacity: 1, y: 0 },
+        transition: { duration: 0.8, delay }
+      };
+    };
+  }, [prefersReducedMotion]);
+
+  return (
+    <ErrorBoundary>
+      {/* Fixed black background */}
+      <div className="fixed inset-0 bg-black -z-10"></div>
+      
+      {/* Fixed Art Deco Ornament */}
+      <FixedArtDecoOrnament />
+      
+      {/* Responsive Navigation */}
+      <ResponsiveNavigation labels={NAV_LABELS[lang]} lang={lang} setLang={setLang} />
+      
+      {/* Main content */}
+      <main role="main" aria-label="Festival content" className="relative z-10">
+        {/* Hero section */}
+        <section 
+          id="hero" 
+          className="relative flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 py-16 sm:py-20 text-center"
+        >
+          <motion.h1
+            className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight text-accent mb-6 md:mb-8 px-4"
+            {...getAnimationVariants(0)}
+          >
+            Florilège
+            <br />
+            <span className="block">de l'Art Déco</span>
+          </motion.h1>
+          <motion.p
+            className="font-body text-lg sm:text-xl md:text-2xl italic text-primary mb-4 px-4"
+            {...getAnimationVariants(0.2)}
+          >
+            {HERO_CONTENT[lang].subtitle}
+          </motion.p>
+          <motion.p
+            className="font-body text-base sm:text-lg md:text-xl text-primary mb-2 px-4"
+            {...getAnimationVariants(0.3)}
+          >
+            {HERO_CONTENT[lang].date}
+          </motion.p>
+          <motion.p
+            className="font-body text-base sm:text-lg md:text-xl text-primary mb-6 md:mb-8 px-4"
+            {...getAnimationVariants(0.4)}
+          >
+            {HERO_CONTENT[lang].location}
+          </motion.p>
+          <motion.a
+            href="#contact"
+            className="inline-block px-6 sm:px-8 py-3 border border-primary rounded-full text-primary hover:bg-primary hover:text-background transition-colors text-sm sm:text-base"
+            {...getAnimationVariants(0.5)}
+          >
+            {HERO_CONTENT[lang].cta}
+          </motion.a>
+        </section>
+
+        {/* About section */}
+        <section id="about" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+          <motion.h2
+            className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {NAV_LABELS[lang].about}
+          </motion.h2>
+          <motion.div
+            className="max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.2 }}
+          >
+            {renderParagraphs(ABOUT_CONTENT[lang])}
+          </motion.div>
+        </section>
+
+        {/* Partners section */}
+        <section id="partners" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+          <motion.h2
+            className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {NAV_LABELS[lang].partners}
+          </motion.h2>
+          <Frame className="max-w-5xl mx-auto">
+            <div className="mb-10">
+              {renderParagraphs(PARTNERS_INTRO[lang])}
+            </div>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {PARTNER_CATEGORIES.map((cat) => (
+                <motion.div
+                  key={cat.key}
+                  className="p-6 border border-primary rounded-lg bg-black/40 backdrop-blur-sm"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.2 }}
+                >
+                  <h3 className="font-title text-2xl text-accent mb-2">
+                    {cat.title[lang]}
+                  </h3>
+                  <p className="font-body text-primary leading-relaxed">
+                    {cat.desc[lang]}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </Frame>
+        </section>
+
+        {/* On the Way section */}
+        <section id="ontheway" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+          <motion.h2
+            className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {NAV_LABELS[lang].ontheway}
+          </motion.h2>
+          <Frame className="max-w-5xl mx-auto">
+            {renderParagraphs(ON_THE_WAY_CONTENT[lang])}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+              <motion.div
+                className="w-full h-64 relative overflow-hidden rounded"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <OptimizedImage
+                  src="/images/gallery_2.png"
+                  alt="Normandie liner"
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+              <motion.div
+                className="w-full h-64 relative overflow-hidden rounded"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                <OptimizedImage
+                  src="/images/gallery_3.png"
+                  alt="Elegant passengers"
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+            </div>
+          </Frame>
+        </section>
+
+        {/* Deco Ball section */}
+        <section id="decoball" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+          <motion.h2
+            className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {NAV_LABELS[lang].decoball}
+          </motion.h2>
+          <Frame className="max-w-5xl mx-auto">
+            {renderParagraphs(DECO_BALL_CONTENT[lang])}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+              <motion.div
+                className="w-full h-64 relative overflow-hidden rounded"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <OptimizedImage
+                  src="/images/gallery_7.png"
+                  alt="Dancers at the ball"
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+              <motion.div
+                className="w-full h-64 relative overflow-hidden rounded"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                <OptimizedImage
+                  src="/images/gallery_8.png"
+                  alt="Roaring Twenties portraits"
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+            </div>
+          </Frame>
+        </section>
+
+        {/* Gallery section */}
+        <section id="gallery" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+          <motion.h2
+            className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {NAV_LABELS[lang].gallery}
+          </motion.h2>
+          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {[1,2,3,4,5,6].map((idx, i) => (
+              <motion.div
+                key={idx}
+                className="relative overflow-hidden rounded h-56 sm:h-64"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 * i }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <OptimizedImage
+                  src={`/images/gallery_${idx}.png`}
+                  alt={`Gallery image ${idx}`}
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Contact section */}
+        <section id="contact" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+          <motion.h2
+            className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {NAV_LABELS[lang].contact}
+          </motion.h2>
+          <Frame className="max-w-3xl mx-auto text-center">
+            <motion.h3
+              className="font-title text-3xl md:text-4xl text-accent mb-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              {CONTACT_CONTENT[lang].heading}
+            </motion.h3>
+            <motion.p
+              className="font-body text-lg md:text-xl text-primary mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              {CONTACT_CONTENT[lang].intro}
+            </motion.p>
+            <motion.div
+              className="flex flex-col items-center gap-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <a
+                href={`https://wa.me/${CONTACT_CONTENT[lang].phone.replace(/\s+/g, '')}`}
+                className="px-6 py-3 border border-primary rounded-full text-primary hover:bg-primary hover:text-background transition-colors"
+              >
+                {CONTACT_CONTENT[lang].whatsapp}: {CONTACT_CONTENT[lang].phone}
+              </a>
+              <a
+                href={`mailto:${CONTACT_CONTENT[lang].email}`}
+                className="px-6 py-3 border border-primary rounded-full text-primary hover:bg-primary hover:text-background transition-colors"
+              >
+                {CONTACT_CONTENT[lang].email}
+              </a>
+              <a
+                href={CONTACT_CONTENT[lang].website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 border border-primary rounded-full text-primary hover:bg-primary hover:text-background transition-colors"
+              >
+                {CONTACT_CONTENT[lang].website}
+              </a>
+            </motion.div>
+          </Frame>
+        </section>
+      </main>
+    </ErrorBoundary>
+  );
+}
