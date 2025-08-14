@@ -38,7 +38,6 @@ function Header({ labels, lang, setLang }) {
   return (
     <header 
       className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-primary"
-      role="banner"
       aria-label="Site navigation"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-8 py-3">

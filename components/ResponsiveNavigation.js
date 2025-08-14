@@ -36,7 +36,6 @@ function ResponsiveNavigation({ labels, lang, setLang }) {
       {/* Desktop Navigation - Hidden on mobile */}
       <nav 
         className="hidden md:fixed md:right-4 lg:right-8 md:top-1/2 md:transform md:-translate-y-1/2 md:z-50 md:flex md:flex-col md:space-y-3 lg:space-y-4 md:text-right"
-        role="navigation"
         aria-label="Desktop site navigation"
       >
         {/* Desktop Navigation items */}
@@ -116,7 +115,6 @@ function ResponsiveNavigation({ labels, lang, setLang }) {
               exit={{ opacity: 0, x: 300 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
               className="md:hidden fixed top-0 right-0 h-full w-64 bg-black/95 backdrop-blur-md border-l border-primary/30 z-45 flex flex-col justify-center px-8"
-              role="navigation"
               aria-label="Mobile site navigation"
             >
               {/* Mobile Navigation items */}
