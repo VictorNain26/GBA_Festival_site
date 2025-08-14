@@ -1,11 +1,13 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ResponsiveNavigation from '@/components/ResponsiveNavigation';
-import FixedArtDecoOrnament from '@/components/FixedArtDecoOrnament';
+import ProgressiveBackground from '@/components/ProgressiveBackground';
+import HeroTitle from '@/components/HeroTitle';
 import Frame from '@/components/Frame';
 import OptimizedImage from '@/components/OptimizedImage';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { detectBrowserLanguage } from '@/hooks/useBrowserLanguage';
 import { 
   NAV_LABELS, 
   HERO_CONTENT, 
@@ -23,8 +25,16 @@ import {
  * while the navigation remains fixed on the right side.
  */
 export default function Home() {
-  const [lang, setLang] = useState('fr');
+  // Start with English to avoid hydration mismatch
+  const [lang, setLang] = useState('en');
   const prefersReducedMotion = useReducedMotion();
+  
+  // Detect browser language only on client side after mount
+  useEffect(() => {
+    
+    const detectedLang = detectBrowserLanguage();
+    setLang(detectedLang);
+  }, []);
 
   /**
    * Helper to render a paragraph with highlighted words. Because
@@ -65,11 +75,8 @@ export default function Home() {
 
   return (
     <ErrorBoundary>
-      {/* Fixed black background */}
-      <div className="fixed inset-0 bg-black -z-10"></div>
-      
-      {/* Fixed Art Deco Ornament */}
-      <FixedArtDecoOrnament />
+      {/* Progressive Background System */}
+      <ProgressiveBackground />
       
       {/* Responsive Navigation */}
       <ResponsiveNavigation labels={NAV_LABELS[lang]} lang={lang} setLang={setLang} />
@@ -81,14 +88,7 @@ export default function Home() {
           id="hero" 
           className="relative flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 py-16 sm:py-20 text-center"
         >
-          <motion.h1
-            className="font-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight text-accent mb-6 md:mb-8 px-4"
-            {...getAnimationVariants(0)}
-          >
-            Florilège
-            <br />
-            <span className="block">de l&apos;Art Déco</span>
-          </motion.h1>
+          <HeroTitle getAnimationVariants={getAnimationVariants} />
           <motion.p
             className="font-body text-lg sm:text-xl md:text-2xl italic text-primary mb-4 px-4"
             {...getAnimationVariants(0.2)}
@@ -117,7 +117,7 @@ export default function Home() {
         </section>
 
         {/* About section */}
-        <section id="about" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+        <section id="about" className="relative py-16 sm:py-20 md:py-24 px-8 sm:px-12 md:px-16 lg:px-20">
           <motion.h2
             className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
@@ -137,7 +137,7 @@ export default function Home() {
         </section>
 
         {/* Partners section */}
-        <section id="partners" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+        <section id="partners" className="relative py-16 sm:py-20 md:py-24 px-8 sm:px-12 md:px-16 lg:px-20">
           <motion.h2
             className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
@@ -172,7 +172,7 @@ export default function Home() {
         </section>
 
         {/* On the Way section */}
-        <section id="ontheway" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+        <section id="ontheway" className="relative py-16 sm:py-20 md:py-24 px-8 sm:px-12 md:px-16 lg:px-20">
           <motion.h2
             className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
@@ -215,7 +215,7 @@ export default function Home() {
         </section>
 
         {/* Deco Ball section */}
-        <section id="decoball" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+        <section id="decoball" className="relative py-16 sm:py-20 md:py-24 px-8 sm:px-12 md:px-16 lg:px-20">
           <motion.h2
             className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
@@ -258,7 +258,7 @@ export default function Home() {
         </section>
 
         {/* Gallery section */}
-        <section id="gallery" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+        <section id="gallery" className="relative py-16 sm:py-20 md:py-24 px-8 sm:px-12 md:px-16 lg:px-20">
           <motion.h2
             className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
@@ -289,7 +289,7 @@ export default function Home() {
         </section>
 
         {/* Contact section */}
-        <section id="contact" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-12">
+        <section id="contact" className="relative py-16 sm:py-20 md:py-24 px-8 sm:px-12 md:px-16 lg:px-20">
           <motion.h2
             className="font-title text-4xl md:text-5xl text-accent mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
