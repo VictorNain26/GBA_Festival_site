@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Skip ESLint during builds to avoid CI failures when lint tooling mismatches
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   // Enable image optimization for better performance
   // All assets are local, so we configure for optimal local image handling
   images: {
