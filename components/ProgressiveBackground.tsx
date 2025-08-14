@@ -27,8 +27,6 @@ export default function ProgressiveBackground() {
           priority
           quality={90}
         />
-        {/* Dark overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
       {/* Art Deco Ornaments Background - Toujours présent, contrôlé par opacity */}

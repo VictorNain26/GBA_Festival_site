@@ -4,14 +4,23 @@
  * future CMS integration or dynamic content loading.
  */
 
+import React from 'react';
+import type { 
+  NavigationLabels, 
+  HeroContent, 
+  PartnerCategory, 
+  ContactContent,
+  Language 
+} from '@/types';
+
 // Navigation labels per language
-export const NAV_LABELS = {
+export const NAV_LABELS: Record<Language, NavigationLabels> = {
   fr: {
     hero: 'Accueil',
-    about: 'À propos', 
+    about: 'A propos', 
     partners: 'Partenaires',
     ontheway: 'On the Way',
-    decoball: 'Bal Art Déco',
+    decoball: 'Bal Art Deco',
     gallery: 'Galerie',
     contact: 'Contact',
   },
@@ -27,18 +36,18 @@ export const NAV_LABELS = {
 };
 
 // Hero section content
-export const HERO_CONTENT = {
+export const HERO_CONTENT: Record<Language, HeroContent> = {
   fr: {
     title: (
       <>
         Florilège&nbsp;
-        <span className="block md:inline text-accent">de l\'Art Déco</span>
+        <span className="block md:inline text-accent">de l\'Art Deco</span>
       </>
     ),
-    subtitle: 'Festival Art Déco et Néo Art Déco',
+    subtitle: 'Festival Art Deco et Neo Art Deco',
     date: '18 octobre 2025',
     location: 'Hôtel du Collectionneur, Paris 75008',
-    cta: 'Réserver',
+    cta: 'Billeterie',
   },
   en: {
     title: (
@@ -50,12 +59,12 @@ export const HERO_CONTENT = {
     subtitle: 'Art Deco & Neo Art Deco Festival',
     date: '18 October 2025',
     location: 'Hôtel du Collectionneur, Paris 75008',
-    cta: 'Book Now',
+    cta: 'Tickets',
   },
 };
 
 // About section content
-export const ABOUT_CONTENT = {
+export const ABOUT_CONTENT: Record<Language, React.ReactNode[]> = {
   fr: [
     <>
       Depuis plus de cent ans <span className="text-accent">l\'Art déco</span> séduit le monde. Mais c\'est bien l\'<span className="text-accent">Exposition Internationale des Arts décoratifs et industriels modernes de Paris</span>, évènement fondateur de l\'année <span className="text-accent">1925</span>, qui a donné le nom à l\'Art Déco.
@@ -87,7 +96,7 @@ export const ABOUT_CONTENT = {
 };
 
 // Partner categories
-export const PARTNER_CATEGORIES = [
+export const PARTNER_CATEGORIES: PartnerCategory[] = [
   {
     key: 'collectors',
     title: { fr: 'Collectionneurs & Galeries', en: 'Collectors & Galleries' },
@@ -131,7 +140,7 @@ export const PARTNER_CATEGORIES = [
 ];
 
 // Contact content
-export const CONTACT_CONTENT = {
+export const CONTACT_CONTENT: Record<Language, ContactContent> = {
   fr: {
     heading: 'Grand Battement d\'Ailes',
     intro: 'Notre équipe se tient disponible pour répondre à toutes vos questions.',
@@ -151,7 +160,7 @@ export const CONTACT_CONTENT = {
 };
 
 // Partners section introduction
-export const PARTNERS_INTRO = {
+export const PARTNERS_INTRO: Record<Language, React.ReactNode[]> = {
   fr: [
     <>
       Au cœur de cette soirée placée sous le signe du goût et de la convivialité, nos <span className="text-accent">partenaires</span> et <span className="text-accent">exposants</span> vous invitent à une véritable excursion sensorielle. Exposition d\'objets d\'art, pièces de mode de collection, artisans, maisons de renom ou jeunes talents émergents – tous partagent leur univers et leur savoir‑faire. Découvrez une collection exceptionnelle d\'œuvres et d\'objets emblématiques illustrant l\'élégance et l\'innovation des mouvements <span className="text-accent">Art déco</span> et <span className="text-accent">Néo Art déco</span>.
@@ -171,7 +180,7 @@ export const PARTNERS_INTRO = {
 };
 
 // On the Way section content
-export const ON_THE_WAY_CONTENT = {
+export const ON_THE_WAY_CONTENT: Record<Language, React.ReactNode[]> = {
   fr: [
     <>
       <span className="text-accent">ON THE WAY</span>, flashmob et fil rouge de notre soirée, transporte le public au cœur de l\'effervescence de l\'entre‑deux‑guerres. Nous sommes en <span className="text-accent">1925</span>, entre le Port du Havre et la Gare de Paris : départs, arrivées, émotions et sentiments.
@@ -209,7 +218,7 @@ export const ON_THE_WAY_CONTENT = {
 };
 
 // Deco Ball section content  
-export const DECO_BALL_CONTENT = {
+export const DECO_BALL_CONTENT: Record<Language, React.ReactNode[]> = {
   fr: [
     <>
       Laissez‑vous entraîner par le faste et la sophistication des <span className="text-accent">Années Folles</span> lors de notre soirée dansante. Profitez d\'un grand <span className="text-accent">Bal Art déco</span> endiablé, mené par notre <span className="text-accent">DJ Mitch</span> jusqu\'au bout de la nuit, pour vivre pleinement l\'instant de joie et l\'art de vivre à la française.

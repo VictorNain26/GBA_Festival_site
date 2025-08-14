@@ -5,11 +5,9 @@ import { useState, useEffect } from 'react';
  * This respects the user's accessibility preferences and helps
  * create a more inclusive experience for users with vestibular
  * disorders or motion sensitivity.
- * 
- * @returns {boolean} True if the user prefers reduced motion
  */
-export function useReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+export function useReducedMotion(): boolean {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(false);
 
   useEffect(() => {
     // Check if we're in a browser environment
@@ -22,14 +20,14 @@ export function useReducedMotion() {
     setPrefersReducedMotion(mediaQuery.matches);
 
     // Listen for changes in the preference
-    const handleChange = (event) => {
+    const handleChange = (event: MediaQueryListEvent): void => {
       setPrefersReducedMotion(event.matches);
     };
 
     mediaQuery.addEventListener('change', handleChange);
 
     // Cleanup listener on unmount
-    return () => {
+    return (): void => {
       mediaQuery.removeEventListener('change', handleChange);
     };
   }, []);

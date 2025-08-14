@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import ResponsiveNavigation from '@/components/ResponsiveNavigation';
 import ProgressiveBackground from '@/components/ProgressiveBackground';
 import HeroTitle from '@/components/HeroTitle';
@@ -18,6 +19,7 @@ import {
   DECO_BALL_CONTENT,
   CONTACT_CONTENT 
 } from '@/constants/content';
+import type { Language } from '@/types';
 
 /**
  * The main landing page for the festival site with a fixed background
@@ -26,7 +28,7 @@ import {
  */
 export default function Home() {
   // Start with English to avoid hydration mismatch
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState<Language>('en');
   const prefersReducedMotion = useReducedMotion();
   
   // Detect browser language only on client side after mount
@@ -88,28 +90,50 @@ export default function Home() {
           id="hero" 
           className="relative flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 py-16 sm:py-20 text-center"
         >
-          <HeroTitle getAnimationVariants={getAnimationVariants} />
+
+          {/* Festival subtitle - en haut */}
           <motion.p
-            className="font-body text-lg sm:text-xl md:text-2xl italic text-primary mb-4 px-4"
-            {...getAnimationVariants(0.2)}
+            className="font-body text-lg md:text-xl lg:text-2xl uppercase tracking-wider text-primary mb-6 md:mb-8 relative z-10"
+            style={{
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
+            }}
+            {...getAnimationVariants(0.0)}
           >
-            {HERO_CONTENT[lang].subtitle}
+            {HERO_CONTENT[lang].subtitle} - 1ère Edition
           </motion.p>
+
+          {/* Date */}
           <motion.p
-            className="font-body text-base sm:text-lg md:text-xl text-primary mb-2 px-4"
-            {...getAnimationVariants(0.3)}
+            className="font-body text-xl md:text-2xl lg:text-3xl text-primary mb-8 md:mb-10 relative z-10"
+            style={{
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
+            }}
+            {...getAnimationVariants(0.1)}
           >
             {HERO_CONTENT[lang].date}
           </motion.p>
+
+          {/* Titre principal */}
+          <HeroTitle getAnimationVariants={getAnimationVariants} />
+
+          {/* Location */}
           <motion.p
-            className="font-body text-base sm:text-lg md:text-xl text-primary mb-6 md:mb-8 px-4"
+            className="font-body text-lg md:text-xl lg:text-2xl text-primary mb-8 md:mb-10 px-4 relative z-10"
+            style={{
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
+            }}
             {...getAnimationVariants(0.4)}
           >
             {HERO_CONTENT[lang].location}
           </motion.p>
+
+          {/* Call to action - Bouton billeterie agrandi */}
           <motion.a
             href="#contact"
-            className="inline-block px-6 sm:px-8 py-3 border border-primary rounded-full text-primary hover:bg-primary hover:text-background transition-colors text-sm sm:text-base"
+            className="inline-block px-10 md:px-12 lg:px-14 py-4 md:py-5 border-2 border-primary rounded-full text-primary hover:bg-primary hover:text-background transition-colors text-lg md:text-xl lg:text-2xl font-semibold relative z-10 bg-black/30 backdrop-blur-sm"
+            style={{
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
+            }}
             {...getAnimationVariants(0.5)}
           >
             {HERO_CONTENT[lang].cta}

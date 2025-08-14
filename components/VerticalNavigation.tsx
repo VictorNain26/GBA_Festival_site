@@ -64,11 +64,8 @@ function VerticalNavigation({ labels, lang, setLang }) {
           className={`h-full w-16 lg:w-20 ${isExpanded ? 'lg:w-48' : 'lg:hover:w-48'} transition-all duration-300 ease-in-out flex flex-col items-center py-8 px-2`}
           initial={false}
           animate={{ 
-            width: isExpanded ? '12rem' : '4rem',
-            '@media (min-width: 1024px)': {
-              width: isExpanded ? '12rem' : '5rem'
-            }
-          }}
+            width: isExpanded ? '12rem' : '4rem'
+          } as any}
           whileHover={{ width: '12rem' }}
           transition={prefersReducedMotion ? { duration: 0.1 } : { duration: 0.3 }}
         >

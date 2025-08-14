@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import type { UseBackgroundTransitionReturn } from '@/types';
 
 /**
  * Hook for background transitions between first_background and ornaments
@@ -6,31 +7,33 @@ import { useState, useEffect } from 'react';
  * - ornaments appear when "À propos" title becomes visible
  * - clean transitions at specific scroll points (no gradual fade)
  */
-export function useBackgroundTransition() {
-  const [scrollY, setScrollY] = useState(0);
-  const [windowHeight, setWindowHeight] = useState(0);
+export function useBackgroundTransition(): UseBackgroundTransitionReturn {
+  const [scrollY, setScrollY] = useState<number>(0);
+  const [windowHeight, setWindowHeight] = useState<number>(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    const handleResize = () => setWindowHeight(window.innerHeight);
+    const handleScroll = (): void => setScrollY(window.scrollY);
+    const handleResize = (): void => setWindowHeight(window.innerHeight);
     
     handleResize();
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
 
-    return () => {
+    return (): void => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
   // Calculate transition states
-  const getTransitionState = () => {
+  const getTransitionState = (): UseBackgroundTransitionReturn => {
     if (typeof window === 'undefined' || windowHeight === 0) {
       return {
-        firstBackgroundOpacity: 1,
-        ornamentsOpacity: 0,
-        showNavigation: false
+        showFirstBackground: true,
+        showOrnaments: false,
+        showNavigation: false,
+        scrollY: 0,
+        windowHeight: 0
       };
     }
 
@@ -39,9 +42,11 @@ export function useBackgroundTransition() {
     
     if (!aboutSection) {
       return {
-        firstBackgroundOpacity: 1,
-        ornamentsOpacity: 0,
-        showNavigation: false
+        showFirstBackground: true,
+        showOrnaments: false,
+        showNavigation: false,
+        scrollY,
+        windowHeight
       };
     }
 
