@@ -27,7 +27,6 @@ function SimpleVerticalNavigation({ labels, lang, setLang }) {
   return (
     <nav 
       className="fixed right-8 top-1/2 transform -translate-y-1/2 z-50 flex flex-col space-y-4 text-right"
-      role="navigation"
       aria-label="Site navigation"
     >
       {/* Navigation items */}

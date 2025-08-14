@@ -75,7 +75,7 @@ export default function Home() {
       <ResponsiveNavigation labels={NAV_LABELS[lang]} lang={lang} setLang={setLang} />
       
       {/* Main content */}
-      <main role="main" aria-label="Festival content" className="relative z-10">
+      <main aria-label="Festival content" className="relative z-10">
         {/* Hero section */}
         <section 
           id="hero" 
@@ -87,7 +87,7 @@ export default function Home() {
           >
             Florilège
             <br />
-            <span className="block">de l'Art Déco</span>
+            <span className="block">de l&apos;Art Déco</span>
           </motion.h1>
           <motion.p
             className="font-body text-lg sm:text-xl md:text-2xl italic text-primary mb-4 px-4"

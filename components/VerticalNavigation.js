@@ -42,7 +42,6 @@ function VerticalNavigation({ labels, lang, setLang }) {
       {/* Vertical Navigation */}
       <nav 
         className="fixed right-0 top-0 h-full z-50 bg-black/90 backdrop-blur-md border-l border-primary"
-        role="navigation"
         aria-label="Site navigation"
       >
         {/* Toggle button for mobile */}
@@ -75,7 +74,7 @@ function VerticalNavigation({ labels, lang, setLang }) {
         >
           {/* Navigation items */}
           <div className="flex flex-col space-y-6 mb-8 w-full">
-            {navItems.map((item, index) => (
+            {navItems.map((item, _index) => (
               <motion.a
                 key={item.id}
                 href={`#${item.id}`}
