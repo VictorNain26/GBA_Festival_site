@@ -109,28 +109,20 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
     let showNavigation = false;
 
     if (scrollY >= contactStart) {
-      // Contact section: first_background (sauf si compact mode)
-      showFirstBackground = !isCompactMode;
-      showOrnaments = isCompactMode;
+      // Contact section: first_background pour mobile ET desktop
+      showFirstBackground = true;
+      showOrnaments = false;
       showNavigation = false;
     } else if (scrollY >= switchPoint) {
-      // Section À propos et suivantes: ornements
+      // Section À propos et suivantes: ornements pour mobile ET desktop
       showFirstBackground = false;
       showOrnaments = true;
       showNavigation = true;
     } else {
-      // Hero section: conditionally show background based on compact mode
-      if (isCompactMode) {
-        // Mode compact: ornements au lieu du first_background
-        showFirstBackground = false;
-        showOrnaments = true;
-        showNavigation = false;
-      } else {
-        // Mode normal: first_background
-        showFirstBackground = true;
-        showOrnaments = false;
-        showNavigation = false;
-      }
+      // Hero section: first_background pour mobile ET desktop
+      showFirstBackground = true;
+      showOrnaments = false;
+      showNavigation = false;
     }
 
     return {

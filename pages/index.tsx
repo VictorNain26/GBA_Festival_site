@@ -30,13 +30,15 @@ import type { Language } from '@/types';
 export default function Home() {
   // Start with English to avoid hydration mismatch
   const [lang, setLang] = useState<Language>('en');
+  const [isHydrated, setIsHydrated] = useState(false);
   const prefersReducedMotion = useReducedMotion();
-  const { showOrnaments, isCompactMode } = useBackgroundTransition();
+  const { showOrnaments, isCompactMode, scrollY } = useBackgroundTransition();
   
   // Detect browser language on client side after mount
   useEffect(() => {
     const detectedLang = detectBrowserLanguage();
     setLang(detectedLang);
+    setIsHydrated(true);
   }, []);
 
 
@@ -392,6 +394,28 @@ export default function Home() {
         </section>
       </main>
 
+      {/* Sticky CTA Button - En dehors de tous les conteneurs pour sticky global */}
+      {isHydrated && (
+        <div 
+          className="sticky top-4 z-40 flex justify-center pointer-events-none"
+          style={{
+            opacity: scrollY > 100 ? 1 : 0,
+            transform: `translateY(${scrollY > 100 ? '0' : '-20px'})`,
+            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
+          }}
+        >
+          <a
+            href="#contact"
+            className="pointer-events-auto inline-block px-4 xs:px-6 md:px-8 py-2 xs:py-3 md:py-4 rounded-full font-medium text-sm xs:text-base md:text-lg backdrop-blur-sm border border-primary bg-black/20 text-primary hover:bg-primary hover:text-background transition-colors duration-300"
+            style={{
+              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
+            }}
+          >
+            {HERO_CONTENT[lang].cta}
+          </a>
+        </div>
+      )}
 
     </ErrorBoundary>
   );

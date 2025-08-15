@@ -3,13 +3,13 @@ import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
 
 /**
  * Progressive background component with clean transitions:
- * - Hero section: first_background.jpg
+ * - Hero section: first_background.jpg (responsive: object-cover on mobile, object-contain on desktop)
  * - Middle sections: Art Deco ornaments (appear when "À propos" title visible)
- * - Contact section: first_background.jpg
+ * - Contact section: first_background.jpg (responsive)
  * - No flash, no superposition, smooth CSS transitions
  */
 export default function ProgressiveBackground() {
-  const { showFirstBackground, showOrnaments } = useBackgroundTransition();
+  const { showFirstBackground, showOrnaments, isCompactMode } = useBackgroundTransition();
 
   return (
     <>
@@ -23,7 +23,11 @@ export default function ProgressiveBackground() {
           src="/images/first_background.jpg"
           alt=""
           fill
-          className="object-contain scale-105"
+          className={`scale-105 transition-all duration-500 ease-in-out ${
+            isCompactMode 
+              ? 'object-cover' // Mobile: couvre tout l'écran
+              : 'object-contain' // Desktop: garde les proportions
+          }`}
           priority
           quality={90}
         />
