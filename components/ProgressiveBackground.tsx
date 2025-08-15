@@ -3,31 +3,38 @@ import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
 
 /**
  * Progressive background component with clean transitions:
- * - Hero section: first_background.jpg (responsive: object-cover on mobile, object-contain on desktop)
+ * - Hero section: first_background_mobile.jpg (mobile/tablet) or first_background.jpg (desktop)
  * - Middle sections: Art Deco ornaments (appear when "À propos" title visible)
- * - Contact section: first_background.jpg (responsive)
+ * - Contact section: same responsive image logic
  * - No flash, no superposition, smooth CSS transitions
  */
 export default function ProgressiveBackground() {
-  const { showFirstBackground, showOrnaments, isCompactMode } = useBackgroundTransition();
+  const { showFirstBackground, showOrnaments } = useBackgroundTransition();
 
   return (
     <>
-      {/* First Background Image - Toujours présent, contrôlé par opacity */}
+      {/* First Background Images - CSS-first approach to prevent flash */}
       <div 
-        className={`fixed inset-0 -z-20 transition-opacity duration-500 ease-in-out ${
+        className={`fixed inset-0 -z-10 transition-opacity duration-500 ease-in-out ${
           showFirstBackground ? 'opacity-100' : 'opacity-0'
         }`}
       >
+        {/* Desktop Image - Hidden on mobile/tablet with CSS */}
         <Image
           src="/images/first_background.jpg"
           alt=""
           fill
-          className={`scale-105 transition-all duration-500 ease-in-out ${
-            isCompactMode 
-              ? 'object-cover' // Mobile: couvre tout l'écran
-              : 'object-contain' // Desktop: garde les proportions
-          }`}
+          className="object-contain scale-105 hidden lg:block"
+          priority
+          quality={90}
+        />
+        
+        {/* Mobile/Tablet Image - Hidden on desktop with CSS */}
+        <Image
+          src="/images/first_background_mobile.jpg"
+          alt=""
+          fill
+          className="object-cover scale-90 block lg:hidden"
           priority
           quality={90}
         />
@@ -35,7 +42,7 @@ export default function ProgressiveBackground() {
 
       {/* Art Deco Ornaments Background - Toujours présent, contrôlé par opacity */}
       <div 
-        className={`fixed inset-0 -z-10 bg-black transition-opacity duration-500 ease-in-out ${
+        className={`fixed inset-0 -z-20 bg-black transition-opacity duration-500 ease-in-out ${
           showOrnaments ? 'opacity-100' : 'opacity-0'
         }`}
       >

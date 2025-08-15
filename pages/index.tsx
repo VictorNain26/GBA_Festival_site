@@ -18,6 +18,8 @@ import {
   PARTNERS_INTRO,
   ON_THE_WAY_CONTENT,
   DECO_BALL_CONTENT,
+  PERSONALITIES_CONTENT,
+  FESTIVAL_OBJECTIVE,
   CONTACT_CONTENT 
 } from '@/constants/content';
 import type { Language } from '@/types';
@@ -92,11 +94,7 @@ export default function Home() {
         {/* Hero section */}
         <section 
           id="hero" 
-          className={`relative flex flex-col items-center justify-center min-h-screen px-4 xs:px-6 sm:px-8 text-center ${
-            isCompactMode 
-              ? 'py-8 xs:py-12 sm:py-16 md:py-20' // Espacement réduit en mode compact
-              : 'py-16 xs:py-20 sm:py-24' // Espacement normal
-          }`}
+          className="relative flex flex-col items-center justify-center min-h-screen px-4 xs:px-6 sm:px-8 text-center py-8 xs:py-12 sm:py-16 md:py-20 lg:py-16 xl:py-20 2xl:py-24"
         >
 
           {/* Festival subtitle - en haut */}
@@ -125,11 +123,7 @@ export default function Home() {
           <HeroTitle getAnimationVariants={getAnimationVariants} isCompactMode={isCompactMode} />
 
           {/* Location - Espacé du titre */}
-          <div className={`flex flex-col items-center ${
-            isCompactMode 
-              ? 'mt-3 xs:mt-4 md:mt-6 lg:mt-8' // Espacement réduit en mode compact
-              : 'mt-4 xs:mt-6 md:mt-8 lg:mt-10' // Espacement normal
-          }`}>
+          <div className="flex flex-col items-center mt-3 xs:mt-4 md:mt-6 lg:mt-8 xl:mt-10">
             <motion.p
               className="font-body text-base xs:text-lg md:text-xl lg:text-2xl text-primary px-4 relative z-10"
               style={{
@@ -175,6 +169,25 @@ export default function Home() {
             transition={{ duration: 0.9, delay: 0.2 }}
           >
             {renderParagraphs(ABOUT_CONTENT[lang])}
+            
+            {/* Festival objectives section */}
+            <motion.div
+              className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              {FESTIVAL_OBJECTIVE[lang].map((objective, idx) => (
+                <div
+                  key={idx}
+                  className="p-6 border border-primary rounded-lg bg-black/30 backdrop-blur-sm"
+                >
+                  <p className="font-body text-primary leading-relaxed text-base md:text-lg">
+                    {objective}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
           </motion.div>
         </section>
 
@@ -295,6 +308,51 @@ export default function Home() {
                 <OptimizedImage
                   src="/images/gallery_8.png"
                   alt="Roaring Twenties portraits"
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+            </div>
+          </Frame>
+        </section>
+
+        {/* Personalities section */}
+        <section id="personalities" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+          <motion.h2
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {NAV_LABELS[lang].personalities}
+          </motion.h2>
+          <Frame className="max-w-5xl mx-auto">
+            <div className="mb-6 md:mb-8">
+              {renderParagraphs(PERSONALITIES_CONTENT[lang])}
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6">
+              <motion.div
+                className="w-full h-64 relative overflow-hidden rounded"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <OptimizedImage
+                  src="/images/gallery_4.png"
+                  alt="Art Deco personalities"
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+              <motion.div
+                className="w-full h-64 relative overflow-hidden rounded"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                <OptimizedImage
+                  src="/images/gallery_5.png"
+                  alt="Historical figures"
                   fill
                   className="object-cover"
                 />

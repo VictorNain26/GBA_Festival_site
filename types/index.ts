@@ -40,6 +40,7 @@ export interface NavigationLabels {
   partners: string;
   ontheway: string;
   decoball: string;
+  personalities: string;
   gallery: string;
   contact: string;
 }
