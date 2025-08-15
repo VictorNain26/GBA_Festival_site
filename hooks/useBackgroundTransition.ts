@@ -10,30 +10,81 @@ import type { UseBackgroundTransitionReturn } from '@/types';
 export function useBackgroundTransition(): UseBackgroundTransitionReturn {
   const [scrollY, setScrollY] = useState<number>(0);
   const [windowHeight, setWindowHeight] = useState<number>(0);
+  const [isCompactMode, setIsCompactMode] = useState<boolean>(false);
+  const [isHydrated, setIsHydrated] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = (): void => setScrollY(window.scrollY);
-    const handleResize = (): void => setWindowHeight(window.innerHeight);
     
+    const handleResize = (): void => {
+      setWindowHeight(window.innerHeight);
+      checkCompactMode();
+    };
+
+    const checkCompactMode = () => {
+      if (typeof window === 'undefined') return;
+
+      const { innerWidth: width, innerHeight: height } = window;
+      
+      // Estimate content height based on elements and spacing
+      const estimatedContentHeight = 
+        60 +   // subtitle
+        80 +   // date  
+        200 +  // title
+        60 +   // location
+        60 +   // button
+        100 +  // compact mode images height when below title
+        140;   // total spacing/padding
+
+      // Optimized breakpoints for compact mode
+      const shouldUseCompactMode = 
+        height < 750 ||                    // Viewport too short
+        width < 1024 ||                    // Standard tablet breakpoint
+        (height < 950 && width < 1280) || // Landscape tablet/small laptop
+        estimatedContentHeight > height * 0.80; // Content fills 80%+ of screen
+
+      setIsCompactMode(shouldUseCompactMode);
+    };
+    
+    // Initial setup
     handleResize();
+    checkCompactMode();
+    setIsHydrated(true); // Mark as hydrated after first setup
+    
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', checkCompactMode);
 
     return (): void => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', checkCompactMode);
     };
   }, []);
 
   // Calculate transition states
   const getTransitionState = (): UseBackgroundTransitionReturn => {
-    if (typeof window === 'undefined' || windowHeight === 0) {
+    if (typeof window === 'undefined') {
+      // Server-side: neutral state
       return {
-        showFirstBackground: true,
-        showOrnaments: false,
+        showFirstBackground: false,
+        showOrnaments: true,
         showNavigation: false,
         scrollY: 0,
-        windowHeight: 0
+        windowHeight: 0,
+        isCompactMode: false
+      };
+    }
+
+    if (!isHydrated) {
+      // Client-side before hydration complete
+      return {
+        showFirstBackground: false,
+        showOrnaments: true,
+        showNavigation: false,
+        scrollY: 0,
+        windowHeight: 0,
+        isCompactMode: false
       };
     }
 
@@ -42,11 +93,12 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
     
     if (!aboutSection) {
       return {
-        showFirstBackground: true,
-        showOrnaments: false,
+        showFirstBackground: !isCompactMode,
+        showOrnaments: isCompactMode,
         showNavigation: false,
         scrollY,
-        windowHeight
+        windowHeight,
+        isCompactMode
       };
     }
 
@@ -62,15 +114,15 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
       contactStart = contactRect.top + scrollY;
     }
 
-    // Logique simple et claire - jamais de superposition
+    // Logique étendue avec support du mode compact
     let showFirstBackground = true;
     let showOrnaments = false;
     let showNavigation = false;
 
     if (scrollY >= contactStart) {
-      // Contact section: first_background
-      showFirstBackground = true;
-      showOrnaments = false;
+      // Contact section: first_background (sauf si compact mode)
+      showFirstBackground = !isCompactMode;
+      showOrnaments = isCompactMode;
       showNavigation = false;
     } else if (scrollY >= switchPoint) {
       // Section À propos et suivantes: ornements
@@ -78,10 +130,18 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
       showOrnaments = true;
       showNavigation = true;
     } else {
-      // Hero section: first_background
-      showFirstBackground = true;
-      showOrnaments = false;
-      showNavigation = false;
+      // Hero section: conditionally show background based on compact mode
+      if (isCompactMode) {
+        // Mode compact: ornements au lieu du first_background
+        showFirstBackground = false;
+        showOrnaments = true;
+        showNavigation = false;
+      } else {
+        // Mode normal: first_background
+        showFirstBackground = true;
+        showOrnaments = false;
+        showNavigation = false;
+      }
     }
 
     return {
@@ -89,7 +149,8 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
       showOrnaments,
       showNavigation,
       scrollY,
-      windowHeight
+      windowHeight,
+      isCompactMode
     };
   };
 

@@ -7,9 +7,9 @@ import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
  * Responsive navigation that adapts to mobile and desktop screens.
  * Mobile: Compact toggle menu, Desktop: Vertical sidebar.
  */
-function ResponsiveNavigation({ labels, lang, setLang }) {
+function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }) {
   const activeSection = useActiveSection();
-  const { showNavigation } = useBackgroundTransition();
+  const { showNavigation, showOrnaments } = useBackgroundTransition();
   const [isOpen, setIsOpen] = useState(false);
 
   // Build an array of navigation items from the labels prop
@@ -50,7 +50,7 @@ function ResponsiveNavigation({ labels, lang, setLang }) {
       {/* Desktop Navigation - 100% Tailwind CSS */}
       <nav 
         className={`hidden md:block fixed top-1/2 right-8 z-50 -translate-y-1/2 transition-all duration-700 ease-out ${
-          showNavigation 
+          showNavigation && !isCompactMode
             ? 'opacity-100 translate-x-0' 
             : 'opacity-0 translate-x-8 pointer-events-none'
         }`}
@@ -99,8 +99,8 @@ function ResponsiveNavigation({ labels, lang, setLang }) {
       {/* Mobile Navigation Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`md:hidden fixed top-6 right-6 z-50 w-10 h-10 bg-black/80 border border-accent/40 flex items-center justify-center text-primary hover:text-accent transition-all duration-500 ease-out ${
-          showNavigation 
+        className={`md:hidden fixed top-6 left-6 z-50 w-10 h-10 bg-black/80 border border-accent/40 flex items-center justify-center text-primary hover:text-accent transition-all duration-500 ease-out ${
+          showNavigation && isCompactMode
             ? 'opacity-100 scale-100' 
             : 'opacity-0 scale-75 pointer-events-none'
         }`}

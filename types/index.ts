@@ -72,10 +72,12 @@ export interface ResponsiveNavigationProps {
   labels: NavigationLabels;
   lang: Language;
   setLang: (lang: Language) => void;
+  isCompactMode: boolean;
 }
 
 export interface HeroTitleProps {
   getAnimationVariants: GetAnimationVariants;
+  isCompactMode: boolean;
 }
 
 export interface ErrorBoundaryProps {
@@ -109,6 +111,7 @@ export interface UseBackgroundTransitionReturn {
   showNavigation: boolean;
   scrollY: number;
   windowHeight: number;
+  isCompactMode: boolean;
 }
 
 export interface UseActiveSectionReturn {
