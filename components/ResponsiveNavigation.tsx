@@ -47,9 +47,9 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }) {
 
   return (
     <>
-      {/* Desktop Navigation - 100% Tailwind CSS */}
+      {/* Desktop Navigation - Affichage sur laptop et plus */}
       <nav 
-        className={`hidden md:block fixed top-1/2 right-8 z-50 -translate-y-1/2 transition-all duration-700 ease-out ${
+        className={`hidden lg:block fixed top-1/2 right-8 z-50 -translate-y-1/2 transition-all duration-700 ease-out ${
           showNavigation && !isCompactMode
             ? 'opacity-100 translate-x-0' 
             : 'opacity-0 translate-x-8 pointer-events-none'
@@ -62,7 +62,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }) {
             <button
               key={item.id}
               onClick={(e) => handleNavClick(e, item.id)}
-              className={`text-base lg:text-lg xl:text-xl font-medium transition-colors hover:text-accent cursor-pointer text-right ${
+              className={`text-base xl:text-lg 2xl:text-xl font-medium transition-colors hover:text-accent cursor-pointer text-right ${
                 activeSection === item.id 
                   ? 'text-accent' 
                   : 'text-primary'
@@ -76,7 +76,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }) {
           <div className="flex flex-col space-y-2 pt-4 mt-4 border-t border-primary/20">
             <button
               onClick={() => changeLang('fr')}
-              className={`text-sm lg:text-base font-medium transition-colors hover:text-accent text-right ${
+              className={`text-sm xl:text-base font-medium transition-colors hover:text-accent text-right ${
                 lang === 'fr' ? 'text-accent' : 'text-primary'
               }`}
               aria-label="Switch to French"
@@ -85,7 +85,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }) {
             </button>
             <button
               onClick={() => changeLang('en')}
-              className={`text-sm lg:text-base font-medium transition-colors hover:text-accent text-right ${
+              className={`text-sm xl:text-base font-medium transition-colors hover:text-accent text-right ${
                 lang === 'en' ? 'text-accent' : 'text-primary'
               }`}
               aria-label="Switch to English"
@@ -96,32 +96,49 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }) {
         </div>
       </nav>
 
-      {/* Mobile Navigation Toggle Button */}
+      {/* Mobile Navigation Toggle Button - Style Art Déco élégant */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`md:hidden fixed top-6 left-6 z-50 w-10 h-10 bg-black/80 border border-accent/40 flex items-center justify-center text-primary hover:text-accent transition-all duration-500 ease-out ${
+        className={`lg:hidden fixed left-4 z-50 w-14 h-14 rounded-full border border-primary bg-black/20 backdrop-blur-sm flex items-center justify-center text-primary hover:bg-primary hover:text-background transition-all duration-300 ease-out ${
           showNavigation && isCompactMode
             ? 'opacity-100 scale-100' 
             : 'opacity-0 scale-75 pointer-events-none'
+        } ${
+          showOrnaments 
+            ? 'top-20 sm:top-24 md:top-28 lg:top-32' // Éviter ornement gauche (plus accessible que droite)
+            : 'top-6 xs:top-8 sm:top-10'  // Position standard quand pas d'ornements
         }`}
+        style={{
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+          textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
+        }}
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isOpen}
       >
-        <div className="w-5 h-4 flex flex-col justify-between">
+        <div className="w-7 h-6 flex flex-col justify-between">
           <span
-            className={`w-full h-0.5 bg-current transition-transform duration-200 ${
-              isOpen ? 'rotate-45 translate-y-2' : ''
+            className={`w-full h-0.5 bg-current transition-transform duration-300 ease-out ${
+              isOpen ? 'rotate-45 translate-y-2.5 w-5' : ''
             }`}
+            style={{
+              filter: 'drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5))'
+            }}
           />
           <span
-            className={`w-full h-0.5 bg-current transition-opacity duration-200 ${
-              isOpen ? 'opacity-0' : 'opacity-100'
+            className={`w-full h-0.5 bg-current transition-all duration-300 ease-out ${
+              isOpen ? 'opacity-0 scale-75' : 'opacity-100 scale-100'
             }`}
+            style={{
+              filter: 'drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5))'
+            }}
           />
           <span
-            className={`w-full h-0.5 bg-current transition-transform duration-200 ${
-              isOpen ? '-rotate-45 -translate-y-2' : ''
+            className={`w-full h-0.5 bg-current transition-transform duration-300 ease-out ${
+              isOpen ? '-rotate-45 -translate-y-2.5 w-5' : ''
             }`}
+            style={{
+              filter: 'drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5))'
+            }}
           />
         </div>
       </button>
@@ -136,21 +153,21 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
+              className="lg:hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
               onClick={() => setIsOpen(false)}
             />
             
-            {/* Mobile Menu - Simple */}
+            {/* Mobile Menu - Glisse depuis la gauche */}
             <motion.nav
-              initial={{ opacity: 0, x: 300 }}
+              initial={{ opacity: 0, x: -300 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 300 }}
+              exit={{ opacity: 0, x: -300 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="md:hidden fixed top-0 right-0 h-full w-64 bg-black/95 backdrop-blur-md border-l border-accent/30 z-40 flex flex-col justify-center px-8"
+              className="lg:hidden fixed top-0 left-0 h-full w-64 sm:w-72 md:w-80 bg-black/95 backdrop-blur-md border-r border-primary/30 z-40 flex flex-col justify-center px-8"
               aria-label="Mobile site navigation"
             >
               {/* Mobile Navigation items */}
-              <div className="flex flex-col space-y-6 text-right">
+              <div className="flex flex-col space-y-6 text-left">
                 {navItems.map((item) => (
                   <button
                     key={item.id}
@@ -166,7 +183,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }) {
                 ))}
 
                 {/* Mobile Language selector */}
-                <div className="flex justify-end space-x-4 pt-6 mt-6 border-t border-accent/20">
+                <div className="flex justify-start space-x-4 pt-6 mt-6 border-t border-primary/20">
                   <button
                     onClick={() => changeLang('fr')}
                     className={`text-lg font-medium transition-colors hover:text-accent ${

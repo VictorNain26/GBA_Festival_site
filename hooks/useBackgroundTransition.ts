@@ -26,22 +26,11 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
 
       const { innerWidth: width, innerHeight: height } = window;
       
-      // Estimate content height based on elements and spacing
-      const estimatedContentHeight = 
-        60 +   // subtitle
-        80 +   // date  
-        200 +  // title
-        60 +   // location
-        60 +   // button
-        100 +  // compact mode images height when below title
-        140;   // total spacing/padding
-
-      // Optimized breakpoints for compact mode
+      // Logique simplifiée et professionnelle basée sur les standards 2024
+      // Compact mode: Mobile + petites tablettes + écrans trop courts
       const shouldUseCompactMode = 
-        height < 750 ||                    // Viewport too short
-        width < 1024 ||                    // Standard tablet breakpoint
-        (height < 950 && width < 1280) || // Landscape tablet/small laptop
-        estimatedContentHeight > height * 0.80; // Content fills 80%+ of screen
+        width < 1024 ||   // En dessous du breakpoint laptop (mobile + tablettes)
+        height < 700;     // Écrans trop courts (landscape mobiles, netbooks)
 
       setIsCompactMode(shouldUseCompactMode);
     };

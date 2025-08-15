@@ -51,7 +51,7 @@ export default function Home() {
     return paragraphs.map((p, idx) => (
       <p
         key={idx}
-        className="mb-6 leading-relaxed text-lg md:text-xl text-primary"
+        className="mb-6 leading-relaxed text-base xs:text-lg md:text-xl text-primary"
       >
         {p}
       </p>
@@ -90,16 +90,16 @@ export default function Home() {
         {/* Hero section */}
         <section 
           id="hero" 
-          className={`relative flex flex-col items-center justify-center min-h-screen px-6 sm:px-8 text-center ${
+          className={`relative flex flex-col items-center justify-center min-h-screen px-4 xs:px-6 sm:px-8 text-center ${
             isCompactMode 
-              ? 'py-12 sm:py-16 md:py-20' // Espacement réduit en mode compact
-              : 'py-20 sm:py-24' // Espacement normal
+              ? 'py-8 xs:py-12 sm:py-16 md:py-20' // Espacement réduit en mode compact
+              : 'py-16 xs:py-20 sm:py-24' // Espacement normal
           }`}
         >
 
           {/* Festival subtitle - en haut */}
           <motion.p
-            className="font-body text-lg md:text-xl lg:text-2xl uppercase tracking-wider text-accent mb-4 md:mb-6 relative z-10"
+            className="font-body text-base xs:text-lg md:text-xl lg:text-2xl uppercase tracking-wider text-accent mb-4 md:mb-6 relative z-10"
             style={{
               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
             }}
@@ -110,7 +110,7 @@ export default function Home() {
 
           {/* Date */}
           <motion.p
-            className="font-body text-xl md:text-2xl lg:text-3xl text-primary mb-6 md:mb-8 relative z-10"
+            className="font-body text-lg xs:text-xl md:text-2xl lg:text-3xl text-primary mb-6 md:mb-8 relative z-10"
             style={{
               textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
             }}
@@ -122,14 +122,14 @@ export default function Home() {
           {/* Titre principal */}
           <HeroTitle getAnimationVariants={getAnimationVariants} isCompactMode={isCompactMode} />
 
-          {/* Location + Bouton groupés - Espacés du titre */}
-          <div className={`flex flex-col items-center gap-4 md:gap-6 ${
+          {/* Location - Espacé du titre */}
+          <div className={`flex flex-col items-center ${
             isCompactMode 
-              ? 'mt-4 md:mt-6 lg:mt-8' // Espacement réduit en mode compact
-              : 'mt-6 md:mt-8 lg:mt-10' // Espacement normal
+              ? 'mt-3 xs:mt-4 md:mt-6 lg:mt-8' // Espacement réduit en mode compact
+              : 'mt-4 xs:mt-6 md:mt-8 lg:mt-10' // Espacement normal
           }`}>
             <motion.p
-              className="font-body text-lg md:text-xl lg:text-2xl text-primary px-4 relative z-10"
+              className="font-body text-base xs:text-lg md:text-xl lg:text-2xl text-primary px-4 relative z-10"
               style={{
                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
               }}
@@ -137,31 +137,29 @@ export default function Home() {
             >
               {HERO_CONTENT[lang].location}
             </motion.p>
+          </div>
 
-            {/* Call to action - Bouton billeterie qui reste sticky */}
-            <motion.a
+          {/* Call to action - Position initiale dans le hero */}
+          <motion.div 
+            className="flex justify-center mt-4 xs:mt-6 md:mt-8"
+            {...getAnimationVariants(0.5)}
+          >
+            <a
               href="#contact"
-              className={`inline-block px-6 md:px-8 py-3 md:py-4 rounded-full font-medium text-base md:text-lg transition-all duration-300 backdrop-blur-sm
-                         border border-primary bg-black/20 text-primary hover:bg-primary hover:text-background
-                         sticky z-50 ${
-                           showOrnaments 
-                             ? 'top-16 sm:top-20 md:top-24' // Éviter les ornements
-                             : 'top-8 sm:top-12 md:top-16'  // Position normale
-                         }`}
+              className="inline-block px-4 xs:px-6 md:px-8 py-2 xs:py-3 md:py-4 rounded-full font-medium text-sm xs:text-base md:text-lg transition-all duration-300 backdrop-blur-sm border border-primary bg-black/20 text-primary hover:bg-primary hover:text-background"
               style={{
                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
               }}
-              {...getAnimationVariants(0.5)}
             >
               {HERO_CONTENT[lang].cta}
-            </motion.a>
-          </div>
+            </a>
+          </motion.div>
         </section>
 
         {/* About section */}
-        <section id="about" className="relative min-h-screen flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-20">
+        <section id="about" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
           <motion.h2
-            className="font-title text-4xl md:text-5xl text-accent mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -179,9 +177,9 @@ export default function Home() {
         </section>
 
         {/* Partners section */}
-        <section id="partners" className="relative min-h-screen flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-20">
+        <section id="partners" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
           <motion.h2
-            className="font-title text-4xl md:text-5xl text-accent mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -192,7 +190,7 @@ export default function Home() {
             <div className="mb-6 md:mb-8">
               {renderParagraphs(PARTNERS_INTRO[lang])}
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 xs:gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {PARTNER_CATEGORIES.map((cat) => (
                 <motion.div
                   key={cat.key}
@@ -214,9 +212,9 @@ export default function Home() {
         </section>
 
         {/* On the Way section */}
-        <section id="ontheway" className="relative min-h-screen flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-20">
+        <section id="ontheway" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
           <motion.h2
-            className="font-title text-4xl md:text-5xl text-accent mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -227,7 +225,7 @@ export default function Home() {
             <div className="mb-6 md:mb-8">
               {renderParagraphs(ON_THE_WAY_CONTENT[lang])}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6">
               <motion.div
                 className="w-full h-64 relative overflow-hidden rounded"
                 initial={{ opacity: 0, y: 30 }}
@@ -259,9 +257,9 @@ export default function Home() {
         </section>
 
         {/* Deco Ball section */}
-        <section id="decoball" className="relative min-h-screen flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-20">
+        <section id="decoball" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
           <motion.h2
-            className="font-title text-4xl md:text-5xl text-accent mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -272,7 +270,7 @@ export default function Home() {
             <div className="mb-6 md:mb-8">
               {renderParagraphs(DECO_BALL_CONTENT[lang])}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6">
               <motion.div
                 className="w-full h-64 relative overflow-hidden rounded"
                 initial={{ opacity: 0, y: 30 }}
@@ -304,9 +302,9 @@ export default function Home() {
         </section>
 
         {/* Gallery section */}
-        <section id="gallery" className="relative min-h-screen flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-20">
+        <section id="gallery" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
           <motion.h2
-            className="font-title text-4xl md:text-5xl text-accent mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -314,11 +312,11 @@ export default function Home() {
             {NAV_LABELS[lang].gallery}
           </motion.h2>
           <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-3 xs:gap-4 md:gap-6">
             {[1,2,3,4,5,6].map((idx, i) => (
               <motion.div
                 key={idx}
-                className="relative overflow-hidden rounded h-56 sm:h-64"
+                className="relative overflow-hidden rounded h-48 xs:h-56 sm:h-64"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 * i }}
@@ -337,9 +335,9 @@ export default function Home() {
         </section>
 
         {/* Contact section */}
-        <section id="contact" className="relative min-h-screen flex flex-col justify-center px-8 sm:px-12 md:px-16 lg:px-20">
+        <section id="contact" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
           <motion.h2
-            className="font-title text-4xl md:text-5xl text-accent mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -348,7 +346,7 @@ export default function Home() {
           </motion.h2>
           <Frame className="max-w-5xl mx-auto text-center">
             <motion.h3
-              className="font-title text-3xl md:text-4xl text-accent mb-4"
+              className="font-title text-xl xs:text-2xl sm:text-3xl md:text-4xl text-accent mb-3 xs:mb-4"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -356,7 +354,7 @@ export default function Home() {
               {CONTACT_CONTENT[lang].heading}
             </motion.h3>
             <motion.p
-              className="font-body text-lg md:text-xl text-primary mb-6"
+              className="font-body text-base xs:text-lg md:text-xl text-primary mb-4 xs:mb-6"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
