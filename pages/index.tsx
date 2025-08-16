@@ -52,7 +52,7 @@ export default function Home() {
     return paragraphs.map((p, idx) => (
       <p
         key={idx}
-        className="mb-7 xs:mb-8 sm:mb-9 md:mb-10 lg:mb-6 xl:mb-7 leading-relaxed text-base xs:text-lg md:text-xl text-primary"
+        className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base xs:text-lg sm:text-lg lg:text-xl text-primary"
       >
         {p}
       </p>
@@ -91,23 +91,23 @@ export default function Home() {
         {/* Hero section */}
         <section 
           id="hero" 
-          className="relative flex flex-col items-center justify-center min-h-screen px-1 xs:px-2 sm:px-4 md:px-8 text-center py-2 xs:py-4 sm:py-8 md:py-12 lg:py-8 xl:py-12 2xl:py-16"
+          className="relative flex flex-col items-center justify-center min-h-screen px-2 xs:px-3 sm:px-3 lg:px-4 text-center py-3 xs:py-4 sm:py-4 lg:py-6 xl:py-8"
         >
 
           {/* Festival subtitle - responsive */}
           <motion.div
-            className="text-center mb-2 xs:mb-3 sm:mb-4 md:mb-5 lg:mb-4 xl:mb-5 relative z-10 px-1"
+            className="text-center mb-3 xs:mb-4 sm:mb-4 lg:mb-3 xl:mb-4 relative z-10 px-2"
             {...getAnimationVariants(0.0)}
           >
             {/* Version compact : 2 lignes */}
             <div className="lg:hidden">
               <p 
-                className="font-title text-xs xs:text-xs sm:text-sm md:text-base uppercase tracking-wide xs:tracking-wider text-accent"
+                className="font-title text-base xs:text-lg sm:text-lg uppercase tracking-wide xs:tracking-wider text-accent"
               >
                 {HERO_CONTENT[lang].subtitle}
               </p>
               <p 
-                className="font-title text-xs xs:text-xs sm:text-sm md:text-base uppercase tracking-wide xs:tracking-wider text-accent"
+                className="font-title text-sm xs:text-base sm:text-lg uppercase tracking-wide xs:tracking-wider text-accent mt-1"
               >
                 1ère Edition
               </p>
@@ -123,7 +123,7 @@ export default function Home() {
 
           {/* Date */}
           <motion.p
-            className="font-title text-xs xs:text-sm sm:text-base md:text-lg lg:text-2xl text-primary mb-3 xs:mb-4 sm:mb-6 md:mb-7 lg:mb-5 xl:mb-6 relative z-10 px-1"
+            className="font-title text-lg xs:text-xl sm:text-xl lg:text-xl xl:text-2xl text-primary mb-4 xs:mb-5 sm:mb-5 lg:mb-4 xl:mb-5 relative z-10 px-2"
             {...getAnimationVariants(0.1)}
           >
             {HERO_CONTENT[lang].date}
@@ -134,29 +134,29 @@ export default function Home() {
 
 
           {/* Call to action - Sous la Tour Eiffel, centré */}
-          <div className="w-full flex flex-col items-center mt-8 xs:mt-10 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24">
+          <div className="w-full flex flex-col items-center mt-6 xs:mt-7 sm:mt-7 lg:mt-8 xl:mt-10">
             {/* Version mobile/tablette : CTA puis Hotel + Paris en dessous */}
-            <div className="flex lg:hidden flex-col items-center gap-3 xs:gap-4 sm:gap-5">
+            <div className="flex lg:hidden flex-col items-center gap-3 xs:gap-4 sm:gap-4">
               {/* Bouton billeterie EN HAUT */}
               <motion.a
                 href="#contact"
-                className="inline-block px-4 xs:px-5 sm:px-6 md:px-8 py-2 xs:py-3 sm:py-3 md:py-4 font-title text-xs xs:text-sm sm:text-base md:text-lg uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
+                className="inline-block px-6 xs:px-7 sm:px-7 py-3 xs:py-4 sm:py-3 font-title text-base xs:text-lg sm:text-lg lg:text-xl uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
                 {...getAnimationVariants(0.2)}
               >
                 {HERO_CONTENT[lang].cta}
               </motion.a>
               
-              {/* Hotel et Paris en colonne EN DESSOUS avec moins d'espace */}
-              <div className="flex flex-col items-center gap-0.5">
+              {/* Hotel et Paris en colonne EN DESSOUS avec plus d'espace */}
+              <div className="flex flex-col items-center gap-2 xs:gap-3 sm:gap-2">
                 <motion.p
-                  className="font-title text-xs xs:text-sm sm:text-base md:text-lg text-accent"
+                  className="font-title text-base xs:text-lg sm:text-lg lg:text-xl text-accent"
                   {...getAnimationVariants(0.5)}
                 >
                   {lang === 'fr' ? 'Hotel du Collectionneur' : 'Hotel Collectionneur'}
                 </motion.p>
                 
                 <motion.p
-                  className="font-title text-xs xs:text-sm sm:text-base md:text-lg text-accent"
+                  className="font-title text-base xs:text-lg sm:text-lg lg:text-xl text-accent"
                   {...getAnimationVariants(0.6)}
                 >
                   Paris 75008
@@ -175,7 +175,7 @@ export default function Home() {
               
               <motion.a
                 href="#contact"
-                className="inline-block px-8 lg:px-10 py-3 lg:py-4 font-title text-base lg:text-lg uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background text-center mx-auto"
+                className="inline-block px-8 lg:px-10 py-3 lg:py-4 font-title text-base lg:text-lg xl:text-xl uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background text-center mx-auto"
                 {...getAnimationVariants(0.2)}
               >
                 {HERO_CONTENT[lang].cta}
@@ -192,9 +192,9 @@ export default function Home() {
         </section>
 
         {/* About section */}
-        <section id="about" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
+        <section id="about" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -211,7 +211,7 @@ export default function Home() {
             
             {/* Festival objectives section */}
             <motion.div
-              className="mt-10 xs:mt-12 sm:mt-14 md:mt-16 lg:mt-10 xl:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 md:gap-9 lg:gap-6 xl:gap-8"
+              className="mt-6 xs:mt-7 sm:mt-7 lg:mt-8 xl:mt-9 grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -221,7 +221,7 @@ export default function Home() {
                   key={idx}
                   className="p-6 border border-primary rounded-lg bg-black/30 backdrop-blur-sm"
                 >
-                  <p className="font-body text-primary leading-relaxed text-base md:text-lg">
+                  <p className="font-body text-primary leading-relaxed text-base lg:text-lg">
                     {objective}
                   </p>
                 </div>
@@ -231,9 +231,9 @@ export default function Home() {
         </section>
 
         {/* Partners section */}
-        <section id="partners" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
+        <section id="partners" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -241,10 +241,10 @@ export default function Home() {
             {NAV_LABELS[lang].partners}
           </motion.h2>
           <Frame className="max-w-5xl mx-auto">
-            <div className="mb-8 xs:mb-10 sm:mb-12 md:mb-14 lg:mb-8 xl:mb-10">
+            <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
               {renderParagraphs(PARTNERS_INTRO[lang])}
             </div>
-            <div className="grid gap-6 xs:gap-7 sm:gap-8 md:gap-9 lg:gap-6 xl:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {PARTNER_CATEGORIES.map((cat) => (
                 <motion.div
                   key={cat.key}
@@ -266,9 +266,9 @@ export default function Home() {
         </section>
 
         {/* On the Way section */}
-        <section id="ontheway" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
+        <section id="ontheway" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -276,10 +276,10 @@ export default function Home() {
             {NAV_LABELS[lang].ontheway}
           </motion.h2>
           <Frame className="max-w-5xl mx-auto">
-            <div className="mb-8 xs:mb-10 sm:mb-12 md:mb-14 lg:mb-8 xl:mb-10">
+            <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
               {renderParagraphs(ON_THE_WAY_CONTENT[lang])}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
               <motion.div
                 className="w-full h-64 relative overflow-hidden rounded"
                 initial={{ opacity: 0, y: 30 }}
@@ -311,9 +311,9 @@ export default function Home() {
         </section>
 
         {/* Deco Ball section */}
-        <section id="decoball" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
+        <section id="decoball" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -321,10 +321,10 @@ export default function Home() {
             {NAV_LABELS[lang].decoball}
           </motion.h2>
           <Frame className="max-w-5xl mx-auto">
-            <div className="mb-8 xs:mb-10 sm:mb-12 md:mb-14 lg:mb-8 xl:mb-10">
+            <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
               {renderParagraphs(DECO_BALL_CONTENT[lang])}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
               <motion.div
                 className="w-full h-64 relative overflow-hidden rounded"
                 initial={{ opacity: 0, y: 30 }}
@@ -356,9 +356,9 @@ export default function Home() {
         </section>
 
         {/* Personalities section */}
-        <section id="personalities" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
+        <section id="personalities" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -366,10 +366,10 @@ export default function Home() {
             {NAV_LABELS[lang].personalities}
           </motion.h2>
           <Frame className="max-w-5xl mx-auto">
-            <div className="mb-8 xs:mb-10 sm:mb-12 md:mb-14 lg:mb-8 xl:mb-10">
+            <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
               {renderParagraphs(PERSONALITIES_CONTENT[lang])}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-7">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
               <motion.div
                 className="w-full h-64 relative overflow-hidden rounded"
                 initial={{ opacity: 0, y: 30 }}
@@ -401,9 +401,9 @@ export default function Home() {
         </section>
 
         {/* Gallery section */}
-        <section id="gallery" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
+        <section id="gallery" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -411,7 +411,7 @@ export default function Home() {
             {NAV_LABELS[lang].gallery}
           </motion.h2>
           <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-7">
+            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
             {[1,2,3,4,5,6].map((idx, i) => (
               <motion.div
                 key={idx}
@@ -434,18 +434,18 @@ export default function Home() {
         </section>
 
         {/* Contact section */}
-        <section id="contact" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
+        <section id="contact" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-5 sm:px-5 lg:px-6 xl:px-8 py-6 xs:py-7 sm:py-6 lg:py-6 xl:py-7">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-2 xs:mb-3 sm:mb-3 lg:mb-4 xl:mb-5 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             {NAV_LABELS[lang].contact}
           </motion.h2>
-          <div className="max-w-5xl mx-auto text-center">
+          <div className="max-w-2xl mx-auto px-4">
             <motion.h3
-              className="font-title text-xl xs:text-2xl sm:text-3xl md:text-4xl text-accent mb-5 xs:mb-6 sm:mb-7 md:mb-8 lg:mb-6 xl:mb-7"
+              className="font-title text-lg xs:text-xl sm:text-xl lg:text-2xl xl:text-3xl text-primary mb-1 xs:mb-2 sm:mb-2 lg:mb-3 xl:mb-4 text-center"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -453,39 +453,102 @@ export default function Home() {
               {CONTACT_CONTENT[lang].heading}
             </motion.h3>
             <motion.p
-              className="font-body text-base xs:text-lg md:text-xl text-primary mb-6 xs:mb-7 sm:mb-8 md:mb-9 lg:mb-6 xl:mb-7"
+              className="font-body text-xs xs:text-sm sm:text-sm lg:text-base xl:text-lg text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
               {CONTACT_CONTENT[lang].intro}
             </motion.p>
+            
+            {/* Layout responsive pour les contacts - Style Art Déco unifié */}
             <motion.div
-              className="flex flex-col items-center gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-7"
+              className="flex flex-col lg:grid lg:grid-cols-3 gap-3 xs:gap-4 sm:gap-5 lg:gap-4 xl:gap-5 mb-4 xs:mb-5 sm:mb-6 lg:mb-6 xl:mb-7"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <a
+              <motion.a
                 href={`https://wa.me/${CONTACT_CONTENT[lang].phone.replace(/\s+/g, '')}`}
-                className="px-6 py-3 border border-primary rounded-full text-primary hover:bg-primary hover:text-background transition-colors"
+                className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
+                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
               >
-                {CONTACT_CONTENT[lang].whatsapp}: {CONTACT_CONTENT[lang].phone}
-              </a>
-              <a
+                <span className="font-title text-xs xs:text-xs sm:text-xs lg:text-sm block mb-1">
+                  {CONTACT_CONTENT[lang].whatsapp}
+                </span>
+                <span className="font-body text-xs xs:text-xs sm:text-xs lg:text-sm text-accent">
+                  {CONTACT_CONTENT[lang].phone}
+                </span>
+              </motion.a>
+              
+              <motion.a
                 href={`mailto:${CONTACT_CONTENT[lang].email}`}
-                className="px-6 py-3 border border-primary rounded-full text-primary hover:bg-primary hover:text-background transition-colors"
+                className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
+                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
               >
-                {CONTACT_CONTENT[lang].email}
-              </a>
-              <a
+                <span className="font-title text-xs xs:text-xs sm:text-xs lg:text-sm block mb-1">
+                  Email
+                </span>
+                <span className="font-body text-xs xs:text-xs sm:text-xs lg:text-sm break-all text-accent leading-tight">
+                  {CONTACT_CONTENT[lang].email}
+                </span>
+              </motion.a>
+              
+              <motion.a
                 href={CONTACT_CONTENT[lang].website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 border border-primary rounded-full text-primary hover:bg-primary hover:text-background transition-colors"
+                className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
+                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
               >
-                {CONTACT_CONTENT[lang].website}
-              </a>
+                <span className="font-title text-xs xs:text-xs sm:text-xs lg:text-sm block mb-1">
+                  Site Web
+                </span>
+                <span className="font-body text-xs xs:text-xs sm:text-xs lg:text-sm text-accent">
+                  grandbattementdailes.com
+                </span>
+              </motion.a>
+            </motion.div>
+
+            {/* Boutons d'action */}
+            <motion.div
+              className="flex flex-col xs:flex-row items-center justify-center gap-2 xs:gap-3 sm:gap-4"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              {/* Bouton Billeterie - Style unifié */}
+              <motion.a
+                href="#hero"
+                className="w-full xs:w-auto xs:min-w-[100px] sm:min-w-[110px] lg:min-w-[130px] inline-block px-2 xs:px-3 sm:px-3 py-3 xs:py-3 sm:py-4 font-title text-xs xs:text-xs sm:text-xs lg:text-sm uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background text-center"
+                whileHover={{ scale: 1.05 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              >
+                {HERO_CONTENT[lang].cta}
+              </motion.a>
+
+              {/* Bouton Retour en haut - Version rouge */}
+              <motion.button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="w-full xs:w-auto xs:min-w-[100px] sm:min-w-[110px] lg:min-w-[130px] inline-block px-2 xs:px-3 sm:px-3 py-3 xs:py-3 sm:py-4 font-title text-xs xs:text-xs sm:text-xs lg:text-sm uppercase tracking-wider transition-all duration-300 border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center"
+                whileHover={{ scale: 1.05 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              >
+                {lang === 'fr' ? 'Retour en haut' : 'Back to top'}
+              </motion.button>
             </motion.div>
           </div>
         </section>

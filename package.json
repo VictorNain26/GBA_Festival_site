@@ -11,26 +11,15 @@
     "lint:strict": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings 0",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "analyze": "cross-env ANALYZE=true pnpm build",
-    "migrate-content": "node scripts/migrate-content.js",
-    "sanity:dev": "sanity dev",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@sanity/icons": "^3.7.4",
-    "@sanity/image-url": "^1.1.0",
-    "@sanity/preview-url-secret": "^2.1.14",
-    "@sanity/react-loader": "^1.11.18",
-    "@sanity/vision": "^4.4.1",
-    "@sanity/visual-editing": "^3.0.2",
     "framer-motion": "^11.11.17",
     "next": "^15.1.6",
-    "next-sanity": "^10.0.11",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "sanity": "^4.4.1",
-    "styled-components": "^6.1.19"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",

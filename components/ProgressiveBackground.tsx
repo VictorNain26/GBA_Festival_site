@@ -49,46 +49,46 @@ export default function ProgressiveBackground() {
       >
         {/* Art Deco Ornaments */}
         {/* Top-left corner */}
-        <div className="fixed top-3 left-3 xs:top-4 xs:left-4 sm:top-6 sm:left-6 md:top-8 md:left-8 z-10 pointer-events-none">
+        <div className="fixed top-3 left-3 xs:top-4 xs:left-4 sm:top-6 sm:left-6 lg:top-8 lg:left-8 z-10 pointer-events-none">
           <Image
             src="/images/corner_clean.png"
             alt=""
             width={128}
             height={128}
-            className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 opacity-80"
+            className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 lg:w-20 lg:h-20 xl:w-24 xl:h-24 opacity-80"
           />
         </div>
 
         {/* Top-right corner */}
-        <div className="fixed top-3 right-3 xs:top-4 xs:right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 z-10 pointer-events-none">
+        <div className="fixed top-3 right-3 xs:top-4 xs:right-4 sm:top-6 sm:right-6 lg:top-8 lg:right-8 z-10 pointer-events-none">
           <Image
             src="/images/corner_clean.png"
             alt=""
             width={128}
             height={128}
-            className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 opacity-80 rotate-90"
+            className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 lg:w-20 lg:h-20 xl:w-24 xl:h-24 opacity-80 rotate-90"
           />
         </div>
 
         {/* Bottom-right corner */}
-        <div className="fixed bottom-3 right-3 xs:bottom-4 xs:right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-10 pointer-events-none">
+        <div className="fixed bottom-3 right-3 xs:bottom-4 xs:right-4 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8 z-10 pointer-events-none">
           <Image
             src="/images/corner_clean.png"
             alt=""
             width={128}
             height={128}
-            className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 opacity-80 rotate-180"
+            className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 lg:w-20 lg:h-20 xl:w-24 xl:h-24 opacity-80 rotate-180"
           />
         </div>
 
         {/* Bottom-left corner */}
-        <div className="fixed bottom-3 left-3 xs:bottom-4 xs:left-4 sm:bottom-6 sm:left-6 md:bottom-8 md:left-8 z-10 pointer-events-none">
+        <div className="fixed bottom-3 left-3 xs:bottom-4 xs:left-4 sm:bottom-6 sm:left-6 lg:bottom-8 lg:left-8 z-10 pointer-events-none">
           <Image
             src="/images/corner_clean.png"
             alt=""
             width={128}
             height={128}
-            className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 opacity-80 -rotate-90"
+            className="w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 lg:w-20 lg:h-20 xl:w-24 xl:h-24 opacity-80 -rotate-90"
           />
         </div>
       </div>

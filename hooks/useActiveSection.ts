@@ -1,43 +1,48 @@
 import { useState, useEffect } from 'react';
 
 /**
- * Hook to track which section is currently in view for navigation highlighting
+ * Hook to track which section is currently active in the viewport.
+ * Returns the ID of the section that is most visible on screen.
  */
-export function useActiveSection() {
+export function useActiveSection(): string {
   const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
-    const sectionIds = ['hero', 'about', 'partners', 'ontheway', 'decoball', 'gallery', 'contact'];
+    const sections = ['hero', 'about', 'partners', 'ontheway', 'decoball', 'personalities', 'gallery', 'contact'];
     
     const observer = new IntersectionObserver(
       (entries) => {
+        // Find the section with the highest intersection ratio
+        let maxRatio = 0;
+        let mostVisible = 'hero';
+        
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+          if (entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio;
+            mostVisible = entry.target.id;
           }
         });
+        
+        if (maxRatio > 0.3) {
+          setActiveSection(mostVisible);
+        }
       },
       {
-        rootMargin: '-20% 0px -60% 0px', // Trigger when section is 20% from top
-        threshold: 0.1
+        threshold: [0.3, 0.5, 0.7],
+        rootMargin: '-20% 0px -20% 0px'
       }
     );
 
     // Observe all sections
-    sectionIds.forEach((id) => {
-      const element = document.getElementById(id);
+    sections.forEach((sectionId) => {
+      const element = document.getElementById(sectionId);
       if (element) {
         observer.observe(element);
       }
     });
 
     return () => {
-      sectionIds.forEach((id) => {
-        const element = document.getElementById(id);
-        if (element) {
-          observer.unobserve(element);
-        }
-      });
+      observer.disconnect();
     };
   }, []);
 

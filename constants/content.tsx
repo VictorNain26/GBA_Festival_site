@@ -43,7 +43,7 @@ export const HERO_CONTENT: Record<Language, HeroContent> = {
     title: (
       <>
         Florilege&nbsp;
-        <span className="block md:inline text-accent">de l'Art Deco</span>
+        <span className="block lg:inline text-accent">de l'Art Deco</span>
       </>
     ),
     subtitle: 'Festival Art Deco et Neo Art Deco',
@@ -55,7 +55,7 @@ export const HERO_CONTENT: Record<Language, HeroContent> = {
     title: (
       <>
         Florilege&nbsp;
-        <span className="block md:inline text-accent">of Art Deco</span>
+        <span className="block lg:inline text-accent">of Art Deco</span>
       </>
     ),
     subtitle: 'Art Deco & Neo Art Deco Festival',
