@@ -42,25 +42,25 @@ export const HERO_CONTENT: Record<Language, HeroContent> = {
   fr: {
     title: (
       <>
-        Florilège&nbsp;
+        Florilege&nbsp;
         <span className="block md:inline text-accent">de l'Art Deco</span>
       </>
     ),
     subtitle: 'Festival Art Deco et Neo Art Deco',
     date: '18 octobre 2025',
-    location: 'Hôtel du Collectionneur, Paris 75008',
+    location: 'Hotel du Collectionneur, Paris 75008',
     cta: 'Billeterie',
   },
   en: {
     title: (
       <>
-        Florilège&nbsp;
+        Florilege&nbsp;
         <span className="block md:inline text-accent">of Art Deco</span>
       </>
     ),
     subtitle: 'Art Deco & Neo Art Deco Festival',
     date: '18 October 2025',
-    location: 'Hôtel du Collectionneur, Paris 75008',
+    location: 'Hotel du Collectionneur, Paris 75008',
     cta: 'Tickets',
   },
 };

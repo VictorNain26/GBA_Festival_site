@@ -17,10 +17,27 @@
     "isolatedModules": true,
     "noEmit": true,
 
-    /* Type Checking - MODERATE RULES for initial setup */
-    "strict": false,
-    "noImplicitAny": false,
-    "strictNullChecks": false,
+    /* Type Checking - ULTRA STRICT for maximum safety */
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "useUnknownInCatchVariables": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUncheckedSideEffectImports": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
 
     /* Interop Constraints */
     "forceConsistentCasingInFileNames": true,
@@ -52,6 +69,7 @@
   "exclude": [
     "node_modules",
     ".next",
-    "out"
+    "out",
+    "__tests__"
   ]
 }

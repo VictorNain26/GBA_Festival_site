@@ -26,6 +26,13 @@
 
 html {
   scroll-behavior: smooth;
+  /* Prevent auto-scroll on page load */
+  overflow-x: hidden;
+}
+
+/* Prevent scroll restoration causing jumps */
+html:not(.hydrated) {
+  scroll-behavior: auto;
 }
 
 /* Respect user's motion preferences */
@@ -44,20 +51,21 @@ html {
 }
 
 body {
-  background-color: #000000;
-  @apply font-body text-primary;
-  /* Ensure smooth scrolling */
-  position: relative;
-  min-height: 100vh;
+  @apply bg-background font-body text-primary relative min-h-screen;
 }
 
 /* Ensure only main content scrolls, fixed elements stay put */
 main {
-  position: relative;
-  z-index: 10;
+  @apply relative z-10;
 }
 
-/* Fixed elements should not scroll with content */
-.fixed {
-  position: fixed;
+/* ===== RESPONSIVE BACKGROUND IMAGE SYSTEM ===== */
+/* Container sécurisé pour toutes les images de fond */
+.background-container {
+  @apply fixed inset-0 w-full h-full overflow-hidden flex items-center justify-center;
+}
+
+/* Image responsive parfaitement centrée */
+.compact-bg-image {
+  @apply w-full h-auto max-w-full max-h-full object-contain object-center block;
 }

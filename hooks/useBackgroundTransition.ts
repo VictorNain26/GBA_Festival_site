@@ -21,11 +21,21 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
       setWindowWidth(window.innerWidth);
     };
     
-    // Initialize immediately
-    setWindowHeight(window.innerHeight);
-    setWindowWidth(window.innerWidth);
-    setScrollY(window.scrollY);
-    setIsHydrated(true);
+    // Prevent initial scroll position jump on page load
+    const initializeAfterLoad = (): void => {
+      setWindowHeight(window.innerHeight);
+      setWindowWidth(window.innerWidth);
+      // Don't set scrollY immediately - let it stay at natural position
+      setScrollY(window.scrollY);
+      setIsHydrated(true);
+    };
+    
+    // Use a small delay to ensure DOM is fully loaded
+    if (document.readyState === 'complete') {
+      initializeAfterLoad();
+    } else {
+      window.addEventListener('load', initializeAfterLoad);
+    }
     
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize, { passive: true });
@@ -33,6 +43,7 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
     return (): void => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('load', initializeAfterLoad);
     };
   }, []);
 
@@ -70,15 +81,24 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
       };
     }
 
-    // Calculate transition points
+    // Calculate transition points - adjusted for very small screens
     const aboutRect = aboutSection.getBoundingClientRect();
     const aboutTop = aboutRect.top + scrollY;
-    const switchPoint = aboutTop - windowHeight + 150;
+    
+    // Adjust switch point based on Tailwind breakpoints
+    let switchPointOffset = 150;
+    if (windowWidth < 480) { // xs breakpoint
+      switchPointOffset = 100; // Less aggressive transition on very small screens
+    } else if (windowWidth < 768) { // sm breakpoint  
+      switchPointOffset = 125; // Medium offset for mobile
+    }
+    
+    const switchPoint = aboutTop - windowHeight + switchPointOffset;
     
     let contactStart = windowHeight * 5.5;
     if (contactSection) {
       const contactRect = contactSection.getBoundingClientRect();
-      contactStart = contactRect.top + scrollY;
+      contactStart = contactRect.top + scrollY - (windowHeight * 0.1); // Start transition slightly earlier
     }
 
     // Simple, clear logic

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import type { OptimizedImageProps } from '@/types';
 
 /**
  * Optimized image component with loading states and error handling.
@@ -11,7 +12,7 @@ export default function OptimizedImage({
   className = '', 
   priority = false,
   ...props 
-}) {
+}: OptimizedImageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 

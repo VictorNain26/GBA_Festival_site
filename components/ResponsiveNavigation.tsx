@@ -2,12 +2,13 @@ import { memo, useCallback, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
+import type { ResponsiveNavigationProps, Language } from '@/types';
 
 /**
  * Responsive navigation that adapts to mobile and desktop screens.
  * Mobile: Compact toggle menu, Desktop: Vertical sidebar.
  */
-function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }) {
+function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: ResponsiveNavigationProps) {
   const activeSection = useActiveSection();
   const { showNavigation, showOrnaments } = useBackgroundTransition();
   const [isOpen, setIsOpen] = useState(false);
@@ -25,12 +26,14 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }) {
   ];
 
   // Handler to switch between French and English
-  const changeLang = useCallback((l) => {
-    if (l !== lang) setLang(l);
+  const changeLang = useCallback((l: Language) => {
+    if (l !== lang) {
+      setLang(l);
+    }
     setIsOpen(false); // Close mobile menu after language change
   }, [lang, setLang]);
 
-  const handleNavClick = (e, targetId) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLElement>, targetId: string) => {
     e.preventDefault();
     setIsOpen(false); // Close mobile menu after navigation
     

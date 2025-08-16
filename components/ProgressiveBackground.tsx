@@ -3,7 +3,8 @@ import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
 
 /**
  * Progressive background component with clean transitions:
- * - Hero section: first_background_mobile.jpg (mobile/tablet) or first_background.jpg (desktop)
+ * - Desktop (≥1024px): first_background.jpg with object-contain
+ * - Compact mode (<1024px): first_background_mobile.jpg with uniform 760px-like behavior
  * - Middle sections: Art Deco ornaments (appear when "À propos" title visible)
  * - Contact section: same responsive image logic
  * - No flash, no superposition, smooth CSS transitions
@@ -15,7 +16,7 @@ export default function ProgressiveBackground() {
     <>
       {/* First Background Images - CSS-first approach to prevent flash */}
       <div 
-        className={`fixed inset-0 -z-10 transition-opacity duration-500 ease-in-out ${
+        className={`background-container -z-10 transition-opacity duration-500 ease-in-out ${
           showFirstBackground ? 'opacity-100' : 'opacity-0'
         }`}
       >
@@ -24,17 +25,17 @@ export default function ProgressiveBackground() {
           src="/images/first_background.jpg"
           alt=""
           fill
-          className="object-contain scale-105 hidden lg:block"
+          className="object-contain hidden lg:block"
           priority
           quality={90}
         />
         
-        {/* Mobile/Tablet Image - Hidden on desktop with CSS */}
+        {/* Compact Mode Image (Mobile + Tablette < 1024px) - Contenu dans le cadre comme desktop */}
         <Image
           src="/images/first_background_mobile.jpg"
           alt=""
           fill
-          className="object-cover scale-90 block lg:hidden"
+          className="object-contain block lg:hidden"
           priority
           quality={90}
         />

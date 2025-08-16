@@ -1,12 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' })
-  }
-
-  // Disable Draft Mode
+export default function handler(_req: NextApiRequest, res: NextApiResponse) {
+  // Disable draft mode
   res.setDraftMode({ enable: false })
-
-  res.json({ message: 'Draft mode disabled' })
+  res.writeHead(307, { Location: '/' })
+  res.end()
 }

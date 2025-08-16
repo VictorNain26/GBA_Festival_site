@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
+import { useEffect } from 'react';
 import { useLiveMode } from '@sanity/react-loader'
-import { client } from '@/src/sanity/lib/client'
+import { client } from '@/sanity/lib/client'
 import VisualEditing from '@/components/VisualEditing'
 import type { AppProps } from 'next/app'
 
@@ -12,6 +13,11 @@ import type { AppProps } from 'next/app'
 export default function App({ Component, pageProps }: AppProps) {
   // Enable live mode for Sanity visual editing
   useLiveMode({ client })
+  
+  // Add hydrated class to prevent scroll jumps
+  useEffect(() => {
+    document.documentElement.classList.add('hydrated');
+  }, []);
   
   return (
     <>

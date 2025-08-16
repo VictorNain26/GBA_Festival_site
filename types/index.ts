@@ -25,7 +25,11 @@ export interface AnimationVariants {
 }
 
 export interface GetAnimationVariants {
-  (delay?: number): any;
+  (delay?: number): {
+    initial: { opacity: number; y?: number };
+    whileInView: { opacity: number; y?: number };
+    transition: { duration: number; delay?: number };
+  };
 }
 
 /* Content Structure Types */
@@ -76,9 +80,14 @@ export interface ResponsiveNavigationProps {
   isCompactMode: boolean;
 }
 
+export interface HeaderProps {
+  labels: NavigationLabels;
+  lang: Language;
+  setLang: (lang: Language) => void;
+}
+
 export interface HeroTitleProps {
   getAnimationVariants: GetAnimationVariants;
-  isCompactMode: boolean;
 }
 
 export interface ErrorBoundaryProps {
@@ -98,11 +107,13 @@ export interface FrameProps {
 export interface OptimizedImageProps {
   src: string;
   alt: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
+  fill?: boolean;
   className?: string;
   priority?: boolean;
   quality?: number;
+  [key: string]: unknown; // Pour les props spread
 }
 
 /* Hook Return Types */
@@ -129,12 +140,12 @@ export interface UseBrowserLanguageReturn {
 
 /* Framer Motion Types */
 export interface MotionProps {
-  initial?: Record<string, unknown>;
-  animate?: Record<string, unknown>;
-  whileInView?: Record<string, unknown>;
-  whileHover?: Record<string, unknown>;
-  transition?: Record<string, unknown>;
-  viewport?: Record<string, unknown>;
+  initial?: { opacity?: number; y?: number; x?: number; scale?: number };
+  animate?: { opacity?: number; y?: number; x?: number; scale?: number };
+  whileInView?: { opacity?: number; y?: number; x?: number; scale?: number };
+  whileHover?: { opacity?: number; y?: number; x?: number; scale?: number };
+  transition?: { duration?: number; delay?: number; ease?: string };
+  viewport?: { once?: boolean; margin?: string };
 }
 
 /* Next.js specific types */

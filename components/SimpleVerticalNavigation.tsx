@@ -1,11 +1,12 @@
 import { memo, useCallback } from 'react';
 import { useActiveSection } from '@/hooks/useActiveSection';
+import type { ResponsiveNavigationProps, Language } from '@/types';
 
 /**
  * Simple vertical navigation with text-only clickable words on the right side.
  * Clean and minimal design integrated into the page layout.
  */
-function SimpleVerticalNavigation({ labels, lang, setLang }) {
+function SimpleVerticalNavigation({ labels, lang, setLang }: ResponsiveNavigationProps) {
   const activeSection = useActiveSection();
 
   // Build an array of navigation items from the labels prop
@@ -20,8 +21,10 @@ function SimpleVerticalNavigation({ labels, lang, setLang }) {
   ];
 
   // Handler to switch between French and English
-  const changeLang = useCallback((l) => {
-    if (l !== lang) setLang(l);
+  const changeLang = useCallback((l: Language) => {
+    if (l !== lang) {
+      setLang(l);
+    }
   }, [lang, setLang]);
 
   return (

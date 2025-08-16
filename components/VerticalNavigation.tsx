@@ -2,12 +2,13 @@ import { useState, memo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useActiveSection } from '@/hooks/useActiveSection';
+import type { ResponsiveNavigationProps, Language } from '@/types';
 
 /**
  * Vertical navigation sidebar fixed on the right side of the screen.
  * Contains navigation links and language selector arranged vertically.
  */
-function VerticalNavigation({ labels, lang, setLang }) {
+function VerticalNavigation({ labels, lang, setLang }: ResponsiveNavigationProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const activeSection = useActiveSection();
@@ -24,8 +25,10 @@ function VerticalNavigation({ labels, lang, setLang }) {
   ];
 
   // Handler to switch between French and English
-  const changeLang = useCallback((l) => {
-    if (l !== lang) setLang(l);
+  const changeLang = useCallback((l: Language) => {
+    if (l !== lang) {
+      setLang(l);
+    }
     setIsExpanded(false);
   }, [lang, setLang]);
 
@@ -71,7 +74,7 @@ function VerticalNavigation({ labels, lang, setLang }) {
         >
           {/* Navigation items */}
           <div className="flex flex-col space-y-6 mb-8 w-full">
-            {navItems.map((item, _index) => (
+            {navItems.map((item) => (
               <motion.a
                 key={item.id}
                 href={`#${item.id}`}

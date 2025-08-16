@@ -64,7 +64,7 @@ export function useScrollState() {
     showOrnaments,
     showNavigation,
     // Helper function to check if we should show first background
-    showFirstBackground: (scrollY, windowHeight) => {
+    showFirstBackground: (scrollY: number, windowHeight: number) => {
       // Server-side rendering protection
       if (typeof window === 'undefined') return true;
       

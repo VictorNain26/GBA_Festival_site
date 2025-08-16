@@ -1,6 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
+import { motion } from 'framer-motion';
 import ResponsiveNavigation from '@/components/ResponsiveNavigation';
 import ProgressiveBackground from '@/components/ProgressiveBackground';
 import HeroTitle from '@/components/HeroTitle';
@@ -32,15 +31,13 @@ import type { Language } from '@/types';
 export default function Home() {
   // Start with English to avoid hydration mismatch
   const [lang, setLang] = useState<Language>('en');
-  const [isHydrated, setIsHydrated] = useState(false);
   const prefersReducedMotion = useReducedMotion();
-  const { showOrnaments, isCompactMode, scrollY } = useBackgroundTransition();
+  const { isCompactMode } = useBackgroundTransition();
   
   // Detect browser language on client side after mount
   useEffect(() => {
     const detectedLang = detectBrowserLanguage();
     setLang(detectedLang);
-    setIsHydrated(true);
   }, []);
 
 
@@ -51,11 +48,11 @@ export default function Home() {
    * than plain strings. Each paragraph is represented as a JSX
    * element which may contain nested spans with accent colouring.
    */
-  const renderParagraphs = (paragraphs) => {
+  const renderParagraphs = (paragraphs: React.ReactNode[]) => {
     return paragraphs.map((p, idx) => (
       <p
         key={idx}
-        className="mb-6 leading-relaxed text-base xs:text-lg md:text-xl text-primary"
+        className="mb-7 xs:mb-8 sm:mb-9 md:mb-10 lg:mb-6 xl:mb-7 leading-relaxed text-base xs:text-lg md:text-xl text-primary"
       >
         {p}
       </p>
@@ -94,68 +91,110 @@ export default function Home() {
         {/* Hero section */}
         <section 
           id="hero" 
-          className="relative flex flex-col items-center justify-center min-h-screen px-4 xs:px-6 sm:px-8 text-center py-8 xs:py-12 sm:py-16 md:py-20 lg:py-16 xl:py-20 2xl:py-24"
+          className="relative flex flex-col items-center justify-center min-h-screen px-1 xs:px-2 sm:px-4 md:px-8 text-center py-2 xs:py-4 sm:py-8 md:py-12 lg:py-8 xl:py-12 2xl:py-16"
         >
 
-          {/* Festival subtitle - en haut */}
-          <motion.p
-            className="font-body text-base xs:text-lg md:text-xl lg:text-2xl uppercase tracking-wider text-accent mb-4 md:mb-6 relative z-10"
-            style={{
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
-            }}
+          {/* Festival subtitle - responsive */}
+          <motion.div
+            className="text-center mb-2 xs:mb-3 sm:mb-4 md:mb-5 lg:mb-4 xl:mb-5 relative z-10 px-1"
             {...getAnimationVariants(0.0)}
           >
-            {HERO_CONTENT[lang].subtitle} - 1ère Edition
-          </motion.p>
+            {/* Version compact : 2 lignes */}
+            <div className="lg:hidden">
+              <p 
+                className="font-title text-xs xs:text-xs sm:text-sm md:text-base uppercase tracking-wide xs:tracking-wider text-accent"
+              >
+                {HERO_CONTENT[lang].subtitle}
+              </p>
+              <p 
+                className="font-title text-xs xs:text-xs sm:text-sm md:text-base uppercase tracking-wide xs:tracking-wider text-accent"
+              >
+                1ère Edition
+              </p>
+            </div>
+            
+            {/* Version desktop : 1 ligne */}
+            <p 
+              className="hidden lg:block font-title text-xl uppercase tracking-wide text-accent"
+            >
+              {HERO_CONTENT[lang].subtitle} - 1ère Edition
+            </p>
+          </motion.div>
 
           {/* Date */}
           <motion.p
-            className="font-body text-lg xs:text-xl md:text-2xl lg:text-3xl text-primary mb-6 md:mb-8 relative z-10"
-            style={{
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
-            }}
+            className="font-title text-xs xs:text-sm sm:text-base md:text-lg lg:text-2xl text-primary mb-3 xs:mb-4 sm:mb-6 md:mb-7 lg:mb-5 xl:mb-6 relative z-10 px-1"
             {...getAnimationVariants(0.1)}
           >
             {HERO_CONTENT[lang].date}
           </motion.p>
 
           {/* Titre principal */}
-          <HeroTitle getAnimationVariants={getAnimationVariants} isCompactMode={isCompactMode} />
+          <HeroTitle getAnimationVariants={getAnimationVariants} />
 
-          {/* Location - Espacé du titre */}
-          <div className="flex flex-col items-center mt-3 xs:mt-4 md:mt-6 lg:mt-8 xl:mt-10">
-            <motion.p
-              className="font-body text-base xs:text-lg md:text-xl lg:text-2xl text-primary px-4 relative z-10"
-              style={{
-                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
-              }}
-              {...getAnimationVariants(0.4)}
-            >
-              {HERO_CONTENT[lang].location}
-            </motion.p>
+
+          {/* Call to action - Sous la Tour Eiffel, centré */}
+          <div className="w-full flex flex-col items-center mt-8 xs:mt-10 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24">
+            {/* Version mobile/tablette : CTA puis Hotel + Paris en dessous */}
+            <div className="flex lg:hidden flex-col items-center gap-3 xs:gap-4 sm:gap-5">
+              {/* Bouton billeterie EN HAUT */}
+              <motion.a
+                href="#contact"
+                className="inline-block px-4 xs:px-5 sm:px-6 md:px-8 py-2 xs:py-3 sm:py-3 md:py-4 font-title text-xs xs:text-sm sm:text-base md:text-lg uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
+                {...getAnimationVariants(0.2)}
+              >
+                {HERO_CONTENT[lang].cta}
+              </motion.a>
+              
+              {/* Hotel et Paris en colonne EN DESSOUS avec moins d'espace */}
+              <div className="flex flex-col items-center gap-0.5">
+                <motion.p
+                  className="font-title text-xs xs:text-sm sm:text-base md:text-lg text-accent"
+                  {...getAnimationVariants(0.5)}
+                >
+                  {lang === 'fr' ? 'Hotel du Collectionneur' : 'Hotel Collectionneur'}
+                </motion.p>
+                
+                <motion.p
+                  className="font-title text-xs xs:text-sm sm:text-base md:text-lg text-accent"
+                  {...getAnimationVariants(0.6)}
+                >
+                  Paris 75008
+                </motion.p>
+              </div>
+            </div>
+
+            {/* Version desktop : Hotel à gauche, bouton au centre, Paris à droite - MÊME LIGNE */}
+            <div className="hidden lg:grid grid-cols-3 items-center w-full max-w-none">
+              <motion.p
+                className="font-title text-lg lg:text-xl xl:text-2xl text-accent text-right"
+                {...getAnimationVariants(0.2)}
+              >
+                {lang === 'fr' ? 'Hotel du Collectionneur' : 'Hotel Collectionneur'}
+              </motion.p>
+              
+              <motion.a
+                href="#contact"
+                className="inline-block px-8 lg:px-10 py-3 lg:py-4 font-title text-base lg:text-lg uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background text-center mx-auto"
+                {...getAnimationVariants(0.2)}
+              >
+                {HERO_CONTENT[lang].cta}
+              </motion.a>
+              
+              <motion.p
+                className="font-title text-lg lg:text-xl xl:text-2xl text-accent text-left"
+                {...getAnimationVariants(0.2)}
+              >
+                Paris 75008
+              </motion.p>
+            </div>
           </div>
-
-          {/* Call to action - Position initiale dans le hero */}
-          <motion.div 
-            className="flex justify-center mt-4 xs:mt-6 md:mt-8"
-            {...getAnimationVariants(0.5)}
-          >
-            <a
-              href="#contact"
-              className="inline-block px-4 xs:px-6 md:px-8 py-2 xs:py-3 md:py-4 rounded-full font-medium text-sm xs:text-base md:text-lg transition-all duration-300 backdrop-blur-sm border border-primary bg-black/20 text-primary hover:bg-primary hover:text-background"
-              style={{
-                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
-              }}
-            >
-              {HERO_CONTENT[lang].cta}
-            </a>
-          </motion.div>
         </section>
 
         {/* About section */}
-        <section id="about" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <section id="about" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -172,7 +211,7 @@ export default function Home() {
             
             {/* Festival objectives section */}
             <motion.div
-              className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
+              className="mt-10 xs:mt-12 sm:mt-14 md:mt-16 lg:mt-10 xl:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 md:gap-9 lg:gap-6 xl:gap-8"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -192,9 +231,9 @@ export default function Home() {
         </section>
 
         {/* Partners section */}
-        <section id="partners" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <section id="partners" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -202,10 +241,10 @@ export default function Home() {
             {NAV_LABELS[lang].partners}
           </motion.h2>
           <Frame className="max-w-5xl mx-auto">
-            <div className="mb-6 md:mb-8">
+            <div className="mb-8 xs:mb-10 sm:mb-12 md:mb-14 lg:mb-8 xl:mb-10">
               {renderParagraphs(PARTNERS_INTRO[lang])}
             </div>
-            <div className="grid gap-4 xs:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 xs:gap-7 sm:gap-8 md:gap-9 lg:gap-6 xl:gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {PARTNER_CATEGORIES.map((cat) => (
                 <motion.div
                   key={cat.key}
@@ -227,9 +266,9 @@ export default function Home() {
         </section>
 
         {/* On the Way section */}
-        <section id="ontheway" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <section id="ontheway" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -237,10 +276,10 @@ export default function Home() {
             {NAV_LABELS[lang].ontheway}
           </motion.h2>
           <Frame className="max-w-5xl mx-auto">
-            <div className="mb-6 md:mb-8">
+            <div className="mb-8 xs:mb-10 sm:mb-12 md:mb-14 lg:mb-8 xl:mb-10">
               {renderParagraphs(ON_THE_WAY_CONTENT[lang])}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-7">
               <motion.div
                 className="w-full h-64 relative overflow-hidden rounded"
                 initial={{ opacity: 0, y: 30 }}
@@ -272,9 +311,9 @@ export default function Home() {
         </section>
 
         {/* Deco Ball section */}
-        <section id="decoball" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <section id="decoball" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -282,10 +321,10 @@ export default function Home() {
             {NAV_LABELS[lang].decoball}
           </motion.h2>
           <Frame className="max-w-5xl mx-auto">
-            <div className="mb-6 md:mb-8">
+            <div className="mb-8 xs:mb-10 sm:mb-12 md:mb-14 lg:mb-8 xl:mb-10">
               {renderParagraphs(DECO_BALL_CONTENT[lang])}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-7">
               <motion.div
                 className="w-full h-64 relative overflow-hidden rounded"
                 initial={{ opacity: 0, y: 30 }}
@@ -317,9 +356,9 @@ export default function Home() {
         </section>
 
         {/* Personalities section */}
-        <section id="personalities" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <section id="personalities" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -327,10 +366,10 @@ export default function Home() {
             {NAV_LABELS[lang].personalities}
           </motion.h2>
           <Frame className="max-w-5xl mx-auto">
-            <div className="mb-6 md:mb-8">
+            <div className="mb-8 xs:mb-10 sm:mb-12 md:mb-14 lg:mb-8 xl:mb-10">
               {renderParagraphs(PERSONALITIES_CONTENT[lang])}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-7">
               <motion.div
                 className="w-full h-64 relative overflow-hidden rounded"
                 initial={{ opacity: 0, y: 30 }}
@@ -362,9 +401,9 @@ export default function Home() {
         </section>
 
         {/* Gallery section */}
-        <section id="gallery" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <section id="gallery" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -372,7 +411,7 @@ export default function Home() {
             {NAV_LABELS[lang].gallery}
           </motion.h2>
           <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-3 xs:gap-4 md:gap-6">
+            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-7">
             {[1,2,3,4,5,6].map((idx, i) => (
               <motion.div
                 key={idx}
@@ -395,18 +434,18 @@ export default function Home() {
         </section>
 
         {/* Contact section */}
-        <section id="contact" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        <section id="contact" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-8 xs:py-12 sm:py-16 md:py-18 lg:py-12 xl:py-16">
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-4 xs:mb-6 md:mb-8 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-4xl md:text-5xl text-accent mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-8 xl:mb-10 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             {NAV_LABELS[lang].contact}
           </motion.h2>
-          <Frame className="max-w-5xl mx-auto text-center">
+          <div className="max-w-5xl mx-auto text-center">
             <motion.h3
-              className="font-title text-xl xs:text-2xl sm:text-3xl md:text-4xl text-accent mb-3 xs:mb-4"
+              className="font-title text-xl xs:text-2xl sm:text-3xl md:text-4xl text-accent mb-5 xs:mb-6 sm:mb-7 md:mb-8 lg:mb-6 xl:mb-7"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -414,7 +453,7 @@ export default function Home() {
               {CONTACT_CONTENT[lang].heading}
             </motion.h3>
             <motion.p
-              className="font-body text-base xs:text-lg md:text-xl text-primary mb-4 xs:mb-6"
+              className="font-body text-base xs:text-lg md:text-xl text-primary mb-6 xs:mb-7 sm:mb-8 md:mb-9 lg:mb-6 xl:mb-7"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
@@ -422,7 +461,7 @@ export default function Home() {
               {CONTACT_CONTENT[lang].intro}
             </motion.p>
             <motion.div
-              className="flex flex-col items-center gap-4"
+              className="flex flex-col items-center gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-7"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -448,32 +487,10 @@ export default function Home() {
                 {CONTACT_CONTENT[lang].website}
               </a>
             </motion.div>
-          </Frame>
+          </div>
         </section>
       </main>
 
-      {/* Sticky CTA Button - En dehors de tous les conteneurs pour sticky global */}
-      {isHydrated && (
-        <div 
-          className="sticky top-4 z-40 flex justify-center pointer-events-none"
-          style={{
-            opacity: scrollY > 100 ? 1 : 0,
-            transform: `translateY(${scrollY > 100 ? '0' : '-20px'})`,
-            transition: 'opacity 0.6s ease-out, transform 0.6s ease-out'
-          }}
-        >
-          <a
-            href="#contact"
-            className="pointer-events-auto inline-block px-4 xs:px-6 md:px-8 py-2 xs:py-3 md:py-4 rounded-full font-medium text-sm xs:text-base md:text-lg backdrop-blur-sm border border-primary bg-black/20 text-primary hover:bg-primary hover:text-background transition-colors duration-300"
-            style={{
-              textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)'
-            }}
-          >
-            {HERO_CONTENT[lang].cta}
-          </a>
-        </div>
-      )}
 
     </ErrorBoundary>
   );

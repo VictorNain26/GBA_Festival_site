@@ -1,6 +1,7 @@
 import { useState, memo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import type { HeaderProps, Language } from '@/types';
 
 /**
  * Responsive sticky header with a language toggle and smooth
@@ -10,7 +11,7 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
  * imported fonts for a cohesive look. The parent passes in
  * the current language labels and a setter for the language.
  */
-function Header({ labels, lang, setLang }) {
+function Header({ labels, lang, setLang }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const prefersReducedMotion = useReducedMotion();
 
@@ -30,8 +31,10 @@ function Header({ labels, lang, setLang }) {
   // Handler to switch between French and English. We deliberately
   // avoid toggling if the user clicks the active language to
   // prevent unnecessary re‑renders.
-  const changeLang = useCallback((l) => {
-    if (l !== lang) setLang(l);
+  const changeLang = useCallback((l: Language) => {
+    if (l !== lang) {
+      setLang(l);
+    }
     setMenuOpen(false);
   }, [lang, setLang]);
 

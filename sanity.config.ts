@@ -1,38 +1,25 @@
-'use client'
-
 /**
- * This configuration is used to for the Sanity Studio that's mounted on the `/app/studio/[[...tool]]/page.tsx` route
- */
+ * This configuration file lets you run `$ sanity [command]` in this folder
+ * Go to https://www.sanity.io/docs/cli to learn more.
+ **/
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { visionTool } from '@sanity/vision'
+import { schemaTypes } from './sanity/schemaTypes'
 
-import {visionTool} from '@sanity/vision'
-import {defineConfig} from 'sanity'
-import {structureTool} from 'sanity/structure'
-import {presentationTool} from 'sanity/presentation'
-
-// Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
-import {apiVersion, dataset, projectId} from './src/sanity/env'
-import {schema} from './src/sanity/schemaTypes'
-import {structure} from './src/sanity/structure'
+const projectId = process.env['NEXT_PUBLIC_SANITY_PROJECT_ID']!
+const dataset = process.env['NEXT_PUBLIC_SANITY_DATASET']!
 
 export default defineConfig({
-  basePath: '/studio',
+  name: 'default',
+  title: 'Festival Art Deco',
+
   projectId,
   dataset,
-  // Add and edit the content schema in the './sanity/schemaTypes' folder
-  schema,
-  plugins: [
-    structureTool({structure}),
-    // Presentation tool for visual editing
-    presentationTool({
-      previewUrl: {
-        draftMode: {
-          enable: '/api/draft',
-          disable: '/api/disable-draft',
-        },
-      },
-    }),
-    // Vision is for querying with GROQ from inside the Studio
-    // https://www.sanity.io/docs/the-vision-plugin
-    visionTool({defaultApiVersion: apiVersion}),
-  ],
+
+  plugins: [structureTool(), visionTool()],
+
+  schema: {
+    types: schemaTypes,
+  },
 })
