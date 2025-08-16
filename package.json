@@ -13,7 +13,9 @@
     "analyze": "cross-env ANALYZE=true pnpm build",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "clean": "rm -rf .next node_modules pnpm-lock.yaml",
+    "fresh-install": "pnpm clean && pnpm install"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",
