@@ -8,7 +8,7 @@ export function useActiveSection(): string {
   const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
-    const sections = ['hero', 'about', 'partners', 'ontheway', 'decoball', 'personalities', 'gallery', 'contact'];
+    const sections = ['hero', 'about', 'partners', 'ontheway', 'decoball', 'contact'];
     
     const observer = new IntersectionObserver(
       (entries) => {

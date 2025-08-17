@@ -90,6 +90,24 @@ Tailwind configuration in `tailwind.config.js` defines:
   - `font-title`: ReprizacBold for headings
   - `font-body`: TwCenMTCondensed for body text
 
+## ⚠️ IMPORTANT STYLING RULE
+
+**NEVER CREATE CUSTOM CSS CLASSES** - This project uses **EXCLUSIVELY TAILWIND CSS**. 
+
+- ❌ **NO custom CSS classes** in `globals.css` 
+- ❌ **NO !important declarations**
+- ❌ **NO CSS-in-JS solutions**
+- ✅ **ONLY Tailwind utility classes**
+- ✅ Use Tailwind's responsive prefixes: `xs:`, `sm:`, `lg:`, `xl:`
+- ✅ Use Tailwind's spacing, colors, and layout utilities
+- ✅ Combine Tailwind classes for complex layouts
+
+If Tailwind classes don't work as expected, investigate:
+1. Class name conflicts or typos
+2. Specificity issues (use more specific Tailwind combinations)
+3. Purge/content configuration in `tailwind.config.js`
+4. Missing responsive prefixes
+
 ## Key Development Patterns
 
 ### Bilingual Content Management

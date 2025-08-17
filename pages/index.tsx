@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import ResponsiveNavigation from '@/components/ResponsiveNavigation';
 import ProgressiveBackground from '@/components/ProgressiveBackground';
 import HeroTitle from '@/components/HeroTitle';
-import Frame from '@/components/Frame';
+import SectionGroup from '@/components/SectionGroup';
+import HeroSubtitle from '@/components/HeroSubtitle';
 import OptimizedImage from '@/components/OptimizedImage';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -17,7 +18,6 @@ import {
   PARTNERS_INTRO,
   ON_THE_WAY_CONTENT,
   DECO_BALL_CONTENT,
-  PERSONALITIES_CONTENT,
   FESTIVAL_OBJECTIVE,
   CONTACT_CONTENT 
 } from '@/constants/content';
@@ -52,7 +52,7 @@ export default function Home() {
     return paragraphs.map((p, idx) => (
       <p
         key={idx}
-        className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base xs:text-lg sm:text-lg lg:text-xl text-primary"
+        className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base xs:text-lg sm:text-lg lg:text-xl text-primary text-justify"
       >
         {p}
       </p>
@@ -87,43 +87,21 @@ export default function Home() {
       <ResponsiveNavigation labels={NAV_LABELS[lang]} lang={lang} setLang={setLang} isCompactMode={isCompactMode} />
       
       {/* Main content */}
-      <main aria-label="Festival content" className="relative z-10">
+      <main aria-label="Festival content" className="relative z-10 overflow-x-hidden">
         {/* Hero section */}
         <section 
           id="hero" 
-          className="relative flex flex-col items-center justify-center min-h-screen px-2 xs:px-3 sm:px-3 lg:px-4 text-center py-3 xs:py-4 sm:py-4 lg:py-6 xl:py-8"
+          className="relative flex flex-col items-center justify-center min-h-screen px-6 xs:px-8 sm:px-12 lg:px-20 xl:px-24 text-center py-4 xs:py-5 sm:py-6 md:py-7 lg:py-8 xl:py-10"
         >
-
-          {/* Festival subtitle - responsive */}
-          <motion.div
-            className="text-center mb-3 xs:mb-4 sm:mb-4 lg:mb-3 xl:mb-4 relative z-10 px-2"
-            {...getAnimationVariants(0.0)}
-          >
-            {/* Version compact : 2 lignes */}
-            <div className="lg:hidden">
-              <p 
-                className="font-title text-base xs:text-lg sm:text-lg uppercase tracking-wide xs:tracking-wider text-accent"
-              >
-                {HERO_CONTENT[lang].subtitle}
-              </p>
-              <p 
-                className="font-title text-sm xs:text-base sm:text-lg uppercase tracking-wide xs:tracking-wider text-accent mt-1"
-              >
-                1ère Edition
-              </p>
-            </div>
-            
-            {/* Version desktop : 1 ligne */}
-            <p 
-              className="hidden lg:block font-title text-xl uppercase tracking-wide text-accent"
-            >
-              {HERO_CONTENT[lang].subtitle} - 1ère Edition
-            </p>
-          </motion.div>
+          {/* Festival subtitle */}
+          <HeroSubtitle 
+            subtitle={HERO_CONTENT[lang].subtitle} 
+            getAnimationVariants={getAnimationVariants} 
+          />
 
           {/* Date */}
           <motion.p
-            className="font-title text-lg xs:text-xl sm:text-xl lg:text-xl xl:text-2xl text-primary mb-4 xs:mb-5 sm:mb-5 lg:mb-4 xl:mb-5 relative z-10 px-2"
+            className="font-title text-lg xs:text-xl sm:text-xl lg:text-xl xl:text-2xl text-primary mb-2 xs:mb-3 sm:mb-3 lg:mb-2 xl:mb-3 relative z-10"
             {...getAnimationVariants(0.1)}
           >
             {HERO_CONTENT[lang].date}
@@ -132,31 +110,28 @@ export default function Home() {
           {/* Titre principal */}
           <HeroTitle getAnimationVariants={getAnimationVariants} />
 
-
-          {/* Call to action - Sous la Tour Eiffel, centré */}
-          <div className="w-full flex flex-col items-center mt-6 xs:mt-7 sm:mt-7 lg:mt-8 xl:mt-10">
-            {/* Version mobile/tablette : CTA puis Hotel + Paris en dessous */}
+          {/* Call to action */}
+          <div className="w-full flex flex-col items-center mt-4 xs:mt-5 sm:mt-6 md:mt-7 lg:mt-6 xl:mt-8">
+            {/* Mobile/Tablet: Vertical stack */}
             <div className="flex lg:hidden flex-col items-center gap-3 xs:gap-4 sm:gap-4">
-              {/* Bouton billeterie EN HAUT */}
               <motion.a
                 href="#contact"
-                className="inline-block px-6 xs:px-7 sm:px-7 py-3 xs:py-4 sm:py-3 font-title text-base xs:text-lg sm:text-lg lg:text-xl uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
+                className="inline-block px-6 xs:px-7 sm:px-7 py-3 xs:py-4 sm:py-3 font-title text-base xs:text-lg sm:text-lg uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
                 {...getAnimationVariants(0.2)}
               >
                 {HERO_CONTENT[lang].cta}
               </motion.a>
               
-              {/* Hotel et Paris en colonne EN DESSOUS avec plus d'espace */}
               <div className="flex flex-col items-center gap-2 xs:gap-3 sm:gap-2">
                 <motion.p
-                  className="font-title text-base xs:text-lg sm:text-lg lg:text-xl text-accent"
+                  className="font-title text-base xs:text-lg sm:text-lg text-accent"
                   {...getAnimationVariants(0.5)}
                 >
                   {lang === 'fr' ? 'Hotel du Collectionneur' : 'Hotel Collectionneur'}
                 </motion.p>
                 
                 <motion.p
-                  className="font-title text-base xs:text-lg sm:text-lg lg:text-xl text-accent"
+                  className="font-title text-base xs:text-lg sm:text-lg text-accent"
                   {...getAnimationVariants(0.6)}
                 >
                   Paris 75008
@@ -164,7 +139,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Version desktop : Hotel à gauche, bouton au centre, Paris à droite - MÊME LIGNE */}
+            {/* Desktop: Horizontal grid */}
             <div className="hidden lg:grid grid-cols-3 items-center w-full max-w-none">
               <motion.p
                 className="font-title text-lg lg:text-xl xl:text-2xl text-accent text-right"
@@ -192,258 +167,144 @@ export default function Home() {
         </section>
 
         {/* About section */}
-        <section id="about" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
-          <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            {NAV_LABELS[lang].about}
-          </motion.h2>
+        <SectionGroup id="about" title={NAV_LABELS[lang].about}>
           <motion.div
-            className="max-w-5xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.2 }}
+            className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7"
           >
             {renderParagraphs(ABOUT_CONTENT[lang])}
-            
-            {/* Festival objectives section */}
+          </motion.div>
+          
+          {/* Festival objectives section */}
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            {FESTIVAL_OBJECTIVE[lang].map((objective, idx) => (
+              <div
+                key={idx}
+                className="p-4 sm:p-5 lg:p-6 border border-primary rounded-lg bg-black/30 backdrop-blur-sm"
+              >
+                <p className="font-body text-primary leading-relaxed text-base lg:text-lg text-justify">
+                  {objective}
+                </p>
+              </div>
+            ))}
+          </motion.div>
+        </SectionGroup>
+
+        {/* Partners section */}
+        <SectionGroup id="partners" title={NAV_LABELS[lang].partners}>
+          <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
+            {renderParagraphs(PARTNERS_INTRO[lang])}
+          </div>
+          <div className="grid gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {PARTNER_CATEGORIES.map((cat) => (
+              <motion.div
+                key={cat.key}
+                className="p-4 sm:p-5 lg:p-6 border border-primary rounded-lg bg-black/40 backdrop-blur-sm"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+              >
+                <h3 className="font-title text-2xl text-accent mb-2">
+                  {cat.title[lang]}
+                </h3>
+                <p className="font-body text-primary leading-relaxed text-justify">
+                  {cat.desc[lang]}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </SectionGroup>
+
+        {/* On the Way section */}
+        <SectionGroup id="ontheway" title={NAV_LABELS[lang].ontheway}>
+          <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
+            {renderParagraphs(ON_THE_WAY_CONTENT[lang])}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
             <motion.div
-              className="mt-6 xs:mt-7 sm:mt-7 lg:mt-8 xl:mt-9 grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6"
+              className="w-full h-64 relative overflow-hidden rounded"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <OptimizedImage
+                src="/images/gallery_2.png"
+                alt="Normandie liner"
+                fill
+                className="object-cover"
+              />
+            </motion.div>
+            <motion.div
+              className="w-full h-64 relative overflow-hidden rounded"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              {FESTIVAL_OBJECTIVE[lang].map((objective, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 border border-primary rounded-lg bg-black/30 backdrop-blur-sm"
-                >
-                  <p className="font-body text-primary leading-relaxed text-base lg:text-lg">
-                    {objective}
-                  </p>
-                </div>
-              ))}
+              <OptimizedImage
+                src="/images/gallery_3.png"
+                alt="Elegant passengers"
+                fill
+                className="object-cover"
+              />
             </motion.div>
-          </motion.div>
-        </section>
-
-        {/* Partners section */}
-        <section id="partners" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
-          <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            {NAV_LABELS[lang].partners}
-          </motion.h2>
-          <Frame className="max-w-5xl mx-auto">
-            <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
-              {renderParagraphs(PARTNERS_INTRO[lang])}
-            </div>
-            <div className="grid gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {PARTNER_CATEGORIES.map((cat) => (
-                <motion.div
-                  key={cat.key}
-                  className="p-6 border border-primary rounded-lg bg-black/40 backdrop-blur-sm"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.2 }}
-                >
-                  <h3 className="font-title text-2xl text-accent mb-2">
-                    {cat.title[lang]}
-                  </h3>
-                  <p className="font-body text-primary leading-relaxed">
-                    {cat.desc[lang]}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </Frame>
-        </section>
-
-        {/* On the Way section */}
-        <section id="ontheway" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
-          <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            {NAV_LABELS[lang].ontheway}
-          </motion.h2>
-          <Frame className="max-w-5xl mx-auto">
-            <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
-              {renderParagraphs(ON_THE_WAY_CONTENT[lang])}
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
-              <motion.div
-                className="w-full h-64 relative overflow-hidden rounded"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <OptimizedImage
-                  src="/images/gallery_2.png"
-                  alt="Normandie liner"
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-              <motion.div
-                className="w-full h-64 relative overflow-hidden rounded"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <OptimizedImage
-                  src="/images/gallery_3.png"
-                  alt="Elegant passengers"
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-            </div>
-          </Frame>
-        </section>
+          </div>
+        </SectionGroup>
 
         {/* Deco Ball section */}
-        <section id="decoball" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
-          <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            {NAV_LABELS[lang].decoball}
-          </motion.h2>
-          <Frame className="max-w-5xl mx-auto">
-            <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
-              {renderParagraphs(DECO_BALL_CONTENT[lang])}
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
-              <motion.div
-                className="w-full h-64 relative overflow-hidden rounded"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <OptimizedImage
-                  src="/images/gallery_7.png"
-                  alt="Dancers at the ball"
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-              <motion.div
-                className="w-full h-64 relative overflow-hidden rounded"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <OptimizedImage
-                  src="/images/gallery_8.png"
-                  alt="Roaring Twenties portraits"
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-            </div>
-          </Frame>
-        </section>
-
-        {/* Personalities section */}
-        <section id="personalities" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
-          <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            {NAV_LABELS[lang].personalities}
-          </motion.h2>
-          <Frame className="max-w-5xl mx-auto">
-            <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
-              {renderParagraphs(PERSONALITIES_CONTENT[lang])}
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
-              <motion.div
-                className="w-full h-64 relative overflow-hidden rounded"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <OptimizedImage
-                  src="/images/gallery_4.png"
-                  alt="Art Deco personalities"
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-              <motion.div
-                className="w-full h-64 relative overflow-hidden rounded"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <OptimizedImage
-                  src="/images/gallery_5.png"
-                  alt="Historical figures"
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-            </div>
-          </Frame>
-        </section>
-
-        {/* Gallery section */}
-        <section id="gallery" className="relative min-h-screen flex flex-col justify-center px-3 xs:px-4 sm:px-4 lg:px-6 xl:px-8 py-5 xs:py-7 sm:py-6 lg:py-6 xl:py-8">
-          <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            {NAV_LABELS[lang].gallery}
-          </motion.h2>
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
-            {[1,2,3,4,5,6].map((idx, i) => (
-              <motion.div
-                key={idx}
-                className="relative overflow-hidden rounded h-48 xs:h-56 sm:h-64"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 * i }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <OptimizedImage
-                  src={`/images/gallery_${idx}.png`}
-                  alt={`Gallery image ${idx}`}
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-            ))}
-            </div>
+        <SectionGroup id="decoball" title={NAV_LABELS[lang].decoball}>
+          <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
+            {renderParagraphs(DECO_BALL_CONTENT[lang])}
           </div>
-        </section>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
+            <motion.div
+              className="w-full h-64 relative overflow-hidden rounded"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <OptimizedImage
+                src="/images/gallery_7.png"
+                alt="Dancers at the ball"
+                fill
+                className="object-cover"
+              />
+            </motion.div>
+            <motion.div
+              className="w-full h-64 relative overflow-hidden rounded"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <OptimizedImage
+                src="/images/gallery_8.png"
+                alt="Roaring Twenties portraits"
+                fill
+                className="object-cover"
+              />
+            </motion.div>
+          </div>
+        </SectionGroup>
 
-        {/* Contact section */}
-        <section id="contact" className="relative min-h-screen flex flex-col justify-center px-4 xs:px-5 sm:px-5 lg:px-6 xl:px-8 py-6 xs:py-7 sm:py-6 lg:py-6 xl:py-7">
+        {/* Contact section - Centered design (no menu in this section) */}
+        <section id="contact" className="relative min-h-screen flex flex-col justify-center px-8 xs:px-12 sm:px-16 lg:px-20 xl:px-24 2xl:px-32 py-12 xs:py-14 sm:py-16 lg:py-20 xl:py-24">
+          {/* Section Title - Centered (no menu in this section) */}
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-2 xs:mb-3 sm:mb-3 lg:mb-4 xl:mb-5 text-center"
+            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             {NAV_LABELS[lang].contact}
           </motion.h2>
-          <div className="max-w-2xl mx-auto px-4">
+          {/* Contact Content - Centered design (no menu in this section) */}
+          <div className="max-w-3xl mx-auto">
             <motion.h3
               className="font-title text-lg xs:text-xl sm:text-xl lg:text-2xl xl:text-3xl text-primary mb-1 xs:mb-2 sm:mb-2 lg:mb-3 xl:mb-4 text-center"
               initial={{ opacity: 0, y: 30 }}

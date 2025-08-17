@@ -13,5 +13,9 @@ export default function App({ Component, pageProps }: AppProps) {
     document.documentElement.classList.add('hydrated');
   }, []);
   
-  return <Component {...pageProps} />;
+  return (
+    <div className="font-body text-primary relative min-h-screen">
+      <Component {...pageProps} />
+    </div>
+  );
 }

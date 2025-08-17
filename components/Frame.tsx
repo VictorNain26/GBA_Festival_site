@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import type { FrameProps } from '@/types';
 
 /**
@@ -10,16 +9,8 @@ import type { FrameProps } from '@/types';
 export default function Frame({ children, className = '' }: FrameProps) {
   return (
     <div className={`relative ${className}`}>
-      {/* Frame graphic */}
-      <div className="absolute inset-0 pointer-events-none">
-        <Image
-          src="/images/partners_frame.png"
-          alt="Decorative frame"
-          fill
-          className="object-contain"
-        />
-      </div>
-      <div className="relative z-10 p-6 sm:p-8 md:p-12">
+      {/* Content with padding only - no frame image */}
+      <div className="relative z-10 px-6 xs:px-8 sm:px-10 lg:px-12 xl:px-16 py-6 xs:py-8 sm:py-10 lg:py-12 xl:py-16">
         {children}
       </div>
     </div>

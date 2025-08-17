@@ -17,23 +17,19 @@ import type {
 export const NAV_LABELS: Record<Language, NavigationLabels> = {
   fr: {
     hero: 'Accueil',
-    about: 'Le Festival', 
+    about: 'Art Deco et Neo Art Deco', 
     partners: 'Nos Partenaires',
-    ontheway: 'Spectacle',
-    decoball: 'Le Bal Art Déco',
-    personalities: 'Personnages',
-    gallery: 'Galerie',
+    ontheway: 'On the Way',
+    decoball: 'Le Bal Art Deco',
     contact: 'Contact',
     tickets: 'Billeterie',
   },
   en: {
     hero: 'Home',
-    about: 'The Festival',
+    about: 'Art Deco and Neo Art Deco',
     partners: 'Our Partners', 
-    ontheway: 'Show',
-    decoball: 'Art Deco Ball',
-    personalities: 'Characters',
-    gallery: 'Gallery',
+    ontheway: 'On the Way',
+    decoball: 'The Art Deco Ball',
     contact: 'Contact',
     tickets: 'Tickets',
   },
@@ -235,25 +231,6 @@ export const DECO_BALL_CONTENT: Record<Language, React.ReactNode[]> = {
   ],
 };
 
-// Personalities section content
-export const PERSONALITIES_CONTENT: Record<Language, React.ReactNode[]> = {
-  fr: [
-    <>
-      Parmi les voyageurs de notre spectacle <span className="text-accent">"ON THE WAY"</span>, vous reconnaîtrez des artistes, écrivains et intellectuels de ce temps, personnes les plus illustres venues de tous les continents.
-    </>,
-    <>
-      <span className="text-accent">Coco Chanel</span>, <span className="text-accent">Tamara de Lempicka</span>, <span className="text-accent">Anna Pavlova</span>, <span className="text-accent">Salvador Dalí</span>, <span className="text-accent">Colette</span>, <span className="text-accent">F. Scott et Zelda Fitzgerald</span>, ainsi que <span className="text-accent">Nadja</span>, <span className="text-accent">Rosemary Hoyt</span>, <span className="text-accent">Julia Lambert</span> et <span className="text-accent">Clerfayt</span>, personnages imaginés par les écrivains d'époque.
-    </>,
-  ],
-  en: [
-    <>
-      Among the travelers in our <span className="text-accent">"ON THE WAY"</span> show, you will recognize artists, writers and intellectuals of the time, the most illustrious people from all continents.
-    </>,
-    <>
-      <span className="text-accent">Coco Chanel</span>, <span className="text-accent">Tamara de Lempicka</span>, <span className="text-accent">Anna Pavlova</span>, <span className="text-accent">Salvador Dalí</span>, <span className="text-accent">Colette</span>, <span className="text-accent">F. Scott and Zelda Fitzgerald</span>, as well as <span className="text-accent">Nadja</span>, <span className="text-accent">Rosemary Hoyt</span>, <span className="text-accent">Julia Lambert</span> and <span className="text-accent">Clerfayt</span>, characters imagined by period writers.
-    </>,
-  ],
-};
 
 // Festival objective and public content
 export const FESTIVAL_OBJECTIVE: Record<Language, React.ReactNode[]> = {

@@ -10,7 +10,7 @@ import type { ResponsiveNavigationProps, Language } from '@/types';
  */
 function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: ResponsiveNavigationProps) {
   const activeSection = useActiveSection();
-  const { showNavigation, showOrnaments } = useBackgroundTransition();
+  const { showNavigation } = useBackgroundTransition();
   const [isOpen, setIsOpen] = useState(false);
 
   // Build an array of navigation items from the labels prop
@@ -20,8 +20,6 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
     { id: 'partners', label: labels.partners },
     { id: 'ontheway', label: labels.ontheway },
     { id: 'decoball', label: labels.decoball },
-    { id: 'personalities', label: labels.personalities },
-    { id: 'gallery', label: labels.gallery },
     { id: 'contact', label: labels.contact },
   ];
 
@@ -56,12 +54,13 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
     <>
       {/* Desktop Navigation - Affichage sur laptop et plus */}
       <nav 
-        className={`hidden lg:block fixed top-1/2 right-8 z-50 -translate-y-1/2 transition-all duration-700 ease-out ${
+        className={`hidden lg:block fixed top-1/2 right-4 xl:right-8 z-50 -translate-y-1/2 transition-all duration-700 ease-out ${
           showNavigation && !isCompactMode
             ? 'opacity-100 translate-x-0' 
             : 'opacity-0 translate-x-8 pointer-events-none'
         }`}
         aria-label="Desktop site navigation"
+        style={{ maxWidth: 'calc(100vw - 2rem)' }}
       >
         <div className="flex flex-col space-y-4 text-right">
           {/* Navigation Items */}
@@ -88,7 +87,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
           </button>
 
           {/* Language Selector */}
-          <div className="flex flex-col space-y-2 pt-4 mt-4 border-t border-primary/20">
+          <div className="flex flex-row space-x-4 justify-end pt-4 mt-4 border-t border-primary/20">
             <button
               onClick={() => changeLang('fr')}
               className={`text-sm xl:text-base font-medium transition-colors hover:text-accent text-right ${
@@ -115,24 +114,20 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
           Position fixe avec z-index contrôlé pour éviter les conflits */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`lg:hidden fixed right-6 z-[55] w-12 h-12 border-2 border-primary bg-black/40 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-background ${
-          showOrnaments 
-            ? 'top-20 sm:top-24' // Position harmonieuse avec les ornements
-            : 'top-8 xs:top-10 sm:top-12'  // Position plus intégrée
-        }`}
+        className="lg:hidden fixed right-4 top-20 xs:top-20 sm:top-24 z-[55] w-12 h-12 border-2 border-primary bg-black/40 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-background"
         style={{
           display: isOpen ? 'none' : 'flex',
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(211, 170, 65, 0.2)'
         }}
-        initial={{ opacity: 0, translateX: 100, scale: 0.8 }}
+        initial={{ opacity: 0, x: 100, scale: 0.8 }}
         animate={{ 
           opacity: showNavigation && isCompactMode ? 1 : 0,
-          translateX: showNavigation && isCompactMode ? 0 : 100,
+          x: showNavigation && isCompactMode ? 0 : 100,
           scale: showNavigation && isCompactMode ? 1 : 0.8
         }}
         transition={{ 
           duration: 0.5, 
-          ease: 'backOut',
+          ease: 'easeOut',
           delay: showNavigation && isCompactMode ? 0.3 : 0
         }}
         whileHover={{ scale: 1.05 }}
@@ -186,6 +181,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
               exit={{ opacity: 0, translateX: '100%' }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
               className="lg:hidden fixed top-0 right-0 h-full w-64 sm:w-72 md:w-80 bg-black/95 backdrop-blur-md border-l border-primary/30 z-[60] flex flex-col justify-center px-8"
+              style={{ maxWidth: '100vw' }}
               aria-label="Mobile site navigation"
             >
               {/* Bouton Croix X - En haut à droite du menu avec design élégant */}

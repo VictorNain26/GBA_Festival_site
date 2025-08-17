@@ -14,11 +14,18 @@ export default function ProgressiveBackground() {
 
   return (
     <>
+      {/* Permanent black background to prevent white flash during transitions */}
+      <div 
+        className="fixed inset-0 bg-black"
+        style={{ zIndex: -30 }}
+      />
+      
       {/* First Background Images - CSS-first approach to prevent flash */}
       <div 
-        className={`background-container -z-10 transition-opacity duration-500 ease-in-out ${
+        className={`background-container bg-black transition-opacity duration-500 ease-in-out ${
           showFirstBackground ? 'opacity-100' : 'opacity-0'
         }`}
+        style={{ zIndex: -10 }}
       >
         {/* Desktop Image - Hidden on mobile/tablet with CSS */}
         <Image
@@ -43,9 +50,10 @@ export default function ProgressiveBackground() {
 
       {/* Art Deco Ornaments Background - Toujours présent, contrôlé par opacity */}
       <div 
-        className={`fixed inset-0 -z-20 bg-black transition-opacity duration-500 ease-in-out ${
+        className={`fixed inset-0 bg-black transition-opacity duration-500 ease-in-out ${
           showOrnaments ? 'opacity-100' : 'opacity-0'
         }`}
+        style={{ zIndex: -20 }}
       >
         {/* Art Deco Ornaments */}
         {/* Top-left corner */}
