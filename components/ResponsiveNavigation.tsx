@@ -25,6 +25,9 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
     { id: 'contact', label: labels.contact },
   ];
 
+  // Special tickets item that links to contact section
+  const ticketsItem = { id: 'contact', label: labels.tickets, isTickets: true };
+
   // Handler to switch between French and English
   const changeLang = useCallback((l: Language) => {
     if (l !== lang) {
@@ -76,6 +79,14 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
             </button>
           ))}
 
+          {/* Tickets Button - Consistent Style with centered text */}
+          <button
+            onClick={(e) => handleNavClick(e, ticketsItem.id)}
+            className="px-4 xl:px-5 py-2 xl:py-3 mt-4 font-title text-sm xl:text-base uppercase tracking-wider transition-all duration-300 border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center"
+          >
+            {ticketsItem.label}
+          </button>
+
           {/* Language Selector */}
           <div className="flex flex-col space-y-2 pt-4 mt-4 border-t border-primary/20">
             <button
@@ -100,52 +111,59 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
         </div>
       </nav>
 
-      {/* Mobile Navigation Toggle Button - Style Art Déco élégant */}
-      <button
+      {/* Mobile Navigation Toggle Button - Hamburger avec animation depuis la droite 
+          Position fixe avec z-index contrôlé pour éviter les conflits */}
+      <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className={`lg:hidden fixed left-4 z-50 w-14 h-14 rounded-full border border-primary bg-black/20 backdrop-blur-sm flex items-center justify-center text-primary hover:bg-primary hover:text-background transition-all duration-300 ease-out ${
-          showNavigation && isCompactMode
-            ? 'opacity-100 scale-100' 
-            : 'opacity-0 scale-75 pointer-events-none'
-        } ${
+        className={`lg:hidden fixed right-6 z-[55] w-12 h-12 border-2 border-primary bg-black/40 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-background ${
           showOrnaments 
-            ? 'top-20 sm:top-24 md:top-28 lg:top-32' // Éviter ornement gauche (plus accessible que droite)
-            : 'top-6 xs:top-8 sm:top-10'  // Position standard quand pas d'ornements
+            ? 'top-20 sm:top-24' // Position harmonieuse avec les ornements
+            : 'top-8 xs:top-10 sm:top-12'  // Position plus intégrée
         }`}
         style={{
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-          textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)'
+          display: isOpen ? 'none' : 'flex',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(211, 170, 65, 0.2)'
         }}
-        aria-label={isOpen ? 'Close menu' : 'Open menu'}
-        aria-expanded={isOpen}
+        initial={{ opacity: 0, translateX: 100, scale: 0.8 }}
+        animate={{ 
+          opacity: showNavigation && isCompactMode ? 1 : 0,
+          translateX: showNavigation && isCompactMode ? 0 : 100,
+          scale: showNavigation && isCompactMode ? 1 : 0.8
+        }}
+        transition={{ 
+          duration: 0.5, 
+          ease: 'backOut',
+          delay: showNavigation && isCompactMode ? 0.3 : 0
+        }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="Open menu"
+        aria-expanded={false}
       >
-        <div className="w-7 h-6 flex flex-col justify-between">
-          <span
-            className={`w-full h-0.5 bg-current transition-transform duration-300 ease-out ${
-              isOpen ? 'rotate-45 translate-y-2.5 w-5' : ''
-            }`}
-            style={{
-              filter: 'drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5))'
-            }}
-          />
-          <span
-            className={`w-full h-0.5 bg-current transition-all duration-300 ease-out ${
-              isOpen ? 'opacity-0 scale-75' : 'opacity-100 scale-100'
-            }`}
-            style={{
-              filter: 'drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5))'
-            }}
-          />
-          <span
-            className={`w-full h-0.5 bg-current transition-transform duration-300 ease-out ${
-              isOpen ? '-rotate-45 -translate-y-2.5 w-5' : ''
-            }`}
-            style={{
-              filter: 'drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5))'
-            }}
-          />
+        {/* Hamburger menu icon avec micro-animations */}
+        <div className="relative w-6 h-6 flex items-center justify-center">
+          <div className="absolute inset-0 flex flex-col justify-center space-y-1">
+            <motion.span 
+              className="block w-full h-0.5 bg-current" 
+              initial={{ scaleX: 0.8 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.3, delay: 0.5 }}
+            />
+            <motion.span 
+              className="block w-full h-0.5 bg-current" 
+              initial={{ scaleX: 0.6 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.3, delay: 0.6 }}
+            />
+            <motion.span 
+              className="block w-full h-0.5 bg-current" 
+              initial={{ scaleX: 0.8 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.3, delay: 0.7 }}
+            />
+          </div>
         </div>
-      </button>
+      </motion.button>
 
       {/* Mobile Navigation Menu */}
       <AnimatePresence>
@@ -157,21 +175,48 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
+              className="lg:hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[50]"
               onClick={() => setIsOpen(false)}
             />
             
-            {/* Mobile Menu - Glisse depuis la gauche */}
+            {/* Mobile Menu - Positionnement CSS propre avec animation translateX */}
             <motion.nav
-              initial={{ opacity: 0, x: -300 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -300 }}
+              initial={{ opacity: 0, translateX: '100%' }}
+              animate={{ opacity: 1, translateX: '0%' }}
+              exit={{ opacity: 0, translateX: '100%' }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="lg:hidden fixed top-0 left-0 h-full w-64 sm:w-72 md:w-80 bg-black/95 backdrop-blur-md border-r border-primary/30 z-40 flex flex-col justify-center px-8"
+              className="lg:hidden fixed top-0 right-0 h-full w-64 sm:w-72 md:w-80 bg-black/95 backdrop-blur-md border-l border-primary/30 z-[60] flex flex-col justify-center px-8"
               aria-label="Mobile site navigation"
             >
+              {/* Bouton Croix X - En haut à droite du menu avec design élégant */}
+              <motion.button
+                onClick={() => setIsOpen(false)}
+                className="absolute top-6 right-6 w-12 h-12 border-2 border-accent bg-black/40 backdrop-blur-md flex items-center justify-center text-accent hover:bg-accent hover:text-background transition-all duration-300 group"
+                initial={{ opacity: 0, scale: 0.5, rotate: 45 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.5, rotate: -45 }}
+                transition={{ duration: 0.5, delay: 0.3, ease: 'backOut' }}
+                style={{
+                  boxShadow: '0 4px 20px rgba(229, 91, 69, 0.3), inset 0 1px 0 rgba(229, 91, 69, 0.2)'
+                }}
+                aria-label="Close menu"
+              >
+                {/* Vraie croix X avec design sophistiqué */}
+                <div className="relative w-5 h-5">
+                  {/* Ligne diagonale \ */}
+                  <span 
+                    className="absolute top-1/2 left-1/2 w-full h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 rotate-45 transition-all duration-300 group-hover:w-4"
+                    style={{ transformOrigin: 'center' }}
+                  />
+                  {/* Ligne diagonale / */}
+                  <span 
+                    className="absolute top-1/2 left-1/2 w-full h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 -rotate-45 transition-all duration-300 group-hover:w-4"
+                    style={{ transformOrigin: 'center' }}
+                  />
+                </div>
+              </motion.button>
               {/* Mobile Navigation items */}
-              <div className="flex flex-col space-y-6 text-left">
+              <div className="flex flex-col space-y-6 text-right">
                 {navItems.map((item) => (
                   <button
                     key={item.id}
@@ -186,8 +231,16 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
                   </button>
                 ))}
 
+                {/* Mobile Tickets Button - Consistent Style with centered text */}
+                <button
+                  onClick={(e) => handleNavClick(e, ticketsItem.id)}
+                  className="px-6 py-3 mt-4 font-title text-base uppercase tracking-wider transition-all duration-300 border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center"
+                >
+                  {ticketsItem.label}
+                </button>
+
                 {/* Mobile Language selector */}
-                <div className="flex justify-start space-x-4 pt-6 mt-6 border-t border-primary/20">
+                <div className="flex justify-end space-x-4 pt-6 mt-6 border-t border-primary/20">
                   <button
                     onClick={() => changeLang('fr')}
                     className={`text-lg font-medium transition-colors hover:text-accent ${

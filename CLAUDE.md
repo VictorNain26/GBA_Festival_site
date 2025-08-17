@@ -8,9 +8,10 @@ This is a festival site for "Florilège de l'Art Déco" - an Art Deco and Neo Ar
 
 ## Technology Stack
 
-- **Framework**: Next.js 14.1.0 with React 18.2.0
-- **Styling**: Tailwind CSS 3.4.3 with custom Art Deco theme
-- **Animation**: Framer Motion 10.12.17 for scroll animations and transitions
+- **Framework**: Next.js 15.4.6 with React 19.1.1
+- **Package Manager**: pnpm 9.0.0 (configured in packageManager field)
+- **Styling**: Tailwind CSS 3.4.17 with custom Art Deco theme
+- **Animation**: Framer Motion 11.18.2 for scroll animations and transitions
 - **Images**: Next.js Image component with optimization disabled (all assets are local)
 - **Typography**: Custom fonts (ReprizacBold and TwCenMTCondensed) served from `/public/fonts/`
 
@@ -18,34 +19,61 @@ This is a festival site for "Florilège de l'Art Déco" - an Art Deco and Neo Ar
 
 ```bash
 # Start development server
-npm run dev
+pnpm dev
 
 # Build for production
-npm run build
+pnpm build
 
 # Start production server
-npm run start
+pnpm start
+
+# Linting and quality checks
+pnpm lint
+pnpm lint:strict
+pnpm lint:fix
+
+# Testing
+pnpm test
+pnpm test:watch
+pnpm test:coverage
+
+# Clean rebuild (useful for deployment issues)
+pnpm clean
+pnpm fresh-install
 ```
 
-Note: This project uses npm as the package manager (not pnpm or yarn).
+**Package Manager**: This project uses pnpm as the package manager, configured via the `packageManager` field in package.json.
 
 ## Architecture Overview
 
 ### Project Structure
 - `pages/` - Next.js pages (App Router not used)
-  - `_app.js` - Global app wrapper and CSS imports
-  - `index.js` - Main landing page component
+  - `_app.tsx` - Global app wrapper and CSS imports
+  - `index.tsx` - Main landing page component
 - `components/` - Reusable React components
+  - `ResponsiveNavigation.tsx` - Mobile/desktop navigation
+  - `ProgressiveBackground.tsx` - Dynamic background system
+  - `HeroTitle.tsx` - Animated main title
+  - `Frame.tsx` - Art Deco border wrapper
+  - `OptimizedImage.tsx` - Image component
+  - `ErrorBoundary.tsx` - Error handling
+- `hooks/` - Custom React hooks
+  - `useActiveSection.ts` - Navigation active section tracking
+  - `useBackgroundTransition.ts` - Background state management
+  - `useBrowserLanguage.ts` - Language detection
+  - `useReducedMotion.ts` - Accessibility motion preferences
+- `constants/` - Static content and configuration
+- `types/` - TypeScript type definitions
 - `styles/` - Global CSS and Tailwind configuration
 - `public/` - Static assets (fonts, images)
 
 ### Key Components
-- **Header**: Responsive navigation with bilingual toggle and smooth scroll
+- **ResponsiveNavigation**: Mobile hamburger and desktop sidebar navigation
+- **ProgressiveBackground**: Dynamic background switching with Art Deco ornaments
 - **Frame**: Art Deco border wrapper using decorative PNG overlay
-- **CornerDecor**: Four-corner Art Deco ornamental decorations
 
 ### Content Architecture
-The main page (`pages/index.js`) uses a data-driven approach with content objects for bilingual support:
+The main page (`pages/index.tsx`) uses a data-driven approach with content objects for bilingual support:
 
 - Content is structured in objects with `fr` and `en` keys
 - Navigation labels, hero content, section content all follow this pattern
@@ -88,19 +116,25 @@ The site uses consistent Framer Motion patterns:
 - Image optimization is disabled in `next.config.js` for simplicity
 
 ### Responsive Design
-- Mobile-first approach using Tailwind breakpoints (`sm:`, `md:`, `lg:`)
-- Header collapses to hamburger menu on mobile
-- Grid layouts adapt from single column to multi-column
-- Corner decorations hidden on small screens (`hidden sm:block`)
+- Mobile-first approach using Tailwind custom breakpoints:
+  - `xs`: 480px (mobile large/phablet)
+  - `sm`: 640px (tablet portrait)
+  - `md`: 768px (tablet landscape) 
+  - `lg`: 1024px (laptop/desktop)
+  - `xl`: 1280px (desktop standard)
+- Progressive enhancement pattern: `xs: → sm: → lg:` (md: removed to fix conflicts)
+- Navigation adapts: hamburger menu (mobile) → sidebar (desktop)
+- Grid layouts: single column → multi-column with gap optimization
+- Art Deco ornaments positioned responsively in corners
 
 ## Content Editing Guidelines
 
 ### Adding New Sections
-1. Add navigation label to `navLabels` object in both languages
+1. Add navigation label to `NAV_LABELS` object in both languages (`constants/content.tsx`)
 2. Create content object following the bilingual pattern
 3. Add section with `id` attribute matching navigation key
-4. Include `<CornerDecor />` for consistent decoration
-5. Use motion wrappers for animations
+4. Use `<Frame>` component for Art Deco border styling
+5. Wrap elements with Framer Motion for scroll animations
 
 ### Text Highlighting
 Use `<span className="text-accent">` to highlight important phrases in the warm red accent color.

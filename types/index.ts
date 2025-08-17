@@ -47,6 +47,7 @@ export interface NavigationLabels {
   personalities: string;
   gallery: string;
   contact: string;
+  tickets: string;
 }
 
 export interface HeroContent {

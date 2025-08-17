@@ -24,6 +24,7 @@ export const NAV_LABELS: Record<Language, NavigationLabels> = {
     personalities: 'Personnages',
     gallery: 'Galerie',
     contact: 'Contact',
+    tickets: 'Billeterie',
   },
   en: {
     hero: 'Home',
@@ -34,6 +35,7 @@ export const NAV_LABELS: Record<Language, NavigationLabels> = {
     personalities: 'Characters',
     gallery: 'Gallery',
     contact: 'Contact',
+    tickets: 'Tickets',
   },
 };
 
