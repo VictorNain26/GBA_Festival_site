@@ -139,11 +139,18 @@ export interface UseBrowserLanguageReturn {
 
 /* Framer Motion Types */
 export interface MotionProps {
-  initial?: { opacity?: number; y?: number; x?: number; scale?: number };
-  animate?: { opacity?: number; y?: number; x?: number; scale?: number };
-  whileInView?: { opacity?: number; y?: number; x?: number; scale?: number };
-  whileHover?: { opacity?: number; y?: number; x?: number; scale?: number };
-  transition?: { duration?: number; delay?: number; ease?: string };
+  initial?: { opacity?: number; y?: number; x?: number; scale?: number; rotate?: number };
+  animate?: { opacity?: number; y?: number; x?: number; scale?: number; rotate?: number };
+  whileInView?: { opacity?: number; y?: number; x?: number; scale?: number; rotate?: number };
+  whileHover?: { opacity?: number; y?: number; x?: number; scale?: number; rotate?: number };
+  transition?: { 
+    duration?: number; 
+    delay?: number; 
+    ease?: string; 
+    type?: string;
+    stiffness?: number;
+    damping?: number;
+  };
   viewport?: { once?: boolean; margin?: string };
 }
 

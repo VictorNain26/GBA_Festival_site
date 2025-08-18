@@ -480,11 +480,11 @@ export default function Home() {
                 alt="Art Déco Gallery 1"
                 width={160}
                 height={200}
-                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer"
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer will-change-transform"
                 initial={{ opacity: 0, rotate: -12, scale: 0.8 }}
                 whileInView={{ opacity: 1, rotate: -12, scale: 1 }}
-                whileHover={{ rotate: -6 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                whileHover={{ rotate: -6, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
               
               <OptimizedImage
@@ -492,11 +492,11 @@ export default function Home() {
                 alt="Art Déco Gallery 2"
                 width={160}
                 height={200}
-                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-2"
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-2 will-change-transform"
                 initial={{ opacity: 0, rotate: 6, scale: 0.8 }}
                 whileInView={{ opacity: 1, rotate: 6, scale: 1 }}
-                whileHover={{ rotate: 3 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                whileHover={{ rotate: 3, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
               
               <OptimizedImage
@@ -504,11 +504,11 @@ export default function Home() {
                 alt="Art Déco Gallery 3"
                 width={160}
                 height={200}
-                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-1"
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-1 will-change-transform"
                 initial={{ opacity: 0, rotate: -8, scale: 0.8 }}
                 whileInView={{ opacity: 1, rotate: -8, scale: 1 }}
-                whileHover={{ rotate: -4 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                whileHover={{ rotate: -4, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
               
               <OptimizedImage
@@ -516,11 +516,11 @@ export default function Home() {
                 alt="Art Déco Gallery 4"
                 width={160}
                 height={200}
-                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-3"
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-3 will-change-transform"
                 initial={{ opacity: 0, rotate: 10, scale: 0.8 }}
                 whileInView={{ opacity: 1, rotate: 10, scale: 1 }}
-                whileHover={{ rotate: 5 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+                whileHover={{ rotate: 5, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
               
               <OptimizedImage
@@ -528,11 +528,11 @@ export default function Home() {
                 alt="Art Déco Gallery 5"
                 width={160}
                 height={200}
-                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-2"
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-2 will-change-transform"
                 initial={{ opacity: 0, rotate: -15, scale: 0.8 }}
                 whileInView={{ opacity: 1, rotate: -15, scale: 1 }}
-                whileHover={{ rotate: -8 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                whileHover={{ rotate: -7, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
             </div>
             
@@ -543,11 +543,11 @@ export default function Home() {
                 alt="Art Déco Gallery 6"
                 width={160}
                 height={200}
-                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-1"
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-1 will-change-transform"
                 initial={{ opacity: 0, rotate: 8, scale: 0.8 }}
                 whileInView={{ opacity: 1, rotate: 8, scale: 1 }}
-                whileHover={{ rotate: 4 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
+                whileHover={{ rotate: 4, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
               
               <OptimizedImage
@@ -555,11 +555,11 @@ export default function Home() {
                 alt="Art Déco Gallery 7"
                 width={160}
                 height={200}
-                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-1"
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-1 will-change-transform"
                 initial={{ opacity: 0, rotate: -12, scale: 0.8 }}
                 whileInView={{ opacity: 1, rotate: -12, scale: 1 }}
-                whileHover={{ rotate: -6 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
+                whileHover={{ rotate: -6, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
               
               <OptimizedImage
@@ -567,11 +567,11 @@ export default function Home() {
                 alt="Art Déco Gallery 8"
                 width={160}
                 height={200}
-                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-3"
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-3 will-change-transform"
                 initial={{ opacity: 0, rotate: 14, scale: 0.8 }}
                 whileInView={{ opacity: 1, rotate: 14, scale: 1 }}
-                whileHover={{ rotate: 7 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
+                whileHover={{ rotate: 7, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
               
               <OptimizedImage
@@ -579,11 +579,11 @@ export default function Home() {
                 alt="Art Déco Gallery 9"
                 width={160}
                 height={200}
-                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-2"
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-2 will-change-transform"
                 initial={{ opacity: 0, rotate: -6, scale: 0.8 }}
                 whileInView={{ opacity: 1, rotate: -6, scale: 1 }}
-                whileHover={{ rotate: -3 }}
-                transition={{ duration: 0.6, delay: 0.9 }}
+                whileHover={{ rotate: -3, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
             </div>
           </div>
