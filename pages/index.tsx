@@ -437,35 +437,154 @@ export default function Home() {
               </p>
             </motion.div>
             
-            {/* Right column - Stacked dance images with offset */}
-            <div className="relative h-96 lg:h-[500px] flex justify-center items-center">
-              {/* Background image - danse2 */}
-              <div className="relative z-10">
-                <OptimizedImage
-                  src="/images/danse2.jpg"
-                  alt="Danse Art Déco - Bal des Années Folles"
-                  width={400}
-                  height={500}
-                  className="w-full max-w-48 xs:max-w-52 sm:max-w-56 lg:max-w-60 xl:max-w-64 object-cover"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                />
+            {/* Right column - Stacked dance images with offset - SANS LIMITATION */}
+            <div className="relative w-full flex justify-center">
+              <div className="relative">
+                {/* Image de fond - danse2 - TRÈS GRANDE SANS LIMITATION */}
+                <div className="relative z-10">
+                  <OptimizedImage
+                    src="/images/danse2.jpg"
+                    alt="Danse Art Déco - Bal des Années Folles"
+                    width={900}
+                    height={1080}
+                    className="w-full max-w-[320px] xs:max-w-[400px] sm:max-w-[500px] lg:max-w-[600px] xl:max-w-[700px] object-cover"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  />
+                </div>
+                
+                {/* Image superposée - danse1 - BAS GAUCHE avec danse2 qui dépasse un peu */}
+                <div className="absolute z-20 bottom-8 -left-6 xs:bottom-10 xs:-left-8 sm:bottom-12 sm:-left-10 lg:bottom-14 lg:-left-12 xl:bottom-16 xl:-left-16 transform translate-y-2 xs:translate-y-3 sm:translate-y-4 lg:translate-y-5 xl:translate-y-6">
+                  <OptimizedImage
+                    src="/images/danse1.jpg"
+                    alt="Élégance Art Déco - Soirée Dansante"
+                    width={240}
+                    height={300}
+                    className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover shadow-2xl"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                  />
+                </div>
               </div>
+            </div>
+          </div>
+          
+          {/* Florilège gallery - Images artistiquement disposées */}
+          <div className="mt-12 xs:mt-14 sm:mt-16 lg:mt-20 xl:mt-24">
+            {/* Première ligne - 5 images décalées */}
+            <div className="relative flex flex-wrap justify-center items-center gap-4 xs:gap-6 sm:gap-8 lg:gap-10 xl:gap-12 mb-8 xs:mb-10 sm:mb-12 lg:mb-16 xl:mb-20">
+              <OptimizedImage
+                src="/images/gallery_1.jpg"
+                alt="Art Déco Gallery 1"
+                width={160}
+                height={200}
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer"
+                initial={{ opacity: 0, rotate: -12, scale: 0.8 }}
+                whileInView={{ opacity: 1, rotate: -12, scale: 1 }}
+                whileHover={{ rotate: -6 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              />
               
-              {/* Foreground image - danse1 overlapping and offset to the left */}
-              <div className="absolute z-20 -left-8 xs:-left-12 sm:-left-16 lg:-left-20 top-8 xs:top-12 sm:top-16 lg:top-20">
-                <OptimizedImage
-                  src="/images/danse1.jpg"
-                  alt="Élégance Art Déco - Soirée Dansante"
-                  width={320}
-                  height={400}
-                  className="w-full max-w-40 xs:max-w-44 sm:max-w-48 lg:max-w-52 xl:max-w-56 object-cover shadow-2xl border-2 border-primary/20"
-                  initial={{ opacity: 0, x: -30, y: 30 }}
-                  whileInView={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                />
-              </div>
+              <OptimizedImage
+                src="/images/gallery_2.jpg"
+                alt="Art Déco Gallery 2"
+                width={160}
+                height={200}
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-2"
+                initial={{ opacity: 0, rotate: 6, scale: 0.8 }}
+                whileInView={{ opacity: 1, rotate: 6, scale: 1 }}
+                whileHover={{ rotate: 3 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              />
+              
+              <OptimizedImage
+                src="/images/gallery_3.jpg"
+                alt="Art Déco Gallery 3"
+                width={160}
+                height={200}
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-1"
+                initial={{ opacity: 0, rotate: -8, scale: 0.8 }}
+                whileInView={{ opacity: 1, rotate: -8, scale: 1 }}
+                whileHover={{ rotate: -4 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              />
+              
+              <OptimizedImage
+                src="/images/gallery_4.jpg"
+                alt="Art Déco Gallery 4"
+                width={160}
+                height={200}
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-3"
+                initial={{ opacity: 0, rotate: 10, scale: 0.8 }}
+                whileInView={{ opacity: 1, rotate: 10, scale: 1 }}
+                whileHover={{ rotate: 5 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              />
+              
+              <OptimizedImage
+                src="/images/gallery_5.jpg"
+                alt="Art Déco Gallery 5"
+                width={160}
+                height={200}
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-2"
+                initial={{ opacity: 0, rotate: -15, scale: 0.8 }}
+                whileInView={{ opacity: 1, rotate: -15, scale: 1 }}
+                whileHover={{ rotate: -8 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+              />
+            </div>
+            
+            {/* Deuxième ligne - 4 images décalées */}
+            <div className="relative flex flex-wrap justify-center items-center gap-6 xs:gap-8 sm:gap-10 lg:gap-12 xl:gap-16">
+              <OptimizedImage
+                src="/images/gallery_6.jpg"
+                alt="Art Déco Gallery 6"
+                width={160}
+                height={200}
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-1"
+                initial={{ opacity: 0, rotate: 8, scale: 0.8 }}
+                whileInView={{ opacity: 1, rotate: 8, scale: 1 }}
+                whileHover={{ rotate: 4 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              />
+              
+              <OptimizedImage
+                src="/images/gallery_7.jpg"
+                alt="Art Déco Gallery 7"
+                width={160}
+                height={200}
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-1"
+                initial={{ opacity: 0, rotate: -12, scale: 0.8 }}
+                whileInView={{ opacity: 1, rotate: -12, scale: 1 }}
+                whileHover={{ rotate: -6 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
+              />
+              
+              <OptimizedImage
+                src="/images/gallery_8.jpg"
+                alt="Art Déco Gallery 8"
+                width={160}
+                height={200}
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer mt-3"
+                initial={{ opacity: 0, rotate: 14, scale: 0.8 }}
+                whileInView={{ opacity: 1, rotate: 14, scale: 1 }}
+                whileHover={{ rotate: 7 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              />
+              
+              <OptimizedImage
+                src="/images/gallery_9.jpg"
+                alt="Art Déco Gallery 9"
+                width={160}
+                height={200}
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer -mt-2"
+                initial={{ opacity: 0, rotate: -6, scale: 0.8 }}
+                whileInView={{ opacity: 1, rotate: -6, scale: 1 }}
+                whileHover={{ rotate: -3 }}
+                transition={{ duration: 0.6, delay: 0.9 }}
+              />
             </div>
           </div>
         </SectionGroup>
