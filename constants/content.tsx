@@ -254,7 +254,17 @@ export const ON_THE_WAY_CONTENT: Record<Language, React.ReactNode[]> = {
   ],
 };
 
-// Deco Ball section content  
+// Deco Ball section content - New layout content  
+export const DECO_BALL_INTRO: Record<Language, React.ReactNode> = {
+  fr: <>
+    <span className="text-accent">Laissez vous entrainer</span> par le faste et la sophistication des <span className="text-accent">Années Folles</span> lors de notre soirée dansante, profitez d&apos;un grand <span className="text-accent">Bal Art déco</span> endiablé et mené par notre <span className="text-accent">DJ Mitch</span>, jusqu&apos;au bout de la nuit, pour vivre pleinement l&apos;instant de la joie et de l&apos;art de vivre à la française.
+  </>,
+  en: <>
+    <span className="text-accent">Let yourself be carried away</span> by the splendour and sophistication of the <span className="text-accent">Roaring Twenties</span> during our dance evening. Enjoy a lively <span className="text-accent">Art Deco ball</span> led by our <span className="text-accent">DJ Mitch</span> until the end of the night, to fully experience the moment of joy and the French art of living.
+  </>,
+};
+
+// Deco Ball section content - Legacy (kept for compatibility)
 export const DECO_BALL_CONTENT: Record<Language, React.ReactNode[]> = {
   fr: [
     <>

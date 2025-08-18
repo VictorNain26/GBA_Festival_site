@@ -17,7 +17,7 @@ import {
   ABOUT_CONTENT, 
   PARTNERS_INTRO,
   PARTNERS_COLLABORATION,
-  DECO_BALL_CONTENT,
+  DECO_BALL_INTRO,
   CONTACT_CONTENT 
 } from '@/constants/content';
 import type { Language } from '@/types';
@@ -182,9 +182,9 @@ export default function Home() {
               <OptimizedImage
                 src="/images/ange_erte.jpg"
                 alt="Ange d'Erté - Illustration Art Déco"
-                width={400}
-                height={500}
-                className="w-full max-w-xs xs:max-w-sm sm:max-w-sm lg:max-w-md object-cover"
+                width={450}
+                height={570}
+                className="w-full max-w-sm xs:max-w-md sm:max-w-lg lg:max-w-xl object-cover"
               />
             </div>
             
@@ -199,9 +199,9 @@ export default function Home() {
               <OptimizedImage
                 src="/images/danseuse.png"
                 alt="Danseuse Art Déco"
-                width={280}
-                height={360}
-                className="w-full max-w-36 xs:max-w-40 sm:max-w-44 lg:max-w-48 object-cover mx-auto"
+                width={320}
+                height={410}
+                className="w-full max-w-44 xs:max-w-48 sm:max-w-52 lg:max-w-56 object-cover mx-auto"
               />
               
               {/* Right column - Simple objectives */}
@@ -237,12 +237,12 @@ export default function Home() {
         {/* Partners section */}
         <SectionGroup id="partners" title={NAV_LABELS[lang].partners} isCompactMode={isCompactMode}>
           {/* Introduction paragraph */}
-          <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10 xl:mb-12">
+          <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10">
             {renderParagraphs(PARTNERS_INTRO[lang])}
           </div>
           
           {/* Two columns: collaboration text and danseuse2 image */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 xl:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10">
             {/* Left column - Collaboration text */}
             <motion.div
               className="flex flex-col justify-center"
@@ -259,9 +259,9 @@ export default function Home() {
             <OptimizedImage
               src="/images/danseuse2.jpg"
               alt="Danseuse Art Déco - Partenaires"
-              width={280}
-              height={360}
-              className="w-full max-w-36 xs:max-w-40 sm:max-w-44 lg:max-w-48 object-cover mx-auto"
+              width={320}
+              height={410}
+              className="w-full max-w-44 xs:max-w-48 sm:max-w-52 lg:max-w-56 object-cover mx-auto"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -280,7 +280,7 @@ export default function Home() {
           </div>
         }>
           {/* Two columns: contenu existant et image bateau */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 xl:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10">
             {/* Left column - Nouveau contenu spécifique */}
             <motion.div
               className="flex flex-col justify-center"
@@ -299,9 +299,121 @@ export default function Home() {
             <OptimizedImage
               src="/images/bateau.png"
               alt="Bateau - Port du Havre 1925"
-              width={320}
-              height={400}
-              className="w-full max-w-40 xs:max-w-44 sm:max-w-48 lg:max-w-52 object-cover mx-auto"
+              width={400}
+              height={500}
+              className="w-full max-w-48 xs:max-w-52 sm:max-w-56 lg:max-w-60 xl:max-w-64 object-cover mx-auto"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            />
+          </div>
+          
+          {/* Deuxième section en colonnes: image woman_or et texte esthétique transatlantique */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 mt-6 xs:mt-7 sm:mt-8 lg:mt-10">
+            {/* Left column - Image woman_or */}
+            <OptimizedImage
+              src="/images/woman_or.jpg"
+              alt="Femme Art Déco - Esthétique transatlantique"
+              width={400}
+              height={500}
+              className="w-full max-w-48 xs:max-w-52 sm:max-w-56 lg:max-w-60 xl:max-w-64 object-cover mx-auto"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            />
+            
+            {/* Right column - Texte esthétique transatlantique */}
+            <motion.div
+              className="flex flex-col justify-center"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
+                Une esthétique transatlantique… Au bord de fameux paquebot <span className="text-accent">Normandie</span> les spectateurs sont invités à faire un extraordinaire voyage dirigé par le <span className="text-accent">Vieux Loup de Mer</span>, en compagnie célébrités et personnages historiques qui les accompagnent le long toute la soirée.
+              </p>
+            </motion.div>
+          </div>
+          
+          {/* Troisième section en colonnes: texte voyageurs et image restaurant */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 mt-6 xs:mt-7 sm:mt-8 lg:mt-10">
+            {/* Left column - Texte voyageurs */}
+            <motion.div
+              className="flex flex-col justify-center"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
+                Parmi des voyageurs on reconnaît des artistes, écrivains et intellectuels de ce temps, personnes les plus illustres venus de tous les continents.
+                <br /><br />
+                <span className="text-accent">Coco Chanel</span>, <span className="text-accent">Tamara de Lempicka</span>, <span className="text-accent">Anna Pavlova</span>, <span className="text-accent">Salvador Dali</span>, <span className="text-accent">Colette</span>, <span className="text-accent">F. Scott et Zelda Fitzgerald</span>, ainsi que <span className="text-accent">Nadja</span>, <span className="text-accent">Rosemary Hoyt</span>, <span className="text-accent">Julia Lambert</span> et <span className="text-accent">Clerfayt</span>, personnages imaginés par les écrivains d&apos;époque.
+              </p>
+            </motion.div>
+            
+            {/* Right column - Image restaurant */}
+            <OptimizedImage
+              src="/images/restaurant.jpg"
+              alt="Restaurant Art Déco - Ambiance des Années Folles"
+              width={400}
+              height={500}
+              className="w-full max-w-48 xs:max-w-52 sm:max-w-56 lg:max-w-60 xl:max-w-64 object-cover mx-auto"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            />
+          </div>
+          
+          {/* Quatrième section en colonnes: image men et texte ambiance parisienne */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 mt-6 xs:mt-7 sm:mt-8 lg:mt-10">
+            {/* Left column - Image men */}
+            <OptimizedImage
+              src="/images/men.jpg"
+              alt="Hommes élégants - Époque Art Déco"
+              width={400}
+              height={500}
+              className="w-full max-w-48 xs:max-w-52 sm:max-w-56 lg:max-w-60 xl:max-w-64 object-cover mx-auto"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            />
+            
+            {/* Right column - Texte ambiance parisienne */}
+            <motion.div
+              className="flex flex-col justify-center"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
+                Plongez dans l&apos;atmosphère de la vie parisienne de l&apos;année <span className="text-accent">1925</span>, vivez un moment unique qui célèbre les figures emblématiques de l&apos;époque de l&apos;<span className="text-accent">Art déco</span>.
+                <br /><br />
+                Le salon <span className="text-accent">Normandie</span> de l&apos;<span className="text-accent">Hôtel du Collectionneur</span> est métamorphosé pour donner une place à l&apos;atmosphère féerique qui évoque les plus grandes soirées de l&apos;ère <span className="text-accent">Art déco</span>.
+              </p>
+            </motion.div>
+          </div>
+          
+          {/* Cinquième section en colonnes: texte mise en scène et image */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 mt-6 xs:mt-7 sm:mt-8 lg:mt-10">
+            {/* Left column - Texte mise en scène */}
+            <motion.div
+              className="flex flex-col justify-center"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
+                La mise en scène soignée mêlant éléments visuels, sonores et théâtraux, créé par <span className="text-accent">Julie Durieux</span>, metteur en scène et autrice de concept, de scénario, des esquisses pour les costumes et la scénographie, qui a été assisté par des professionnels de scène française.
+              </p>
+            </motion.div>
+            
+            {/* Right column - Image */}
+            <OptimizedImage
+              src="/images/tete_air.jpg"
+              alt="Portrait Art Déco - Mise en scène Julie Durieux"
+              width={400}
+              height={500}
+              className="w-full max-w-48 xs:max-w-52 sm:max-w-56 lg:max-w-60 xl:max-w-64 object-cover mx-auto"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -311,8 +423,50 @@ export default function Home() {
 
         {/* Deco Ball section */}
         <SectionGroup id="decoball" title={NAV_LABELS[lang].decoball} isCompactMode={isCompactMode}>
-          <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
-            {renderParagraphs(DECO_BALL_CONTENT[lang])}
+          {/* Two columns: content text and stacked dance images */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10">
+            {/* Left column - Content text */}
+            <motion.div
+              className="flex flex-col justify-center"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
+                {DECO_BALL_INTRO[lang]}
+              </p>
+            </motion.div>
+            
+            {/* Right column - Stacked dance images with offset */}
+            <div className="relative h-96 lg:h-[500px] flex justify-center items-center">
+              {/* Background image - danse2 */}
+              <div className="relative z-10">
+                <OptimizedImage
+                  src="/images/danse2.jpg"
+                  alt="Danse Art Déco - Bal des Années Folles"
+                  width={400}
+                  height={500}
+                  className="w-full max-w-48 xs:max-w-52 sm:max-w-56 lg:max-w-60 xl:max-w-64 object-cover"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                />
+              </div>
+              
+              {/* Foreground image - danse1 overlapping and offset to the left */}
+              <div className="absolute z-20 -left-8 xs:-left-12 sm:-left-16 lg:-left-20 top-8 xs:top-12 sm:top-16 lg:top-20">
+                <OptimizedImage
+                  src="/images/danse1.jpg"
+                  alt="Élégance Art Déco - Soirée Dansante"
+                  width={320}
+                  height={400}
+                  className="w-full max-w-40 xs:max-w-44 sm:max-w-48 lg:max-w-52 xl:max-w-56 object-cover shadow-2xl border-2 border-primary/20"
+                  initial={{ opacity: 0, x: -30, y: 30 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                />
+              </div>
+            </div>
           </div>
         </SectionGroup>
 
