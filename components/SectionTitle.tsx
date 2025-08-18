@@ -19,9 +19,9 @@ export default function SectionTitle({
   delay = 0 
 }: SectionTitleProps) {
   return (
-    <TitleFrame className={`mx-8 xs:mx-12 sm:mx-16 lg:ml-20 lg:mr-40 xl:ml-24 xl:mr-48 2xl:ml-32 2xl:mr-56 ${className}`}>
+    <TitleFrame className={`mx-8 xs:mx-12 sm:mx-16 lg:ml-16 lg:mr-32 xl:ml-20 xl:mr-36 2xl:ml-24 2xl:mr-40 ${className}`}>
       <motion.h2
-        className="font-title text-lg xs:text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-accent leading-tight"
+        className="font-title font-bold text-base xs:text-lg sm:text-xl lg:text-2xl xl:text-3xl text-accent leading-tight"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay }}

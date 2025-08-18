@@ -223,7 +223,15 @@ export default function Home() {
         </SectionGroup>
 
         {/* On the Way section */}
-        <SectionGroup id="ontheway" title={NAV_LABELS[lang].ontheway}>
+        <SectionGroup id="ontheway" title={
+          <div className="text-center space-y-1">
+            <div className="font-bold leading-tight">{NAV_LABELS[lang].ontheway}</div>
+            <div className="h-px w-12 bg-accent mx-auto opacity-60"></div>
+            <div className="font-body text-accent text-[0.5em] font-normal uppercase tracking-[0.3em] leading-none opacity-90">
+              SPECTACLE IMMERSIF
+            </div>
+          </div>
+        }>
           <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
             {renderParagraphs(ON_THE_WAY_CONTENT[lang])}
           </div>

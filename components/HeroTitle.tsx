@@ -79,7 +79,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
       <div className="hidden lg:block relative">
         {/* Images Desktop avec titre superposé */}
         <motion.div 
-          className="flex items-center justify-center gap-16 lg:gap-20 xl:gap-24 2xl:gap-28"
+          className="flex items-end justify-center gap-16 lg:gap-20 xl:gap-24 2xl:gap-28"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
@@ -94,7 +94,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
               alt=""
               width={200}
               height={300}
-              className="object-contain rounded opacity-85 transition-all duration-500 ease-in-out w-36 h-54 lg:w-40 lg:h-60 xl:w-44 xl:h-66 2xl:w-48 2xl:h-72 scale-x-[-1]"
+              className="object-contain rounded opacity-85 transition-all duration-500 ease-in-out w-38 h-57 lg:w-42 lg:h-63 xl:w-46 xl:h-69 2xl:w-50 2xl:h-75 scale-x-[-1]"
             />
           </motion.div>
 
@@ -122,7 +122,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
               alt=""
               width={200}
               height={300}
-              className="object-contain rounded opacity-85 transition-all duration-500 ease-in-out w-36 h-54 lg:w-40 lg:h-60 xl:w-44 xl:h-66 2xl:w-48 2xl:h-72"
+              className="object-contain rounded opacity-85 transition-all duration-500 ease-in-out w-38 h-57 lg:w-42 lg:h-63 xl:w-46 xl:h-69 2xl:w-50 2xl:h-75"
             />
           </motion.div>
         </motion.div>

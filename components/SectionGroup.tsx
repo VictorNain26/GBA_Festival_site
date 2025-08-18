@@ -4,6 +4,7 @@ import SectionTitle from './SectionTitle';
 interface SectionGroupProps {
   id: string;
   title: ReactNode;
+  subtitle?: ReactNode;
   children: ReactNode;
   titleDelay?: number;
 }
@@ -16,6 +17,7 @@ interface SectionGroupProps {
 export default function SectionGroup({ 
   id, 
   title, 
+  subtitle,
   children, 
   titleDelay = 0 
 }: SectionGroupProps) {
@@ -26,6 +28,13 @@ export default function SectionGroup({
         <SectionTitle delay={titleDelay}>
           {title}
         </SectionTitle>
+        {subtitle && (
+          <div className="text-center mt-3 xs:mt-4 sm:mt-5 lg:mt-6">
+            <p className="font-body text-base xs:text-lg sm:text-xl lg:text-2xl xl:text-3xl text-primary uppercase tracking-wider">
+              {subtitle}
+            </p>
+          </div>
+        )}
       </section>
 
       {/* Content section with reduced top spacing */}
