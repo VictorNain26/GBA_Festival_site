@@ -3,7 +3,7 @@
  * Démontre l'intégration complète avec l'API Storyblok
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { motion } from 'framer-motion';
