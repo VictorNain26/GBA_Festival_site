@@ -47,8 +47,8 @@ interface StoryblokLiveProps {
   story: StoryblokStory | null;
   isConfigured: boolean;
   tokenInfo: string;
-  error?: string;
-  isPreview?: boolean;
+  error: string | null;
+  isPreview: boolean;
 }
 
 export default function StoryblokLive({ story, isConfigured, tokenInfo, error, isPreview }: StoryblokLiveProps) {
@@ -58,12 +58,12 @@ export default function StoryblokLive({ story, isConfigured, tokenInfo, error, i
   // État pour le contenu dynamique
   const [liveStory, setLiveStory] = useState<StoryblokStory | null>(story);
   const [loading, setLoading] = useState(false);
-  const [apiError, setApiError] = useState<string | undefined>(error);
+  const [apiError, setApiError] = useState<string | null>(error);
 
   // Fonction pour recharger le contenu depuis l'API
   const reloadContent = async () => {
     setLoading(true);
-    setApiError(undefined);
+    setApiError(null);
     
     try {
       const response = await fetch('/api/storyblok/festival-homepage');
@@ -278,7 +278,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
   const isPreview = context.preview || false;
 
   let story: StoryblokStory | null = null;
-  let error: string | undefined;
+  let error: string | null = null;
 
   if (isConfigured) {
     try {
@@ -291,6 +291,8 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
     } catch (err) {
       error = err instanceof Error ? err.message : 'Erreur de récupération';
     }
+  } else {
+    error = 'Token Storyblok non configuré';
   }
 
   return {
