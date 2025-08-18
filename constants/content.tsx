@@ -35,6 +35,28 @@ export const NAV_LABELS: Record<Language, NavigationLabels> = {
   },
 };
 
+// Section titles (for display in sections, different from navigation)
+export const SECTION_TITLES: Record<Language, Record<string, React.ReactNode>> = {
+  fr: {
+    about: (
+      <>
+        Art Deco
+        <br />
+        et Neo Art Deco
+      </>
+    ),
+  },
+  en: {
+    about: (
+      <>
+        Art Deco
+        <br />
+        and Neo Art Deco
+      </>
+    ),
+  },
+};
+
 // Hero section content
 export const HERO_CONTENT: Record<Language, HeroContent> = {
   fr: {
@@ -67,16 +89,19 @@ export const HERO_CONTENT: Record<Language, HeroContent> = {
 export const ABOUT_CONTENT: Record<Language, React.ReactNode[]> = {
   fr: [
     <>
-      Depuis plus de cent ans <span className="text-accent">l'Art déco</span> séduit le monde. Mais c'est bien l'<span className="text-accent">Exposition Internationale des Arts décoratifs et industriels modernes de Paris</span>, évènement fondateur de l'année <span className="text-accent">1925</span>, qui a donné le nom à l'Art Déco.
+      Depuis plus de cent ans <span className="text-accent">l'Art déco</span> séduit le monde. Mais c'est bien l'<span className="text-accent">Exposition Internationale des Arts décoratifs et industriels modernes de Paris</span>, évènement fondateur de l'année <span className="text-accent">125</span>, qui a donné le nom à l'Art Déco.
     </>,
     <>
-      Synonyme d'élégance, de modernité et de raffinement, l'Art déco continue d'influencer l'architecture, le design, la peinture, la sculpture et la mode, suscitant toujours autant d'enthousiasme parmi les passionnés du monde créatif.
+      Synonyme d'élégance, de modernité et de raffinement <span className="text-accent">Art déco</span> continue d'influencer l'architecture, le design, la peinture et la sculpture, la mode et d'autres, suscitant toujours autant d'enthousiasme parmi les passionnés du monde créatif.
     </>,
     <>
-      L'année <span className="text-accent">2025</span> marque le centenaire de l'<span className="text-accent">Exposition Internationale</span> et du mouvement <span className="text-accent">Art déco</span>. Cette date significative pour tous les amateurs de ce mouvement artistique a vu naître sa continuation dans un nouveau format : le <span className="text-accent">Néo Art déco</span>.
+      Ainsi, l'année <span className="text-accent">2025</span> marque le centenaire de l'<span className="text-accent">Exposition Internationale</span> et du mouvement <span className="text-accent">Art déco</span>. Cette date significative pour tous les amateurs de ce mouvement artistique qui a retrouvé sa continuation dans son nouveau format: <span className="text-accent">Néo Art déco</span>.
     </>,
     <>
-      Pour célébrer un héritage intemporel et son impact contemporain, notre association <span className="text-accent">Grand Battement d'Ailes</span> initie un évènement exceptionnel : le nouveau Festival Art déco et Néo Art déco baptisé <span className="text-accent">« Florilège de l'Art Déco »</span> qui se tiendra le <span className="text-accent">18 octobre 2025</span> au <span className="text-accent">Salon Normandie</span> de l'<span className="text-accent">Hôtel du Collectionneur</span>, icône architecturale parisienne. Lors de cette première édition, nos invités profiteront d'un programme riche et varié.
+      Pour célébrer un héritage intemporel et son impact contemporain, notre association <span className="text-accent">Grand Battement d'Ailes</span> initie un évènement exceptionnel, le nouveau Festival Art déco et Néo Art déco nommé <span className="text-accent">« Florilège de l'Art Déco »</span> qui se tiendra le <span className="text-accent">18 octobre 2025</span> au <span className="text-accent">Salon Normandie</span> de l'<span className="text-accent">Hôtel du Collectionneur</span>, une icône architecturale parisienne du style.
+    </>,
+    <>
+      Lors de la première édition du Festival, nos invités vont pleinement profiter du programme riche et varié.
     </>,
   ],
   en: [
@@ -163,20 +188,32 @@ export const CONTACT_CONTENT: Record<Language, ContactContent> = {
 export const PARTNERS_INTRO: Record<Language, React.ReactNode[]> = {
   fr: [
     <>
-      Au cœur de cette soirée placée sous le signe du goût et de la convivialité, nos <span className="text-accent">partenaires</span> et <span className="text-accent">exposants</span> vous invitent à une véritable excursion sensorielle. Exposition d'objets d'art, pièces de mode de collection, artisans, maisons de renom ou jeunes talents émergents – tous partagent leur univers et leur savoir‑faire. Découvrez une collection exceptionnelle d'œuvres et d'objets emblématiques illustrant l'élégance et l'innovation des mouvements <span className="text-accent">Art déco</span> et <span className="text-accent">Néo Art déco</span>.
-    </>,
-    <>
-      Collectionneurs d'art et galeristes, artistes, sculpteurs, créateurs de bijoux, producteurs de vin et de parfum sont également invités à devenir nos partenaires. Joignez‑les : profitez d'une opportunité inouïe pour mettre en avant votre entreprise auprès des convives, présenter vos créations et montrer le fruit de votre activité lors de notre évènement.
+      Au cœur de cette soirée placée sous le signe du goût et de la convivialité, nos <span className="text-accent">partenaires</span> et <span className="text-accent">exposants</span> vous invitent à un véritable excursion sensoriel. Exposition d'objets d'art, des éléments de collection de mode, artisans, maison de renom ou jeune talents émergents, tous partagent leur univers et savoir-faire. Découvrez une collection exceptionnelle des œuvres et des objets emblématiques qui illustrent l'élégance et l'innovation des mouvement <span className="text-accent">Art déco</span> et <span className="text-accent">Néo art déco</span>.
     </>,
   ],
   en: [
     <>
       At the heart of this evening dedicated to taste and conviviality, our <span className="text-accent">partners</span> and <span className="text-accent">exhibitors</span> invite you on a real sensory journey. Exhibitions of art objects, fashion collectibles, craftsmen, renowned houses and emerging talent – all share their universe and their savoir‑faire. Discover an exceptional collection of works and emblematic objects illustrating the elegance and innovation of the <span className="text-accent">Art Deco</span> and <span className="text-accent">Neo Art Deco</span> movements.
     </>,
-    <>
-      Art collectors and gallerists, artists, sculptors, jewellery designers, wine and perfume producers are also invited to become our partners. Join them to seize an unprecedented opportunity to showcase your company to our guests, present your creations and display the results of your activity during our event.
-    </>,
   ],
+};
+
+// Partners collaboration section
+export const PARTNERS_COLLABORATION: Record<Language, React.ReactNode> = {
+  fr: (
+    <>
+      Collectionneurs d'art et galeristes, artistes, sculpteurs, créateurs de bijoux, producteurs du vin et de parfum sont aussi invités pour devenir nos partenaires.
+      <br /><br />
+      Joignez-les, profitez d'une opportunité inouïe pour la mise en avant auprès de les convives, présenter votre entreprise et montrer le résultat de votre activité lors de notre évènement.
+    </>
+  ),
+  en: (
+    <>
+      Art collectors and gallerists, artists, sculptors, jewellery designers, wine and perfume producers are also invited to become our partners.
+      <br /><br />
+      Join them to seize an unprecedented opportunity to showcase your company to our guests, present your creations and display the results of your activity during our event.
+    </>
+  ),
 };
 
 // On the Way section content

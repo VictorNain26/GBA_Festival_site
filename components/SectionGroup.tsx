@@ -7,6 +7,7 @@ interface SectionGroupProps {
   subtitle?: ReactNode;
   children: ReactNode;
   titleDelay?: number;
+  isCompactMode?: boolean;
 }
 
 /**
@@ -19,7 +20,8 @@ export default function SectionGroup({
   title, 
   subtitle,
   children, 
-  titleDelay = 0 
+  titleDelay = 0,
+  isCompactMode = false
 }: SectionGroupProps) {
   return (
     <div className="relative">
@@ -39,7 +41,11 @@ export default function SectionGroup({
 
       {/* Content section with reduced top spacing */}
       <section className="relative py-0 pb-8 xs:pb-10 sm:pb-12 lg:pb-16 xl:pb-20">
-        <div className="max-w-none mx-8 xs:mx-12 sm:mx-16 lg:ml-20 lg:mr-40 xl:ml-24 xl:mr-48 2xl:ml-32 2xl:mr-56">
+        <div className={`max-w-none mx-8 xs:mx-12 sm:mx-16 lg:ml-20 xl:ml-24 2xl:ml-32 ${
+          !isCompactMode 
+            ? 'lg:mr-56 xl:mr-64 2xl:mr-72' 
+            : 'lg:mr-40 xl:mr-48 2xl:mr-56'
+        }`}>
           {children}
         </div>
       </section>

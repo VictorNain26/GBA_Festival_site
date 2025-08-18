@@ -130,7 +130,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
         {/* Titre principal superposé - Desktop uniquement */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <motion.h1
-            className="font-title text-5xl xl:text-6xl 2xl:text-7xl leading-tight text-accent text-center"
+            className="font-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight text-accent text-center"
             style={{
               textShadow: '3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 0, 0, 0.5)'
             }}

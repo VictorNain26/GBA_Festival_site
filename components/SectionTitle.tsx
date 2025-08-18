@@ -21,7 +21,7 @@ export default function SectionTitle({
   return (
     <TitleFrame className={`mx-8 xs:mx-12 sm:mx-16 lg:ml-16 lg:mr-32 xl:ml-20 xl:mr-36 2xl:ml-24 2xl:mr-40 ${className}`}>
       <motion.h2
-        className="font-title font-bold text-base xs:text-lg sm:text-xl lg:text-2xl xl:text-3xl text-accent leading-tight"
+        className="font-title font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent leading-tight"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay }}

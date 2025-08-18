@@ -20,16 +20,16 @@ export default function HeroSubtitle({
     >
       {/* Mobile version: 2 lines */}
       <div className="lg:hidden">
-        <p className="font-title text-base xs:text-lg sm:text-lg uppercase tracking-wide xs:tracking-wider text-accent">
+        <p className="font-title text-sm lg:text-base uppercase tracking-wide xs:tracking-wider text-accent">
           {subtitle}
         </p>
-        <p className="font-title text-sm xs:text-base sm:text-lg uppercase tracking-wide xs:tracking-wider text-accent mt-1">
+        <p className="font-title text-sm lg:text-base uppercase tracking-wide xs:tracking-wider text-accent mt-1">
           1ère Edition
         </p>
       </div>
       
       {/* Desktop version: 1 line */}
-      <p className="hidden lg:block font-title text-xl uppercase tracking-wide text-accent">
+      <p className="hidden lg:block font-title text-base lg:text-lg uppercase tracking-wide text-accent">
         {subtitle} - 1ère Edition
       </p>
     </motion.div>

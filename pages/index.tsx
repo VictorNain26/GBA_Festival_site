@@ -12,10 +12,11 @@ import { detectBrowserLanguage } from '@/hooks/useBrowserLanguage';
 import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
 import { 
   NAV_LABELS, 
+  SECTION_TITLES,
   HERO_CONTENT, 
   ABOUT_CONTENT, 
-  PARTNER_CATEGORIES, 
   PARTNERS_INTRO,
+  PARTNERS_COLLABORATION,
   ON_THE_WAY_CONTENT,
   DECO_BALL_CONTENT,
   FESTIVAL_OBJECTIVE,
@@ -52,7 +53,7 @@ export default function Home() {
     return paragraphs.map((p, idx) => (
       <p
         key={idx}
-        className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base xs:text-lg sm:text-lg lg:text-xl text-primary text-justify"
+        className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base sm:text-lg lg:text-xl text-primary text-justify"
       >
         {p}
       </p>
@@ -101,7 +102,7 @@ export default function Home() {
 
           {/* Date */}
           <motion.p
-            className="font-title text-lg xs:text-xl sm:text-xl lg:text-xl xl:text-2xl text-primary mb-2 xs:mb-3 sm:mb-3 lg:mb-2 xl:mb-3 relative z-10"
+            className="font-title text-base sm:text-lg lg:text-xl text-primary mb-2 xs:mb-3 sm:mb-3 lg:mb-2 xl:mb-3 relative z-10"
             {...getAnimationVariants(0.1)}
           >
             {HERO_CONTENT[lang].date}
@@ -116,7 +117,7 @@ export default function Home() {
             <div className="flex lg:hidden flex-col items-center gap-3 xs:gap-4 sm:gap-4">
               <motion.a
                 href="#contact"
-                className="inline-block px-6 xs:px-7 sm:px-7 py-3 xs:py-4 sm:py-3 font-title text-base xs:text-lg sm:text-lg uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
+                className="inline-block px-6 xs:px-7 sm:px-7 py-3 xs:py-4 sm:py-3 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
                 {...getAnimationVariants(0.2)}
               >
                 {HERO_CONTENT[lang].cta}
@@ -124,14 +125,14 @@ export default function Home() {
               
               <div className="flex flex-col items-center gap-2 xs:gap-3 sm:gap-2">
                 <motion.p
-                  className="font-title text-base xs:text-lg sm:text-lg text-accent"
+                  className="font-title text-sm lg:text-base text-accent"
                   {...getAnimationVariants(0.5)}
                 >
                   {lang === 'fr' ? 'Hotel du Collectionneur' : 'Hotel Collectionneur'}
                 </motion.p>
                 
                 <motion.p
-                  className="font-title text-base xs:text-lg sm:text-lg text-accent"
+                  className="font-title text-sm lg:text-base text-accent"
                   {...getAnimationVariants(0.6)}
                 >
                   Paris 75008
@@ -142,7 +143,7 @@ export default function Home() {
             {/* Desktop: Horizontal grid */}
             <div className="hidden lg:grid grid-cols-3 items-center w-full max-w-none">
               <motion.p
-                className="font-title text-lg lg:text-xl xl:text-2xl text-accent text-right"
+                className="font-title text-base lg:text-lg xl:text-xl text-accent text-right"
                 {...getAnimationVariants(0.2)}
               >
                 {lang === 'fr' ? 'Hotel du Collectionneur' : 'Hotel Collectionneur'}
@@ -150,14 +151,14 @@ export default function Home() {
               
               <motion.a
                 href="#contact"
-                className="inline-block px-8 lg:px-10 py-3 lg:py-4 font-title text-base lg:text-lg xl:text-xl uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background text-center mx-auto"
+                className="inline-block px-8 lg:px-10 py-3 lg:py-4 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background text-center mx-auto"
                 {...getAnimationVariants(0.2)}
               >
                 {HERO_CONTENT[lang].cta}
               </motion.a>
               
               <motion.p
-                className="font-title text-lg lg:text-xl xl:text-2xl text-accent text-left"
+                className="font-title text-base lg:text-lg xl:text-xl text-accent text-left"
                 {...getAnimationVariants(0.2)}
               >
                 Paris 75008
@@ -167,63 +168,117 @@ export default function Home() {
         </section>
 
         {/* About section */}
-        <SectionGroup id="about" title={NAV_LABELS[lang].about}>
+        <SectionGroup id="about" title={SECTION_TITLES[lang].about} isCompactMode={isCompactMode}>
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7"
-          >
-            {renderParagraphs(ABOUT_CONTENT[lang])}
-          </motion.div>
-          
-          {/* Festival objectives section */}
-          <motion.div
-            className="grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.5 }}
           >
-            {FESTIVAL_OBJECTIVE[lang].map((objective, idx) => (
-              <div
-                key={idx}
-                className="p-4 sm:p-5 lg:p-6 border border-primary rounded-lg bg-black/30 backdrop-blur-sm"
-              >
-                <p className="font-body text-primary leading-relaxed text-base lg:text-lg text-justify">
-                  {objective}
-                </p>
+            {/* First three paragraphs */}
+            <div className="mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
+              {renderParagraphs(ABOUT_CONTENT[lang].slice(0, 3))}
+            </div>
+            
+            {/* Erté Angel Image */}
+            <div className="flex justify-center mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
+              <OptimizedImage
+                src="/images/ange_erte.jpg"
+                alt="Ange d'Erté - Illustration Art Déco"
+                width={400}
+                height={500}
+                className="w-full max-w-xs xs:max-w-sm sm:max-w-md lg:max-w-lg rounded-lg object-cover"
+              />
+            </div>
+            
+            {/* Last two paragraphs */}
+            <div>
+              {renderParagraphs(ABOUT_CONTENT[lang].slice(3))}
+            </div>
+            
+            {/* Danseuse image and objectives - Two columns with equal heights */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xs:gap-5 sm:gap-6 lg:gap-8 mt-4 xs:mt-5 sm:mt-6 lg:mt-8">
+              {/* Left column - Danseuse image */}
+              <div className="flex justify-center">
+                <OptimizedImage
+                  src="/images/danseuse.png"
+                  alt="Danseuse Art Déco"
+                  width={300}
+                  height={400}
+                  className="w-full max-w-xs sm:max-w-sm lg:max-w-md rounded-lg object-cover"
+                />
               </div>
-            ))}
+              
+              {/* Right column - Simple objectives */}
+              <div className="flex flex-col justify-between h-full space-y-4">
+                <div className="flex-1 flex flex-col justify-center p-4 sm:p-6 border border-primary">
+                  <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-3">
+                    {lang === 'fr' ? 'PUBLIC CIBLE' : 'TARGET AUDIENCE'}
+                  </h4>
+                  <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
+                    {lang === 'fr' 
+                      ? 'Collectionneurs d\'art et amateurs éclairés de tous les âges.' 
+                      : 'Art collectors and enlightened enthusiasts of all ages.'
+                    }
+                  </p>
+                </div>
+                
+                <div className="flex-1 flex flex-col justify-center p-4 sm:p-6 border border-primary">
+                  <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-3">
+                    {lang === 'fr' ? 'NOTRE OBJECTIF' : 'OUR OBJECTIVE'}
+                  </h4>
+                  <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
+                    {lang === 'fr' 
+                      ? 'Promouvoir la culture, l\'art et le divertissement, créer des opportunités pour des artistes, des galeries, des artisanats et d\'autres professionnels.' 
+                      : 'Promote culture, art and entertainment, create opportunities for artists, galleries, craftsmen and other professionals.'
+                    }
+                  </p>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </SectionGroup>
 
         {/* Partners section */}
-        <SectionGroup id="partners" title={NAV_LABELS[lang].partners}>
-          <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
+        <SectionGroup id="partners" title={NAV_LABELS[lang].partners} isCompactMode={isCompactMode}>
+          {/* Introduction paragraph */}
+          <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10 xl:mb-12">
             {renderParagraphs(PARTNERS_INTRO[lang])}
           </div>
-          <div className="grid gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {PARTNER_CATEGORIES.map((cat) => (
-              <motion.div
-                key={cat.key}
-                className="p-4 sm:p-5 lg:p-6 border border-primary rounded-lg bg-black/40 backdrop-blur-sm"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-              >
-                <h3 className="font-title text-2xl text-accent mb-2">
-                  {cat.title[lang]}
-                </h3>
-                <p className="font-body text-primary leading-relaxed text-justify">
-                  {cat.desc[lang]}
-                </p>
-              </motion.div>
-            ))}
+          
+          {/* Two columns: collaboration text and danseuse2 image */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 xl:gap-12">
+            {/* Left column - Collaboration text */}
+            <motion.div
+              className="flex flex-col justify-center"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
+                {PARTNERS_COLLABORATION[lang]}
+              </p>
+            </motion.div>
+            
+            {/* Right column - Danseuse2 image */}
+            <motion.div
+              className="flex justify-center"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <OptimizedImage
+                src="/images/danseuse2.jpg"
+                alt="Danseuse Art Déco - Partenaires"
+                width={350}
+                height={450}
+                className="w-full max-w-xs sm:max-w-sm lg:max-w-md rounded-lg object-cover"
+              />
+            </motion.div>
           </div>
         </SectionGroup>
 
         {/* On the Way section */}
-        <SectionGroup id="ontheway" title={
+        <SectionGroup id="ontheway" isCompactMode={isCompactMode} title={
           <div className="text-center space-y-1">
             <div className="font-bold leading-tight">{NAV_LABELS[lang].ontheway}</div>
             <div className="h-px w-12 bg-accent mx-auto opacity-60"></div>
@@ -240,7 +295,7 @@ export default function Home() {
               className="w-full h-64 relative overflow-hidden rounded"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.5 }}
             >
               <OptimizedImage
                 src="/images/gallery_2.png"
@@ -253,7 +308,7 @@ export default function Home() {
               className="w-full h-64 relative overflow-hidden rounded"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.5 }}
             >
               <OptimizedImage
                 src="/images/gallery_3.png"
@@ -266,7 +321,7 @@ export default function Home() {
         </SectionGroup>
 
         {/* Deco Ball section */}
-        <SectionGroup id="decoball" title={NAV_LABELS[lang].decoball}>
+        <SectionGroup id="decoball" title={NAV_LABELS[lang].decoball} isCompactMode={isCompactMode}>
           <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
             {renderParagraphs(DECO_BALL_CONTENT[lang])}
           </div>
@@ -275,7 +330,7 @@ export default function Home() {
               className="w-full h-64 relative overflow-hidden rounded"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.5 }}
             >
               <OptimizedImage
                 src="/images/gallery_7.png"
@@ -288,7 +343,7 @@ export default function Home() {
               className="w-full h-64 relative overflow-hidden rounded"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.5 }}
             >
               <OptimizedImage
                 src="/images/gallery_8.png"
@@ -304,7 +359,7 @@ export default function Home() {
         <section id="contact" className="relative min-h-screen flex flex-col justify-center px-8 xs:px-12 sm:px-16 lg:px-20 xl:px-24 2xl:px-32 py-12 xs:py-14 sm:py-16 lg:py-20 xl:py-24">
           {/* Section Title - Centered (no menu in this section) */}
           <motion.h2
-            className="font-title text-2xl xs:text-3xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
+            className="font-title text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -314,7 +369,7 @@ export default function Home() {
           {/* Contact Content - Centered design (no menu in this section) */}
           <div className="max-w-3xl mx-auto">
             <motion.h3
-              className="font-title text-lg xs:text-xl sm:text-xl lg:text-2xl xl:text-3xl text-primary mb-1 xs:mb-2 sm:mb-2 lg:mb-3 xl:mb-4 text-center"
+              className="font-title text-xl sm:text-2xl lg:text-3xl text-primary mb-1 xs:mb-2 sm:mb-2 lg:mb-3 xl:mb-4 text-center"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -322,10 +377,10 @@ export default function Home() {
               {CONTACT_CONTENT[lang].heading}
             </motion.h3>
             <motion.p
-              className="font-body text-xs xs:text-sm sm:text-sm lg:text-base xl:text-lg text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
+              className="font-body text-base sm:text-lg lg:text-xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
+              transition={{ duration: 0.5 }}
             >
               {CONTACT_CONTENT[lang].intro}
             </motion.p>
@@ -335,7 +390,7 @@ export default function Home() {
               className="flex flex-col lg:grid lg:grid-cols-3 gap-3 xs:gap-4 sm:gap-5 lg:gap-4 xl:gap-5 mb-4 xs:mb-5 sm:mb-6 lg:mb-6 xl:mb-7"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.5 }}
             >
               <motion.a
                 href={`https://wa.me/${CONTACT_CONTENT[lang].phone.replace(/\s+/g, '')}`}
@@ -345,10 +400,10 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
-                <span className="font-title text-xs xs:text-xs sm:text-xs lg:text-sm block mb-1">
+                <span className="font-title text-sm lg:text-base block mb-1">
                   {CONTACT_CONTENT[lang].whatsapp}
                 </span>
-                <span className="font-body text-xs xs:text-xs sm:text-xs lg:text-sm text-accent">
+                <span className="font-body text-sm lg:text-base text-accent">
                   {CONTACT_CONTENT[lang].phone}
                 </span>
               </motion.a>
@@ -361,10 +416,10 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                <span className="font-title text-xs xs:text-xs sm:text-xs lg:text-sm block mb-1">
+                <span className="font-title text-sm lg:text-base block mb-1">
                   Email
                 </span>
-                <span className="font-body text-xs xs:text-xs sm:text-xs lg:text-sm break-all text-accent leading-tight">
+                <span className="font-body text-sm lg:text-base break-all text-accent leading-tight">
                   {CONTACT_CONTENT[lang].email}
                 </span>
               </motion.a>
@@ -379,10 +434,10 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                <span className="font-title text-xs xs:text-xs sm:text-xs lg:text-sm block mb-1">
+                <span className="font-title text-sm lg:text-base block mb-1">
                   Site Web
                 </span>
-                <span className="font-body text-xs xs:text-xs sm:text-xs lg:text-sm text-accent">
+                <span className="font-body text-sm lg:text-base text-accent">
                   grandbattementdailes.com
                 </span>
               </motion.a>
@@ -393,12 +448,12 @@ export default function Home() {
               className="flex flex-col xs:flex-row items-center justify-center gap-2 xs:gap-3 sm:gap-4"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              transition={{ duration: 0.5 }}
             >
               {/* Bouton Billeterie - Style unifié */}
               <motion.a
                 href="#hero"
-                className="w-full xs:w-auto xs:min-w-[100px] sm:min-w-[110px] lg:min-w-[130px] inline-block px-2 xs:px-3 sm:px-3 py-3 xs:py-3 sm:py-4 font-title text-xs xs:text-xs sm:text-xs lg:text-sm uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background text-center"
+                className="w-full xs:w-auto xs:min-w-[100px] sm:min-w-[110px] lg:min-w-[130px] inline-block px-2 xs:px-3 sm:px-3 py-3 xs:py-3 sm:py-4 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background text-center"
                 whileHover={{ scale: 1.05 }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -410,7 +465,7 @@ export default function Home() {
               {/* Bouton Retour en haut - Version rouge */}
               <motion.button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="w-full xs:w-auto xs:min-w-[100px] sm:min-w-[110px] lg:min-w-[130px] inline-block px-2 xs:px-3 sm:px-3 py-3 xs:py-3 sm:py-4 font-title text-xs xs:text-xs sm:text-xs lg:text-sm uppercase tracking-wider transition-all duration-300 border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center"
+                className="w-full xs:w-auto xs:min-w-[100px] sm:min-w-[110px] lg:min-w-[130px] inline-block px-2 xs:px-3 sm:px-3 py-3 xs:py-3 sm:py-4 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center"
                 whileHover={{ scale: 1.05 }}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
