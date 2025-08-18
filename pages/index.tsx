@@ -17,7 +17,6 @@ import {
   ABOUT_CONTENT, 
   PARTNERS_INTRO,
   PARTNERS_COLLABORATION,
-  ON_THE_WAY_CONTENT,
   DECO_BALL_CONTENT,
   CONTACT_CONTENT 
 } from '@/constants/content';
@@ -183,9 +182,9 @@ export default function Home() {
               <OptimizedImage
                 src="/images/ange_erte.jpg"
                 alt="Ange d'Erté - Illustration Art Déco"
-                width={450}
-                height={580}
-                className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl object-cover"
+                width={400}
+                height={500}
+                className="w-full max-w-xs xs:max-w-sm sm:max-w-sm lg:max-w-md object-cover"
               />
             </div>
             
@@ -200,9 +199,9 @@ export default function Home() {
               <OptimizedImage
                 src="/images/danseuse.png"
                 alt="Danseuse Art Déco"
-                width={350}
-                height={450}
-                className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover mx-auto"
+                width={280}
+                height={360}
+                className="w-full max-w-36 xs:max-w-40 sm:max-w-44 lg:max-w-48 object-cover mx-auto"
               />
               
               {/* Right column - Simple objectives */}
@@ -260,9 +259,9 @@ export default function Home() {
             <OptimizedImage
               src="/images/danseuse2.jpg"
               alt="Danseuse Art Déco - Partenaires"
-              width={350}
-              height={450}
-              className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover mx-auto"
+              width={280}
+              height={360}
+              className="w-full max-w-36 xs:max-w-40 sm:max-w-44 lg:max-w-48 object-cover mx-auto"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
@@ -290,7 +289,7 @@ export default function Home() {
               transition={{ duration: 0.6 }}
             >
               <p className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                <span className="text-accent">ON THE WAY</span>, flashmob, un élément clé de notre soirée, transporte le public au cœur de l'effervescence de l'entre-deux-guerres.
+                <span className="text-accent">ON THE WAY</span>, flashmob, un élément clé de notre soirée, transporte le public au cœur de l&apos;effervescence de l&apos;entre-deux-guerres.
                 <br /><br />
                 Nous sommes en <span className="text-accent">1925</span>. Le Port du Havre et la Gare de Paris. Les départs et les arrivées, les émotions, les sentiments.
               </p>
@@ -300,9 +299,9 @@ export default function Home() {
             <OptimizedImage
               src="/images/bateau.png"
               alt="Bateau - Port du Havre 1925"
-              width={350}
-              height={450}
-              className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover mx-auto"
+              width={320}
+              height={400}
+              className="w-full max-w-40 xs:max-w-44 sm:max-w-48 lg:max-w-52 object-cover mx-auto"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
