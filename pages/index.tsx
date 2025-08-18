@@ -280,13 +280,9 @@ export default function Home() {
             </div>
           </div>
         }>
-          <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10 xl:mb-12">
-            {renderParagraphs(ON_THE_WAY_CONTENT[lang])}
-          </div>
-          
-          {/* Two columns: nouveau contenu et image bateau */}
+          {/* Two columns: contenu existant et image bateau */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 xl:gap-12">
-            {/* Left column - Nouveau contenu */}
+            {/* Left column - Nouveau contenu spécifique */}
             <motion.div
               className="flex flex-col justify-center"
               initial={{ opacity: 0, x: -30 }}
@@ -318,28 +314,6 @@ export default function Home() {
         <SectionGroup id="decoball" title={NAV_LABELS[lang].decoball} isCompactMode={isCompactMode}>
           <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
             {renderParagraphs(DECO_BALL_CONTENT[lang])}
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
-            <OptimizedImage
-              src="/images/gallery_7.png"
-              alt="Dancers at the ball"
-              width={350}
-              height={450}
-              className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover mx-auto"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            />
-            <OptimizedImage
-              src="/images/gallery_8.png"
-              alt="Roaring Twenties portraits"
-              width={350}
-              height={450}
-              className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover mx-auto"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            />
           </div>
         </SectionGroup>
 
