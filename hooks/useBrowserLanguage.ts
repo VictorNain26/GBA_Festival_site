@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import type { Language } from '@/types';
 
 /**
@@ -18,3 +19,18 @@ export function detectBrowserLanguage(): Language {
   
   return isFrench ? 'fr' : 'en';
 }
+
+/**
+ * Hook to get browser language with SSR support
+ */
+export function useBrowserLanguage(): Language {
+  const [language, setLanguage] = useState<Language>('en');
+
+  useEffect(() => {
+    setLanguage(detectBrowserLanguage());
+  }, []);
+
+  return language;
+}
+
+export default useBrowserLanguage;

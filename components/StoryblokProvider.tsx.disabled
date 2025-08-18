@@ -1,0 +1,33 @@
+/**
+ * Storyblok Provider pour activer l'éditeur visuel
+ * Composant client-side pour Next.js Pages Router
+ */
+
+'use client';
+
+import { storyblokInit, apiPlugin } from '@storyblok/react';
+import { useEffect } from 'react';
+
+interface StoryblokProviderProps {
+  children: React.ReactNode;
+}
+
+export default function StoryblokProvider({ children }: StoryblokProviderProps) {
+  useEffect(() => {
+    // Initialisation côté client pour l'éditeur visuel
+    storyblokInit({
+      accessToken: process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN,
+      use: [apiPlugin],
+      
+      // Configuration pour l'éditeur visuel
+      bridge: typeof window !== 'undefined',
+      
+      // Composants (même config que le serveur)
+      components: {
+        // À synchroniser avec lib/storyblok.ts
+      },
+    });
+  }, []);
+
+  return <>{children}</>;
+}

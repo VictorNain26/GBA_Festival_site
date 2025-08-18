@@ -48,3 +48,5 @@ export function useActiveSection(): string {
 
   return activeSection;
 }
+
+export default useActiveSection;

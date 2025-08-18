@@ -1,0 +1,301 @@
+{
+  "name": "festival-homepage",
+  "slug": "festival-homepage",
+  "content": {
+    "component": "festival-page",
+    "body": [
+      {
+        "component": "hero-section",
+        "_uid": "hero-001",
+        "title_fr": "Florilege de l'Art Deco",
+        "title_en": "Florilege of Art Deco",
+        "subtitle_fr": "Festival Art Deco et Neo Art Deco",
+        "subtitle_en": "Art Deco & Neo Art Deco Festival",
+        "date_fr": "18 octobre 2025",
+        "date_en": "18 October 2025",
+        "location_fr": "Hotel du Collectionneur, Paris 75008",
+        "location_en": "Hotel du Collectionneur, Paris 75008",
+        "cta_text_fr": "Billeterie",
+        "cta_text_en": "Tickets",
+        "cta_link": "#contact"
+      },
+      {
+        "component": "about-section",
+        "_uid": "about-001",
+        "title": {
+          "component": "title-block",
+          "_uid": "title-about",
+          "title_fr": "Art Deco et Neo Art Deco",
+          "title_en": "Art Deco and Neo Art Deco",
+          "level": "h2",
+          "style": "section"
+        },
+        "content_blocks": [
+          {
+            "component": "text-block",
+            "_uid": "about-text-1",
+            "content_fr": "Depuis plus de cent ans l'Art déco séduit le monde. Mais c'est bien l'Exposition Internationale des Arts décoratifs et industriels modernes de Paris, évènement fondateur de l'année 1925, qui a donné le nom à l'Art Déco.",
+            "content_en": "For more than a century Art Deco has captivated the world. But it was the International Exhibition of Modern Decorative and Industrial Arts in Paris, a landmark event held in 1925, that gave the movement its name.",
+            "highlighted_phrases_fr": "l'Art déco|Exposition Internationale des Arts décoratifs et industriels modernes de Paris|1925",
+            "highlighted_phrases_en": "Art Deco|International Exhibition of Modern Decorative and Industrial Arts in Paris|1925"
+          },
+          {
+            "component": "text-block",
+            "_uid": "about-text-2",
+            "content_fr": "Synonyme d'élégance, de modernité et de raffinement Art déco continue d'influencer l'architecture, le design, la peinture et la sculpture, la mode et d'autres, suscitant toujours autant d'enthousiasme parmi les passionnés du monde créatif.",
+            "content_en": "Synonymous with elegance, modernity and refinement, Art Deco continues to influence architecture, design, painting, sculpture and fashion, still arousing enthusiasm among creative enthusiasts.",
+            "highlighted_phrases_fr": "Art déco",
+            "highlighted_phrases_en": ""
+          },
+          {
+            "component": "text-block",
+            "_uid": "about-text-3",
+            "content_fr": "Ainsi, l'année 2025 marque le centenaire de l'Exposition Internationale et du mouvement Art déco. Cette date significative pour tous les amateurs de ce mouvement artistique qui a retrouvé sa continuation dans son nouveau format: Néo Art déco.",
+            "content_en": "The year 2025 marks the centenary of the International Exhibition and of the Art Deco movement. This significant date for all lovers of this artistic movement has seen its continuation in a new form: Neo Art Deco.",
+            "highlighted_phrases_fr": "2025|Exposition Internationale|Art déco|Néo Art déco",
+            "highlighted_phrases_en": "2025|International Exhibition|Art Deco|Neo Art Deco"
+          },
+          {
+            "component": "text-block",
+            "_uid": "about-text-4",
+            "content_fr": "Pour célébrer un héritage intemporel et son impact contemporain, notre association Grand Battement d'Ailes initie un évènement exceptionnel, le nouveau Festival Art déco et Néo Art déco nommé « Florilège de l'Art Déco » qui se tiendra le 18 octobre 2025 au Salon Normandie de l'Hôtel du Collectionneur, une icône architecturale parisienne du style.",
+            "content_en": "To celebrate an timeless heritage and its contemporary impact, our association Grand Battement d'Ailes launches an exceptional event: the new Art Deco and Neo Art Deco Festival called \"Florilège de l'Art Déco\", which will be held on 18 October 2025 in the Normandie Salon at the Hôtel du Collectionneur, a Parisian architectural icon.",
+            "highlighted_phrases_fr": "Grand Battement d'Ailes|« Florilège de l'Art Déco »|18 octobre 2025|Salon Normandie|Hôtel du Collectionneur",
+            "highlighted_phrases_en": "Grand Battement d'Ailes|\"Florilège de l'Art Déco\"|18 October 2025|Normandie Salon|Hôtel du Collectionneur"
+          },
+          {
+            "component": "text-block",
+            "_uid": "about-text-5",
+            "content_fr": "Lors de la première édition du Festival, nos invités vont pleinement profiter du programme riche et varié.",
+            "content_en": "During this first edition, our guests will enjoy a rich and varied programme.",
+            "highlighted_phrases_fr": "",
+            "highlighted_phrases_en": ""
+          }
+        ],
+        "image_position": "none"
+      },
+      {
+        "component": "partners-section",
+        "_uid": "partners-001",
+        "title": {
+          "component": "title-block",
+          "_uid": "title-partners",
+          "title_fr": "Nos Partenaires",
+          "title_en": "Our Partners",
+          "level": "h2",
+          "style": "section"
+        },
+        "intro_blocks": [
+          {
+            "component": "text-block",
+            "_uid": "partners-intro-1",
+            "content_fr": "Au cœur de cette soirée placée sous le signe du goût et de la convivialité, nos partenaires et exposants vous invitent à un véritable excursion sensoriel. Exposition d'objets d'art, des éléments de collection de mode, artisans, maison de renom ou jeune talents émergents, tous partagent leur univers et savoir-faire. Découvrez une collection exceptionnelle des œuvres et des objets emblématiques qui illustrent l'élégance et l'innovation des mouvement Art déco et Néo art déco.",
+            "content_en": "At the heart of this evening dedicated to taste and conviviality, our partners and exhibitors invite you on a real sensory journey. Exhibitions of art objects, fashion collectibles, craftsmen, renowned houses and emerging talent – all share their universe and their savoir‑faire. Discover an exceptional collection of works and emblematic objects illustrating the elegance and innovation of the Art Deco and Neo Art Deco movements.",
+            "highlighted_phrases_fr": "partenaires|exposants|Art déco|Néo art déco",
+            "highlighted_phrases_en": "partners|exhibitors|Art Deco|Neo Art Deco"
+          }
+        ],
+        "collaboration_blocks": [
+          {
+            "component": "text-block",
+            "_uid": "partners-collab-1",
+            "content_fr": "Collectionneurs d'art et galeristes, artistes, sculpteurs, créateurs de bijoux, producteurs du vin et de parfum sont aussi invités pour devenir nos partenaires.",
+            "content_en": "Art collectors and gallerists, artists, sculptors, jewellery designers, wine and perfume producers are also invited to become our partners.",
+            "highlighted_phrases_fr": "",
+            "highlighted_phrases_en": ""
+          },
+          {
+            "component": "text-block",
+            "_uid": "partners-collab-2",
+            "content_fr": "Joignez-les, profitez d'une opportunité inouïe pour la mise en avant auprès de les convives, présenter votre entreprise et montrer le résultat de votre activité lors de notre évènement.",
+            "content_en": "Join them to seize an unprecedented opportunity to showcase your company to our guests, present your creations and display the results of your activity during our event.",
+            "highlighted_phrases_fr": "",
+            "highlighted_phrases_en": ""
+          }
+        ],
+        "objectives": [
+          {
+            "component": "text-block",
+            "_uid": "objective-1",
+            "content_fr": "Public Cible\n\nCollectionneurs d'art et amateurs éclairés de tous les âges.",
+            "content_en": "Target Audience\n\nArt collectors and enlightened enthusiasts of all ages.",
+            "highlighted_phrases_fr": "Public Cible",
+            "highlighted_phrases_en": "Target Audience"
+          },
+          {
+            "component": "text-block",
+            "_uid": "objective-2",
+            "content_fr": "Notre Objectif\n\nPromouvoir la culture, l'art et le divertissement, créer des opportunités pour des artistes, des galeries, des artisanats et d'autres professionnels.",
+            "content_en": "Our Objective\n\nPromote culture, art and entertainment, create opportunities for artists, galleries, craftsmen and other professionals.",
+            "highlighted_phrases_fr": "Notre Objectif",
+            "highlighted_phrases_en": "Our Objective"
+          }
+        ]
+      },
+      {
+        "component": "on-the-way-section",
+        "_uid": "ontheway-001",
+        "title": {
+          "component": "title-block",
+          "_uid": "title-ontheway",
+          "title_fr": "On the Way",
+          "title_en": "On the Way",
+          "level": "h2",
+          "style": "section"
+        },
+        "stories": [
+          {
+            "component": "on-the-way-story",
+            "_uid": "story-1",
+            "text_blocks": [
+              {
+                "component": "text-block",
+                "_uid": "story-1-text",
+                "content_fr": "ON THE WAY, flashmob et fil rouge de notre soirée, transporte le public au cœur de l'effervescence de l'entre‑deux‑guerres. Nous sommes en 1925, entre le Port du Havre et la Gare de Paris : départs, arrivées, émotions et sentiments.",
+                "content_en": "ON THE WAY, a flashmob and leitmotif of our evening, transports the audience into the effervescence of the interwar period. We are in 1925, between the Port of Le Havre and the Gare de Paris – departures, arrivals, emotions and feelings.",
+                "highlighted_phrases_fr": "ON THE WAY|1925",
+                "highlighted_phrases_en": "ON THE WAY|1925"
+              }
+            ],
+            "image": "/images/gallery_1.png",
+            "image_alt_fr": "Voyage transatlantique 1925",
+            "image_alt_en": "Transatlantic voyage 1925",
+            "image_position": "left"
+          },
+          {
+            "component": "on-the-way-story",
+            "_uid": "story-2",
+            "text_blocks": [
+              {
+                "component": "text-block",
+                "_uid": "story-2-text",
+                "content_fr": "Une esthétique transatlantique… À bord du fameux paquebot Normandie, les spectateurs sont invités à faire un voyage extraordinaire dirigé par le Vieux Loup de Mer, accompagnés de célébrités et de personnages historiques qui les guident tout au long de la soirée.",
+                "content_en": "A transatlantic aesthetic… On board the famous Normandie liner, spectators are invited to embark on an extraordinary voyage led by the Old Sea Wolf, accompanied by celebrities and historical figures who guide them throughout the evening.",
+                "highlighted_phrases_fr": "Normandie|Vieux Loup de Mer",
+                "highlighted_phrases_en": "Normandie|Old Sea Wolf"
+              }
+            ],
+            "image": "/images/gallery_2.png",
+            "image_alt_fr": "Paquebot Normandie",
+            "image_alt_en": "Normandie liner",
+            "image_position": "right"
+          },
+          {
+            "component": "on-the-way-story",
+            "_uid": "story-3",
+            "text_blocks": [
+              {
+                "component": "text-block",
+                "_uid": "story-3-text",
+                "content_fr": "Parmi les voyageurs on reconnaît des artistes, écrivains et intellectuels de ce temps : Coco Chanel, Tamara de Lempicka, Anna Pavlova, Salvador Dalí, Colette, F. Scott et Zelda Fitzgerald… ainsi que des personnages imaginés par les écrivains d'époque.",
+                "content_en": "Among the travellers we recognise artists, writers and intellectuals of the time: Coco Chanel, Tamara de Lempicka, Anna Pavlova, Salvador Dalí, Colette, F. Scott and Zelda Fitzgerald and more, as well as characters imagined by the writers of the period.",
+                "highlighted_phrases_fr": "Coco Chanel|Tamara de Lempicka|Anna Pavlova|Salvador Dalí|Colette|F. Scott et Zelda Fitzgerald",
+                "highlighted_phrases_en": "Coco Chanel|Tamara de Lempicka|Anna Pavlova|Salvador Dalí|Colette|F. Scott and Zelda Fitzgerald"
+              }
+            ],
+            "image": "/images/gallery_3.png",
+            "image_alt_fr": "Célébrités de l'époque Art Déco",
+            "image_alt_en": "Art Deco era celebrities",
+            "image_position": "left"
+          },
+          {
+            "component": "on-the-way-story",
+            "_uid": "story-4",
+            "text_blocks": [
+              {
+                "component": "text-block",
+                "_uid": "story-4-text",
+                "content_fr": "Plongez dans l'atmosphère de la vie parisienne de 1925 : un moment unique qui célèbre les figures emblématiques de l'époque Art déco. Le Salon Normandie de l'Hôtel du Collectionneur est métamorphosé pour laisser place à une ambiance féerique évoquant les plus grandes soirées de l'ère Art déco.",
+                "content_en": "Immerse yourself in the atmosphere of 1925 Parisian life: a unique moment celebrating the emblematic figures of the Art Deco era. The Normandie Salon of the Hôtel du Collectionneur is transformed to give way to a magical atmosphere evoking the greatest evenings of the Art Deco era.",
+                "highlighted_phrases_fr": "1925|Salon Normandie|Hôtel du Collectionneur",
+                "highlighted_phrases_en": "1925|Normandie Salon|Hôtel du Collectionneur"
+              }
+            ],
+            "image": "/images/gallery_4.png",
+            "image_alt_fr": "Salon Normandie transformé",
+            "image_alt_en": "Transformed Normandie Salon",
+            "image_position": "right"
+          },
+          {
+            "component": "on-the-way-story",
+            "_uid": "story-5",
+            "text_blocks": [
+              {
+                "component": "text-block",
+                "_uid": "story-5-text",
+                "content_fr": "La mise en scène soigneuse mêlant éléments visuels, sonores et théâtraux est imaginée par Julie Durieux, metteuse en scène et autrice du concept, épaulée par des professionnels de la scène française.",
+                "content_en": "The careful staging combining visual, sound and theatrical elements is imagined by Julie Durieux, director and author of the concept, assisted by professionals of the French stage.",
+                "highlighted_phrases_fr": "Julie Durieux",
+                "highlighted_phrases_en": "Julie Durieux"
+              }
+            ],
+            "image": "/images/gallery_5.png",
+            "image_alt_fr": "Mise en scène théâtrale",
+            "image_alt_en": "Theatrical staging",
+            "image_position": "left"
+          }
+        ]
+      },
+      {
+        "component": "deco-ball-section",
+        "_uid": "decoball-001",
+        "title": {
+          "component": "title-block",
+          "_uid": "title-decoball",
+          "title_fr": "Le Bal Art Deco",
+          "title_en": "The Art Deco Ball",
+          "level": "h2",
+          "style": "section"
+        },
+        "content_blocks": [
+          {
+            "component": "text-block",
+            "_uid": "decoball-text-1",
+            "content_fr": "Laissez vous entrainer par le faste et la sophistication des Années Folles lors de notre soirée dansante, profitez d'un grand Bal Art déco endiablé et mené par notre DJ Mitch, jusqu'au bout de la nuit, pour vivre pleinement l'instant de la joie et de l'art de vivre à la française.",
+            "content_en": "Let yourself be carried away by the splendour and sophistication of the Roaring Twenties during our dance evening. Enjoy a lively Art Deco ball led by our DJ Mitch until the end of the night, to fully experience the moment of joy and the French art of living.",
+            "highlighted_phrases_fr": "Laissez vous entrainer|Années Folles|Bal Art déco|DJ Mitch",
+            "highlighted_phrases_en": "Let yourself be carried away|Roaring Twenties|Art Deco ball|DJ Mitch"
+          }
+        ],
+        "dance_image_main": "/images/gallery_6.png",
+        "dance_image_overlay": "/images/gallery_7.png",
+        "dance_image_alt_fr": "Danse Art Déco",
+        "dance_image_alt_en": "Art Deco Dance"
+      },
+      {
+        "component": "contact-section",
+        "_uid": "contact-001",
+        "title": {
+          "component": "title-block",
+          "_uid": "title-contact",
+          "title_fr": "Contact",
+          "title_en": "Contact",
+          "level": "h2",
+          "style": "section"
+        },
+        "intro_blocks": [
+          {
+            "component": "text-block",
+            "_uid": "contact-intro-1",
+            "content_fr": "Notre équipe se tient disponible pour répondre à toutes vos questions.",
+            "content_en": "Our team is available to answer all your questions.",
+            "highlighted_phrases_fr": "",
+            "highlighted_phrases_en": ""
+          }
+        ],
+        "heading_fr": "Grand Battement d'Ailes",
+        "heading_en": "Grand Battement d'Ailes",
+        "phone": "+33 6 64 88 83 70",
+        "email": "festivalartdecoparis@gmail.com",
+        "website": "https://grandbattementdailes.com",
+        "website_display": "grandbattementdailes.com",
+        "whatsapp_text_fr": "Envoyer un message",
+        "whatsapp_text_en": "Send a message",
+        "tickets_text_fr": "Billeterie",
+        "tickets_text_en": "Tickets",
+        "back_to_top_text_fr": "Retour en haut",
+        "back_to_top_text_en": "Back to top"
+      }
+    ]
+  }
+}
