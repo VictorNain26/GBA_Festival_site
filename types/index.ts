@@ -103,7 +103,7 @@ export interface FrameProps {
   className?: string;
 }
 
-export interface OptimizedImageProps {
+export interface OptimizedImageProps extends MotionProps {
   src: string;
   alt: string;
   width?: number;

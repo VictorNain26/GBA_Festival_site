@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import type { OptimizedImageProps } from '@/types';
 
 /**
@@ -11,23 +12,43 @@ export default function OptimizedImage({
   alt, 
   className = '', 
   priority = false,
-  ...props 
+  // Séparer les props motion des props d'image
+  initial,
+  animate,
+  whileInView,
+  whileHover,
+  transition,
+  viewport,
+  ...imageProps 
 }: OptimizedImageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
+  // Construire l'objet des props motion seulement si elles sont définies
+  const motionProps = {
+    ...(initial && { initial }),
+    ...(animate && { animate }),
+    ...(whileInView && { whileInView }),
+    ...(whileHover && { whileHover }),
+    ...(transition && { transition }),
+    ...(viewport && { viewport })
+  };
+
   if (hasError) {
     return (
-      <div className={`bg-black/20 flex items-center justify-center ${className}`}>
+      <motion.div 
+        className={`bg-black/20 flex items-center justify-center ${className}`}
+        {...motionProps}
+      >
         <span className="text-primary/60 text-sm">Image unavailable</span>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className={`relative ${className}`}>
+    <motion.div className="relative inline-block" {...motionProps}>
       {isLoading && (
-        <div className="absolute inset-0 bg-black/20 animate-pulse rounded" />
+        <div className="absolute inset-0 bg-black/20 animate-pulse" />
       )}
       <Image
         src={src}
@@ -38,11 +59,11 @@ export default function OptimizedImage({
           setIsLoading(false);
           setHasError(true);
         }}
-        className={`transition-opacity duration-300 ${
+        className={`transition-opacity duration-300 ${className} ${
           isLoading ? 'opacity-0' : 'opacity-100'
         }`}
-        {...props}
+        {...imageProps}
       />
-    </div>
+    </motion.div>
   );
 }

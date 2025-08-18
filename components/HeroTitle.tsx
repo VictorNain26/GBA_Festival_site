@@ -41,7 +41,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
               alt=""
               width={200}
               height={300}
-              className="object-contain rounded transition-all duration-500 ease-in-out w-14 h-21 xs:w-16 xs:h-24 sm:w-18 sm:h-27 md:w-20 md:h-30 scale-x-[-1]"
+              className="object-contain transition-all duration-500 ease-in-out w-14 h-21 xs:w-16 xs:h-24 sm:w-18 sm:h-27 md:w-20 md:h-30 scale-x-[-1]"
             />
           </motion.div>
 
@@ -55,7 +55,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
               alt=""
               width={240}
               height={360}
-              className="object-contain rounded transition-all duration-500 ease-in-out w-16 h-24 xs:w-18 xs:h-27 sm:w-20 sm:h-30 md:w-22 md:h-33"
+              className="object-contain transition-all duration-500 ease-in-out w-16 h-24 xs:w-18 xs:h-27 sm:w-20 sm:h-30 md:w-22 md:h-33"
             />
           </motion.div>
 
@@ -69,7 +69,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
               alt=""
               width={200}
               height={300}
-              className="object-contain rounded transition-all duration-500 ease-in-out w-14 h-21 xs:w-16 xs:h-24 sm:w-18 sm:h-27 md:w-20 md:h-30"
+              className="object-contain transition-all duration-500 ease-in-out w-14 h-21 xs:w-16 xs:h-24 sm:w-18 sm:h-27 md:w-20 md:h-30"
             />
           </motion.div>
         </motion.div>
@@ -94,7 +94,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
               alt=""
               width={200}
               height={300}
-              className="object-contain rounded opacity-85 transition-all duration-500 ease-in-out w-38 h-57 lg:w-42 lg:h-63 xl:w-46 xl:h-69 2xl:w-50 2xl:h-75 scale-x-[-1]"
+              className="object-contain opacity-85 transition-all duration-500 ease-in-out w-38 h-57 lg:w-42 lg:h-63 xl:w-46 xl:h-69 2xl:w-50 2xl:h-75 scale-x-[-1]"
             />
           </motion.div>
 
@@ -108,7 +108,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
               alt=""
               width={240}
               height={360}
-              className="object-contain rounded opacity-70 transition-all duration-500 ease-in-out w-38 h-57 lg:w-42 lg:h-63 xl:w-46 xl:h-69 2xl:w-50 2xl:h-75"
+              className="object-contain opacity-70 transition-all duration-500 ease-in-out w-38 h-57 lg:w-42 lg:h-63 xl:w-46 xl:h-69 2xl:w-50 2xl:h-75"
             />
           </motion.div>
 
@@ -122,7 +122,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
               alt=""
               width={200}
               height={300}
-              className="object-contain rounded opacity-85 transition-all duration-500 ease-in-out w-38 h-57 lg:w-42 lg:h-63 xl:w-46 xl:h-69 2xl:w-50 2xl:h-75"
+              className="object-contain opacity-85 transition-all duration-500 ease-in-out w-38 h-57 lg:w-42 lg:h-63 xl:w-46 xl:h-69 2xl:w-50 2xl:h-75"
             />
           </motion.div>
         </motion.div>

@@ -19,7 +19,6 @@ import {
   PARTNERS_COLLABORATION,
   ON_THE_WAY_CONTENT,
   DECO_BALL_CONTENT,
-  FESTIVAL_OBJECTIVE,
   CONTACT_CONTENT 
 } from '@/constants/content';
 import type { Language } from '@/types';
@@ -168,7 +167,7 @@ export default function Home() {
         </section>
 
         {/* About section */}
-        <SectionGroup id="about" title={SECTION_TITLES[lang].about} isCompactMode={isCompactMode}>
+        <SectionGroup id="about" title={SECTION_TITLES[lang]['about']} isCompactMode={isCompactMode}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -184,9 +183,9 @@ export default function Home() {
               <OptimizedImage
                 src="/images/ange_erte.jpg"
                 alt="Ange d'Erté - Illustration Art Déco"
-                width={400}
-                height={500}
-                className="w-full max-w-xs xs:max-w-sm sm:max-w-md lg:max-w-lg rounded-lg object-cover"
+                width={450}
+                height={580}
+                className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl object-cover"
               />
             </div>
             
@@ -198,20 +197,18 @@ export default function Home() {
             {/* Danseuse image and objectives - Two columns with equal heights */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xs:gap-5 sm:gap-6 lg:gap-8 mt-4 xs:mt-5 sm:mt-6 lg:mt-8">
               {/* Left column - Danseuse image */}
-              <div className="flex justify-center">
-                <OptimizedImage
-                  src="/images/danseuse.png"
-                  alt="Danseuse Art Déco"
-                  width={300}
-                  height={400}
-                  className="w-full max-w-xs sm:max-w-sm lg:max-w-md rounded-lg object-cover"
-                />
-              </div>
+              <OptimizedImage
+                src="/images/danseuse.png"
+                alt="Danseuse Art Déco"
+                width={350}
+                height={450}
+                className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover mx-auto"
+              />
               
               {/* Right column - Simple objectives */}
-              <div className="flex flex-col justify-between h-full space-y-4">
-                <div className="flex-1 flex flex-col justify-center p-4 sm:p-6 border border-primary">
-                  <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-3">
+              <div className="flex flex-col justify-center space-y-3 xs:space-y-4">
+                <div className="p-3 xs:p-4 sm:p-4 border border-primary">
+                  <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
                     {lang === 'fr' ? 'PUBLIC CIBLE' : 'TARGET AUDIENCE'}
                   </h4>
                   <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
@@ -222,8 +219,8 @@ export default function Home() {
                   </p>
                 </div>
                 
-                <div className="flex-1 flex flex-col justify-center p-4 sm:p-6 border border-primary">
-                  <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-3">
+                <div className="p-3 xs:p-4 sm:p-4 border border-primary">
+                  <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
                     {lang === 'fr' ? 'NOTRE OBJECTIF' : 'OUR OBJECTIVE'}
                   </h4>
                   <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
@@ -260,20 +257,16 @@ export default function Home() {
             </motion.div>
             
             {/* Right column - Danseuse2 image */}
-            <motion.div
-              className="flex justify-center"
+            <OptimizedImage
+              src="/images/danseuse2.jpg"
+              alt="Danseuse Art Déco - Partenaires"
+              width={350}
+              height={450}
+              className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover mx-auto"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-            >
-              <OptimizedImage
-                src="/images/danseuse2.jpg"
-                alt="Danseuse Art Déco - Partenaires"
-                width={350}
-                height={450}
-                className="w-full max-w-xs sm:max-w-sm lg:max-w-md rounded-lg object-cover"
-              />
-            </motion.div>
+            />
           </div>
         </SectionGroup>
 
@@ -287,36 +280,37 @@ export default function Home() {
             </div>
           </div>
         }>
-          <div className="mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7">
+          <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10 xl:mb-12">
             {renderParagraphs(ON_THE_WAY_CONTENT[lang])}
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
+          
+          {/* Two columns: nouveau contenu et image bateau */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 xl:gap-12">
+            {/* Left column - Nouveau contenu */}
             <motion.div
-              className="w-full h-64 relative overflow-hidden rounded"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              className="flex flex-col justify-center"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              <OptimizedImage
-                src="/images/gallery_2.png"
-                alt="Normandie liner"
-                fill
-                className="object-cover"
-              />
+              <p className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
+                <span className="text-accent">ON THE WAY</span>, flashmob, un élément clé de notre soirée, transporte le public au cœur de l'effervescence de l'entre-deux-guerres.
+                <br /><br />
+                Nous sommes en <span className="text-accent">1925</span>. Le Port du Havre et la Gare de Paris. Les départs et les arrivées, les émotions, les sentiments.
+              </p>
             </motion.div>
-            <motion.div
-              className="w-full h-64 relative overflow-hidden rounded"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <OptimizedImage
-                src="/images/gallery_3.png"
-                alt="Elegant passengers"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
+            
+            {/* Right column - Image bateau */}
+            <OptimizedImage
+              src="/images/bateau.png"
+              alt="Bateau - Port du Havre 1925"
+              width={350}
+              height={450}
+              className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover mx-auto"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            />
           </div>
         </SectionGroup>
 
@@ -326,32 +320,26 @@ export default function Home() {
             {renderParagraphs(DECO_BALL_CONTENT[lang])}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 xs:gap-4 sm:gap-4 lg:gap-5 xl:gap-6">
-            <motion.div
-              className="w-full h-64 relative overflow-hidden rounded"
+            <OptimizedImage
+              src="/images/gallery_7.png"
+              alt="Dancers at the ball"
+              width={350}
+              height={450}
+              className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover mx-auto"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-            >
-              <OptimizedImage
-                src="/images/gallery_7.png"
-                alt="Dancers at the ball"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-            <motion.div
-              className="w-full h-64 relative overflow-hidden rounded"
+            />
+            <OptimizedImage
+              src="/images/gallery_8.png"
+              alt="Roaring Twenties portraits"
+              width={350}
+              height={450}
+              className="w-full max-w-xs sm:max-w-sm lg:max-w-md object-cover mx-auto"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-            >
-              <OptimizedImage
-                src="/images/gallery_8.png"
-                alt="Roaring Twenties portraits"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
+            />
           </div>
         </SectionGroup>
 
