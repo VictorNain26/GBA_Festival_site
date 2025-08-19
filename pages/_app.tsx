@@ -46,8 +46,8 @@ export function reportWebVitals(metric: any) {
   });
 
   // Send to Google Analytics if available
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', name, {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', name, {
       event_category: label === 'web-vital' ? 'Web Vitals' : 'Next.js custom metric',
       value: Math.round(name === 'CLS' ? value * 1000 : value),
       event_label: id,

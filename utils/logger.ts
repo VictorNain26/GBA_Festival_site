@@ -26,13 +26,24 @@ const createLogger = (): Logger => {
   const isDevelopment = process.env.NODE_ENV === 'development';
   const isProduction = process.env.NODE_ENV === 'production';
 
-  const createLogEntry = (level: LogLevel, message: string, context?: Record<string, unknown>): LogEntry => ({
-    timestamp: new Date().toISOString(),
-    level,
-    message,
-    context,
-    sessionId: typeof window !== 'undefined' ? window.sessionStorage?.getItem('sessionId') || undefined : undefined
-  });
+  const createLogEntry = (level: LogLevel, message: string, context?: Record<string, unknown>): LogEntry => {
+    const entry: LogEntry = {
+      timestamp: new Date().toISOString(),
+      level,
+      message
+    };
+    
+    if (context) {
+      entry.context = context;
+    }
+    
+    const sessionId = typeof window !== 'undefined' ? window.sessionStorage?.getItem('sessionId') : undefined;
+    if (sessionId) {
+      entry.sessionId = sessionId;
+    }
+    
+    return entry;
+  };
 
   const createLogFunction = (level: LogLevel) => {
     return (message: string, context?: Record<string, unknown>): void => {
@@ -47,14 +58,14 @@ const createLogger = (): Logger => {
           console.error(`[Festival Site] ${message}`, { ...logEntry, context });
           
           // Send to monitoring service in production (placeholder)
-          if (typeof window !== 'undefined' && window.gtag) {
-            window.gtag('event', 'exception', {
+          if (typeof window !== 'undefined' && (window as any).gtag) {
+            (window as any).gtag('event', 'exception', {
               description: message,
               fatal: false,
               custom_map: context
             });
           }
-        } else if (level === 'warn' && context?.critical) {
+        } else if (level === 'warn' && context?.['critical']) {
           console.warn(`[Festival Site] ${message}`, { ...logEntry, context });
         }
       }

@@ -94,7 +94,7 @@ class RateLimiter {
 
     const currentRequests = record.requests.length;
     const remaining = Math.max(0, this.config.maxRequests - currentRequests);
-    const resetTime = record.requests[0] + this.config.windowMs;
+    const resetTime = record.requests[0] ? record.requests[0] + this.config.windowMs : now + this.config.windowMs;
 
     // Check if limit exceeded
     if (currentRequests >= this.config.maxRequests) {
