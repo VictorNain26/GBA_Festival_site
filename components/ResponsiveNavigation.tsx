@@ -63,13 +63,13 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
         aria-label="Desktop site navigation"
         style={{ maxWidth: 'calc(100vw - 1rem)' }}
       >
-        <div className="flex flex-col space-y-4 text-right bg-black/70 backdrop-blur-sm rounded-lg py-6 px-6 shadow-lg border border-primary/20">
+        <div className="flex flex-col space-y-3 text-right bg-black/70 backdrop-blur-sm rounded-lg py-4 px-4 shadow-lg">
           {/* Navigation Items */}
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={(e) => handleNavClick(e, item.id)}
-              className={`${PRESET_CLASSES.navigationLink} text-right ${
+              className={`text-sm font-title transition-colors hover:text-accent cursor-pointer text-right ${
                 activeSection === item.id 
                   ? 'text-accent' 
                   : 'text-primary'
@@ -82,16 +82,16 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
           {/* Tickets Button */}
           <button
             onClick={(e) => handleNavClick(e, ticketsItem.id)}
-            className={`px-4 py-3 mt-4 text-sm font-title uppercase tracking-wider transition-all duration-300 border border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center rounded`}
+            className={`px-3 py-2 mt-3 text-xs font-title uppercase tracking-wider transition-all duration-300 border border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center rounded`}
           >
             {ticketsItem.label}
           </button>
 
           {/* Language Selector */}
-          <div className="flex flex-row space-x-3 justify-end pt-4 mt-4 border-t border-primary/20">
+          <div className="flex flex-row space-x-2 justify-end pt-3 mt-3">
             <button
               onClick={() => changeLang('fr')}
-              className={`${PRESET_CLASSES.navigationLink} text-right ${
+              className={`text-sm font-title transition-colors hover:text-accent cursor-pointer text-right ${
                 lang === 'fr' ? 'text-accent' : 'text-primary'
               }`}
               aria-label="Switch to French"
@@ -100,7 +100,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
             </button>
             <button
               onClick={() => changeLang('en')}
-              className={`${PRESET_CLASSES.navigationLink} text-right ${
+              className={`text-sm font-title transition-colors hover:text-accent cursor-pointer text-right ${
                 lang === 'en' ? 'text-accent' : 'text-primary'
               }`}
               aria-label="Switch to English"
