@@ -72,8 +72,22 @@ export default function AboutSection({ blok, lang, isCompactMode }: AboutSection
     ));
   };
 
-  // Récupération des données avec fallbacks et conversion string -> array
-  const title = blok[`title_${lang}` as keyof StoryblokAboutSectionData] as string || '';
+  // Titre sur deux lignes pour le cadre (mais menu reste en une ligne)
+  const title = (
+    <div className="text-center leading-tight">
+      {lang === 'fr' ? (
+        <>
+          <div>ART DÉCO</div>
+          <div>ET NEO ART DÉCO</div>
+        </>
+      ) : (
+        <>
+          <div>ART DECO</div>
+          <div>AND NEO ART DECO</div>
+        </>
+      )}
+    </div>
+  );
   const introParagraphsRaw = blok[`intro_paragraphs_${lang}` as keyof StoryblokAboutSectionData] as string || '';
   const conclusionParagraphsRaw = blok[`conclusion_paragraphs_${lang}` as keyof StoryblokAboutSectionData] as string || '';
   const targetTitle = blok[`target_title_${lang}` as keyof StoryblokAboutSectionData] as string || '';

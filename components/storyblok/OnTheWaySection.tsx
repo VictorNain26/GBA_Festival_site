@@ -51,7 +51,7 @@ export default function OnTheWaySection({ blok, lang, isCompactMode }: OnTheWayS
     <div className="text-center space-y-1">
       <div className="font-bold leading-tight">{title}</div>
       <div className="h-px w-12 bg-accent mx-auto opacity-60"></div>
-      <div className="font-body text-accent text-[0.6em] xs:text-[0.65em] sm:text-[0.7em] lg:text-[0.75em] font-normal uppercase tracking-[0.2em] xs:tracking-[0.25em] sm:tracking-[0.3em] leading-tight opacity-90">
+      <div className="font-body text-accent text-[0.45em] xs:text-[0.5em] sm:text-[0.55em] lg:text-[0.6em] font-normal uppercase tracking-[0.15em] xs:tracking-[0.2em] sm:tracking-[0.25em] leading-tight opacity-90">
         SPECTACLE IMMERSIF
       </div>
     </div>

@@ -147,6 +147,21 @@ objective_text_en:
 - `/images/ange_erte.jpg` (automatiquement incluse)
 - `/images/danseuse.png` (automatiquement incluse)
 
+**🎨 MOTS EN ROUGE (Accent):**
+Pour mettre des mots en rouge dans tous les textes, utilise cette balise HTML :
+```html
+<span class="text-accent">Mot ou groupe de mots</span>
+```
+
+**Exemples d'usage :**
+```html
+Nous sommes en <span class="text-accent">1925</span>. Le Port du Havre...
+
+<span class="text-accent">ON THE WAY</span>, flashmob, un élément clé...
+
+La mise en scène créée par <span class="text-accent">Julie Durieux</span>...
+```
+
 ---
 
 ### 3. **partners-section**
@@ -426,6 +441,45 @@ Dans ta story `festival-homepage`, clique sur **+ Add Block** et ajoute les sect
 6. **contact-section**
 
 Remplis les champs avec ton contenu !
+
+## 🎨 **GUIDE STYLING : Mots en Rouge**
+
+### **Comment ajouter des mots en rouge :**
+
+Dans **TOUS** tes champs texte Storyblok, tu peux utiliser :
+
+```html
+<span class="text-accent">Texte en rouge</span>
+```
+
+### **Exemples concrets :**
+
+**AboutSection :**
+```html
+L'Art Déco naît dans les <span class="text-accent">années 1920</span> à Paris.
+
+Cette esthétique <span class="text-accent">révolutionnaire</span> influence...
+```
+
+**OnTheWaySection :**
+```html
+<span class="text-accent">ON THE WAY</span>, flashmob, transporte le public...
+
+Nous sommes en <span class="text-accent">1925</span>. Le Port du Havre...
+
+Des voyageurs comme <span class="text-accent">Coco Chanel</span>...
+```
+
+**PartnersSection :**
+```html
+Nos <span class="text-accent">partenaires prestigieux</span> nous accompagnent...
+```
+
+### **Dans Storyblok Interface :**
+1. ✏️ **Tape ton texte normalement**
+2. 🎨 **Ajoute les balises** `<span class="text-accent">mot</span>` 
+3. 💾 **Sauvegarde** 
+4. ✨ **Le mot apparaît en rouge** sur ton site !
 
 ---
 
