@@ -21,16 +21,16 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.sanity.io",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.storyblok.com https://js.storyblok.com",
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob: https://cdn.sanity.io",
+              "img-src 'self' data: blob: https://a.storyblok.com https://img2.storyblok.com",
               "font-src 'self' data:",
-              "connect-src 'self' https://*.sanity.io wss://*.sanity.io",
-              "frame-src 'self' https://festival-site.sanity.studio",
+              "connect-src 'self' https://api.storyblok.com https://mapi.storyblok.com",
+              "frame-src 'self'",
+              "frame-ancestors 'self' https://app.storyblok.com",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
-              "frame-ancestors 'none'",
               "upgrade-insecure-requests"
             ].join('; ')
           },
@@ -40,7 +40,7 @@ const nextConfig = {
           },
           {
             key: 'X-Frame-Options',
-            value: 'DENY'
+            value: 'SAMEORIGIN'
           },
           {
             key: 'X-XSS-Protection',
