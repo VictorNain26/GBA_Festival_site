@@ -3,12 +3,11 @@
  * Reproduit EXACTEMENT le design original avec SectionGroup et l'image danseuse2
  */
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { storyblokEditable } from '@storyblok/react';
 import SectionGroup from '@/components/SectionGroup';
 import OptimizedImage from '@/components/OptimizedImage';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
 import type { Language } from '@/types';
 import type { StoryblokBaseBlok } from '@/lib/storyblok';
 
@@ -28,30 +27,12 @@ interface PartnersSectionProps {
 }
 
 export default function PartnersSection({ blok, lang, isCompactMode }: PartnersSectionProps) {
-  const prefersReducedMotion = useReducedMotion();
-  
-  // Memoize animation variants
-  const getAnimationVariants = useMemo(() => {
-    return (delay = 0) => {
-      if (prefersReducedMotion) {
-        return {
-          initial: { opacity: 0 },
-          whileInView: { opacity: 1 },
-          transition: { duration: 0.1, delay: Math.min(delay, 0.1) }
-        };
-      }
-      
-      return {
-        initial: { opacity: 0, y: 40 },
-        whileInView: { opacity: 1, y: 0 },
-        transition: { duration: 0.8, delay }
-      };
-    };
-  }, [prefersReducedMotion]);
 
   // Helper pour rendre les paragraphes
   const renderParagraphs = (paragraphs: string[]) => {
-    if (!paragraphs || paragraphs.length === 0) return null;
+    if (!paragraphs || paragraphs.length === 0) {
+      return null;
+    }
     
     return paragraphs.map((p, idx) => (
       <p

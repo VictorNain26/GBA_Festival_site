@@ -12,6 +12,10 @@ import type { Language, NavigationLabels } from '@/types';
 // Import des composants Storyblok
 import HeroSection from '@/components/storyblok/HeroSection';
 import AboutSection from '@/components/storyblok/AboutSection';
+import PartnersSection from '@/components/storyblok/PartnersSection';
+import OnTheWaySection from '@/components/storyblok/OnTheWaySection';
+import DecoBallSection from '@/components/storyblok/DecoBallSection';
+import ContactSection from '@/components/storyblok/ContactSection';
 
 // Components existants
 import ResponsiveNavigation from '@/components/ResponsiveNavigation';
@@ -196,6 +200,42 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
                 case 'about-section':
                   return (
                     <AboutSection
+                      key={section._uid}
+                      blok={section}
+                      lang={currentLang}
+                      isCompactMode={isCompactMode}
+                    />
+                  );
+                case 'partners-section':
+                  return (
+                    <PartnersSection
+                      key={section._uid}
+                      blok={section}
+                      lang={currentLang}
+                      isCompactMode={isCompactMode}
+                    />
+                  );
+                case 'on-the-way-section':
+                  return (
+                    <OnTheWaySection
+                      key={section._uid}
+                      blok={section}
+                      lang={currentLang}
+                      isCompactMode={isCompactMode}
+                    />
+                  );
+                case 'deco-ball-section':
+                  return (
+                    <DecoBallSection
+                      key={section._uid}
+                      blok={section}
+                      lang={currentLang}
+                      isCompactMode={isCompactMode}
+                    />
+                  );
+                case 'contact-section':
+                  return (
+                    <ContactSection
                       key={section._uid}
                       blok={section}
                       lang={currentLang}

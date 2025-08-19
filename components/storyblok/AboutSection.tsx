@@ -59,7 +59,9 @@ export default function AboutSection({ blok, lang, isCompactMode }: AboutSection
 
   // Helper pour rendre les paragraphes avec HTML
   const renderParagraphs = (paragraphs: string[]) => {
-    if (!paragraphs || paragraphs.length === 0) return null;
+    if (!paragraphs || paragraphs.length === 0) {
+      return null;
+    }
     
     return paragraphs.map((p, idx) => (
       <p
