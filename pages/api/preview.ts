@@ -4,8 +4,17 @@
  */
 
 import { NextApiRequest, NextApiResponse } from 'next';
+import { createRateLimitMiddleware, previewRateLimiter } from '@/lib/rateLimiter';
+import { securityLogger } from '@/utils/logger';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+const rateLimitMiddleware = createRateLimitMiddleware(previewRateLimiter);
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // Apply stricter rate limiting for preview endpoint
+  const rateLimitPassed = await rateLimitMiddleware(req, res);
+  if (!rateLimitPassed) {
+    return; // Response already sent by rate limiter
+  }
   // Vérification du secret de preview
   const secret = req.query['secret'] as string;
   const expectedSecret = process.env['STORYBLOK_PREVIEW_SECRET'];
@@ -17,6 +26,14 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   if (secret !== expectedSecret) {
+    // Log security event for invalid preview attempt
+    securityLogger.authFailure('Invalid preview secret attempt', {
+      provided_secret: secret ? 'present' : 'missing',
+      ip: req.headers['x-forwarded-for'] || req.connection?.remoteAddress,
+      user_agent: req.headers['user-agent'],
+      endpoint: '/api/preview'
+    });
+    
     return res.status(401).json({ 
       message: 'Secret de preview invalide' 
     });

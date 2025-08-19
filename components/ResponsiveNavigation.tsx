@@ -79,38 +79,14 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
             </button>
           ))}
 
-          {/* Tickets Button - Art Déco Style Desktop */}
+          {/* Tickets Button - Simple */}
           <motion.button
             onClick={(e) => handleNavClick(e, ticketsItem.id)}
-            className="relative px-3 py-2 mt-3 text-xs font-title uppercase tracking-wider transition-all duration-300 bg-transparent text-accent hover:text-background text-center flex items-center justify-center group overflow-hidden"
-            style={{
-              clipPath: 'polygon(10% 0%, 90% 0%, 100% 30%, 90% 100%, 10% 100%, 0% 70%)',
-              background: 'linear-gradient(135deg, rgba(229,91,69,0.1) 0%, transparent 50%, rgba(229,91,69,0.1) 100%)',
-              border: '1.5px solid #E55B45',
-              boxShadow: '0 0 10px rgba(229, 91, 69, 0.2), inset 0 1px 0 rgba(229, 91, 69, 0.3)'
-            }}
-            whileHover={{
-              scale: 1.02,
-              boxShadow: '0 0 20px rgba(229, 91, 69, 0.4), inset 0 1px 0 rgba(229, 91, 69, 0.5)'
-            }}
-            whileTap={{ scale: 0.98 }}
+            className="px-4 py-2 mt-3 text-xs font-title uppercase tracking-wider transition-all duration-300 bg-accent/90 text-background hover:bg-accent hover:scale-105 text-center border border-accent"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            {/* Fond hover Art Déco */}
-            <motion.div
-              className="absolute inset-0 bg-accent"
-              style={{
-                clipPath: 'polygon(10% 0%, 90% 0%, 100% 30%, 90% 100%, 10% 100%, 0% 70%)'
-              }}
-              initial={{ scaleX: 0 }}
-              whileHover={{ scaleX: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            
-            {/* Détails décoratifs plus petits pour desktop */}
-            <span className="absolute left-2 top-1/2 w-0.5 h-0.5 bg-accent rounded-full transform -translate-y-1/2 group-hover:bg-background transition-colors duration-300" />
-            <span className="absolute right-2 top-1/2 w-0.5 h-0.5 bg-accent rounded-full transform -translate-y-1/2 group-hover:bg-background transition-colors duration-300" />
-            
-            <span className="relative z-10">{ticketsItem.label}</span>
+            {ticketsItem.label}
           </motion.button>
 
           {/* Language Selector */}
@@ -137,17 +113,12 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
         </div>
       </nav>
 
-      {/* Mobile Navigation Toggle Button - Art Déco Design 
-          Forme géométrique avec détails dorés caractéristiques */}
+      {/* Mobile Navigation Toggle Button - Simple */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed right-4 top-20 xs:top-20 sm:top-24 z-[45] w-14 h-14 bg-black/80 backdrop-blur-sm flex items-center justify-center text-primary hover:text-accent transition-all duration-300 group"
+        className="lg:hidden fixed right-4 top-20 xs:top-20 sm:top-24 z-[45] w-12 h-12 bg-black/80 backdrop-blur-sm rounded flex items-center justify-center text-primary hover:text-accent transition-all duration-300 border border-primary/20"
         style={{
-          display: isOpen ? 'none' : 'flex',
-          clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)',
-          background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(211,170,65,0.1) 50%, rgba(0,0,0,0.9) 100%)',
-          border: '1.5px solid #D3AA41',
-          boxShadow: '0 0 15px rgba(211, 170, 65, 0.3), inset 0 1px 0 rgba(211, 170, 65, 0.4)'
+          display: isOpen ? 'none' : 'flex'
         }}
         initial={{ opacity: 0, x: 100, scale: 0.8 }}
         animate={{ 
@@ -160,63 +131,16 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
           ease: 'easeOut',
           delay: showNavigation && isCompactMode ? 0.3 : 0
         }}
-        whileHover={{ 
-          scale: 1.05,
-          boxShadow: '0 0 20px rgba(211, 170, 65, 0.5), inset 0 1px 0 rgba(211, 170, 65, 0.6)'
-        }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Open menu"
         aria-expanded={false}
       >
-        {/* Hamburger icon Art Déco - Lignes géométriques avec détails dorés */}
-        <div className="relative w-7 h-7 flex items-center justify-center">
-          <div className="absolute inset-0 flex flex-col justify-center space-y-1.5">
-            {/* Ligne supérieure - Courte aux extrémités (style Art Déco) */}
-            <motion.div 
-              className="relative h-0.5 bg-current group-hover:bg-accent transition-colors duration-300"
-              style={{ width: '20px' }}
-              initial={{ scaleX: 0.6, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.5 }}
-            >
-              {/* Points dorés aux extrémités */}
-              <span className="absolute -left-0.5 top-1/2 w-1 h-1 bg-primary rounded-full transform -translate-y-1/2 group-hover:bg-accent transition-colors duration-300" />
-              <span className="absolute -right-0.5 top-1/2 w-1 h-1 bg-primary rounded-full transform -translate-y-1/2 group-hover:bg-accent transition-colors duration-300" />
-            </motion.div>
-            
-            {/* Ligne centrale - Plus longue (hiérarchie Art Déco) */}
-            <motion.div 
-              className="relative h-0.5 bg-current group-hover:bg-accent transition-colors duration-300"
-              style={{ width: '24px' }}
-              initial={{ scaleX: 0.4, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.6 }}
-            >
-              {/* Détail central doré */}
-              <span className="absolute left-1/2 top-1/2 w-1.5 h-1.5 bg-primary rounded-full transform -translate-x-1/2 -translate-y-1/2 group-hover:bg-accent transition-colors duration-300" />
-            </motion.div>
-            
-            {/* Ligne inférieure - Courte aux extrémités (symétrie Art Déco) */}
-            <motion.div 
-              className="relative h-0.5 bg-current group-hover:bg-accent transition-colors duration-300"
-              style={{ width: '20px' }}
-              initial={{ scaleX: 0.6, opacity: 0 }}
-              animate={{ scaleX: 1, opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.7 }}
-            >
-              {/* Points dorés aux extrémités */}
-              <span className="absolute -left-0.5 top-1/2 w-1 h-1 bg-primary rounded-full transform -translate-y-1/2 group-hover:bg-accent transition-colors duration-300" />
-              <span className="absolute -right-0.5 top-1/2 w-1 h-1 bg-primary rounded-full transform -translate-y-1/2 group-hover:bg-accent transition-colors duration-300" />
-            </motion.div>
-          </div>
-          
-          {/* Bordure intérieure décorative Art Déco */}
-          <div 
-            className="absolute inset-1 border border-primary/20 group-hover:border-accent/30 transition-colors duration-300"
-            style={{
-              clipPath: 'polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)'
-            }}
-          />
+        {/* Simple Hamburger icon */}
+        <div className="w-5 h-5 flex flex-col justify-center space-y-1">
+          <div className="w-full h-0.5 bg-current transition-colors duration-300" />
+          <div className="w-full h-0.5 bg-current transition-colors duration-300" />
+          <div className="w-full h-0.5 bg-current transition-colors duration-300" />
         </div>
       </motion.button>
 
@@ -244,69 +168,21 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
               style={{ maxWidth: '100vw' }}
               aria-label="Mobile site navigation"
             >
-              {/* Bouton Fermeture Art Déco - Forme géométrique assortie */}
+              {/* Simple Close Button */}
               <motion.button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 w-10 h-10 bg-black/80 backdrop-blur-sm flex items-center justify-center text-accent hover:text-primary transition-all duration-300 group"
+                className="absolute top-4 right-4 w-8 h-8 bg-black/80 backdrop-blur-sm rounded flex items-center justify-center text-accent hover:text-primary transition-all duration-300 border border-accent/20"
                 initial={{ opacity: 0, scale: 0.5, rotate: 45 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 exit={{ opacity: 0, scale: 0.5, rotate: -45 }}
                 transition={{ duration: 0.5, delay: 0.3, ease: 'backOut' }}
-                style={{
-                  clipPath: 'polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)',
-                  background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(229,91,69,0.1) 50%, rgba(0,0,0,0.9) 100%)',
-                  border: '1.5px solid #E55B45',
-                  boxShadow: '0 0 15px rgba(229, 91, 69, 0.3), inset 0 1px 0 rgba(229, 91, 69, 0.4)'
-                }}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: '0 0 20px rgba(229, 91, 69, 0.5), inset 0 1px 0 rgba(229, 91, 69, 0.6)'
-                }}
+                whileHover={{ scale: 1.05 }}
                 aria-label="Close menu"
               >
-                {/* Croix Art Déco avec détails géométriques */}
-                <div className="relative w-6 h-6 flex items-center justify-center">
-                  {/* Ligne diagonale \ avec points décoratifs */}
-                  <motion.div 
-                    className="absolute top-1/2 left-1/2 w-4 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 rotate-45 group-hover:bg-primary transition-colors duration-300"
-                    style={{ transformOrigin: 'center' }}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.4, delay: 0.6 }}
-                  >
-                    {/* Points dorés aux extrémités */}
-                    <span className="absolute -left-0.5 top-1/2 w-1 h-1 bg-accent rounded-full transform -translate-y-1/2 group-hover:bg-primary transition-colors duration-300" />
-                    <span className="absolute -right-0.5 top-1/2 w-1 h-1 bg-accent rounded-full transform -translate-y-1/2 group-hover:bg-primary transition-colors duration-300" />
-                  </motion.div>
-                  
-                  {/* Ligne diagonale / avec points décoratifs */}
-                  <motion.div 
-                    className="absolute top-1/2 left-1/2 w-4 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 -rotate-45 group-hover:bg-primary transition-colors duration-300"
-                    style={{ transformOrigin: 'center' }}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.4, delay: 0.7 }}
-                  >
-                    {/* Points dorés aux extrémités */}
-                    <span className="absolute -left-0.5 top-1/2 w-1 h-1 bg-accent rounded-full transform -translate-y-1/2 group-hover:bg-primary transition-colors duration-300" />
-                    <span className="absolute -right-0.5 top-1/2 w-1 h-1 bg-accent rounded-full transform -translate-y-1/2 group-hover:bg-primary transition-colors duration-300" />
-                  </motion.div>
-                  
-                  {/* Point central décoratif */}
-                  <motion.span 
-                    className="absolute left-1/2 top-1/2 w-1.5 h-1.5 bg-accent rounded-full transform -translate-x-1/2 -translate-y-1/2 group-hover:bg-primary transition-colors duration-300"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.3, delay: 0.8 }}
-                  />
-                  
-                  {/* Bordure intérieure décorative */}
-                  <div 
-                    className="absolute inset-1 border border-accent/20 group-hover:border-primary/30 transition-colors duration-300"
-                    style={{
-                      clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)'
-                    }}
-                  />
+                {/* Simple X icon */}
+                <div className="relative w-4 h-4 flex items-center justify-center">
+                  <div className="absolute w-4 h-0.5 bg-current transform rotate-45" />
+                  <div className="absolute w-4 h-0.5 bg-current transform -rotate-45" />
                 </div>
               </motion.button>
               {/* Mobile Navigation items */}
@@ -325,41 +201,17 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
                   </button>
                 ))}
 
-                {/* Mobile Tickets Button - Art Déco Style */}
+                {/* Mobile Tickets Button - Simple */}
                 <motion.button
                   onClick={(e) => handleNavClick(e, ticketsItem.id)}
-                  className="relative px-6 py-3 mt-6 text-sm font-title uppercase tracking-wider transition-all duration-300 bg-transparent text-accent hover:text-background text-center flex items-center justify-center group overflow-hidden"
-                  style={{
-                    clipPath: 'polygon(8% 0%, 92% 0%, 100% 25%, 92% 100%, 8% 100%, 0% 75%)',
-                    background: 'linear-gradient(135deg, rgba(229,91,69,0.1) 0%, transparent 50%, rgba(229,91,69,0.1) 100%)',
-                    border: '2px solid #E55B45',
-                    boxShadow: '0 0 15px rgba(229, 91, 69, 0.2), inset 0 1px 0 rgba(229, 91, 69, 0.3)'
-                  }}
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: '0 0 25px rgba(229, 91, 69, 0.4), inset 0 1px 0 rgba(229, 91, 69, 0.5)'
-                  }}
-                  whileTap={{ scale: 0.98 }}
+                  className="px-6 py-3 mt-6 text-sm font-title uppercase tracking-wider transition-all duration-300 bg-accent/90 text-background hover:bg-accent hover:scale-105 text-center border border-accent"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: 0.8 }}
                 >
-                  {/* Fond hover Art Déco */}
-                  <motion.div
-                    className="absolute inset-0 bg-accent"
-                    style={{
-                      clipPath: 'polygon(8% 0%, 92% 0%, 100% 25%, 92% 100%, 8% 100%, 0% 75%)'
-                    }}
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  
-                  {/* Détails décoratifs */}
-                  <span className="absolute left-3 top-1/2 w-1 h-1 bg-accent rounded-full transform -translate-y-1/2 group-hover:bg-background transition-colors duration-300" />
-                  <span className="absolute right-3 top-1/2 w-1 h-1 bg-accent rounded-full transform -translate-y-1/2 group-hover:bg-background transition-colors duration-300" />
-                  
-                  <span className="relative z-10">{ticketsItem.label}</span>
+                  {ticketsItem.label}
                 </motion.button>
 
                 {/* Mobile Language selector */}

@@ -4,6 +4,7 @@
  */
 
 import { storyblokApi } from './storyblok';
+import { apiLogger, securityLogger } from '@/utils/logger';
 
 export interface StoryblokStory {
   content: any;
@@ -43,9 +44,14 @@ export async function getStoryblokStory(
   slug: string = 'festival-homepage',
   version: 'draft' | 'published' = 'published'
 ): Promise<StoryblokStory | null> {
+  const startTime = performance.now();
+  
   try {
     if (!storyblokApi) {
-      console.error('Storyblok API not initialized. Check your configuration.');
+      apiLogger.error(`cdn/stories/${slug}`, new Error('Storyblok API not initialized'), {
+        version,
+        configuration_missing: true
+      });
       return null;
     }
 
@@ -54,9 +60,43 @@ export async function getStoryblokStory(
       resolve_relations: [],
     });
 
+    // Log successful API call performance
+    const duration = performance.now() - startTime;
+    if (duration > 1000) { // Log slow API calls
+      apiLogger.warn(`cdn/stories/${slug}`, 'Slow API response', {
+        duration: `${duration.toFixed(2)}ms`,
+        version,
+        slug
+      });
+    }
+
     return data.story || null;
   } catch (error) {
-    console.error(`Erreur lors de la récupération de l'histoire "${slug}":`, error);
+    const duration = performance.now() - startTime;
+    
+    if (error instanceof Error) {
+      // Check for specific error types
+      if (error.message.includes('404')) {
+        apiLogger.warn(`cdn/stories/${slug}`, 'Story not found', {
+          slug,
+          version,
+          duration: `${duration.toFixed(2)}ms`
+        });
+      } else if (error.message.includes('401') || error.message.includes('403')) {
+        securityLogger.authFailure('Storyblok API authentication failed', {
+          slug,
+          version,
+          endpoint: `cdn/stories/${slug}`
+        });
+      } else {
+        apiLogger.error(`cdn/stories/${slug}`, error, {
+          slug,
+          version,
+          duration: `${duration.toFixed(2)}ms`
+        });
+      }
+    }
+    
     return null;
   }
 }

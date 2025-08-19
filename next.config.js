@@ -10,8 +10,11 @@ const nextConfig = {
     minimumCacheTTL: 31536000, // 1 year cache for local images
   },
   
-  // Security headers
+  // Comprehensive security headers
   async headers() {
+    const isProduction = process.env.NODE_ENV === 'production';
+    const isDevelopment = process.env.NODE_ENV === 'development';
+    
     return [
       {
         // Apply security headers to all routes
@@ -21,18 +24,22 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.storyblok.com https://js.storyblok.com",
-              "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob: https://a.storyblok.com https://img2.storyblok.com",
-              "font-src 'self' data:",
-              "connect-src 'self' https://api.storyblok.com https://mapi.storyblok.com",
-              "frame-src 'self'",
+              `script-src 'self' ${isDevelopment ? "'unsafe-eval'" : ""} 'unsafe-inline' https://app.storyblok.com https://js.storyblok.com https://www.googletagmanager.com https://www.google-analytics.com`,
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' data: blob: https: https://a.storyblok.com https://img2.storyblok.com https://www.google-analytics.com",
+              "font-src 'self' data: https://fonts.gstatic.com",
+              "connect-src 'self' https://api.storyblok.com https://mapi.storyblok.com https://www.google-analytics.com https://analytics.google.com",
+              "frame-src 'self' https://www.google.com",
               "frame-ancestors 'self' https://app.storyblok.com",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
-              "upgrade-insecure-requests"
-            ].join('; ')
+              "manifest-src 'self'",
+              "worker-src 'self'",
+              "child-src 'self'",
+              isProduction ? "upgrade-insecure-requests" : "",
+              "block-all-mixed-content"
+            ].filter(Boolean).join('; ')
           },
           {
             key: 'X-Content-Type-Options',
@@ -52,7 +59,37 @@ const nextConfig = {
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
+            value: 'camera=(), microphone=(), geolocation=(), fullscreen=(self), payment=()'
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: isProduction ? 'max-age=31536000; includeSubDomains; preload' : 'max-age=0'
+          },
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'X-Permitted-Cross-Domain-Policies',
+            value: 'none'
+          }
+        ]
+      },
+      {
+        // Additional security for API routes
+        source: '/api/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY'
           }
         ]
       }

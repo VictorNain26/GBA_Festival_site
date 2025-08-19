@@ -5,6 +5,7 @@
 
 import { renderRichText } from '@storyblok/react/rsc';
 import { getTypography, getVerticalSpacing } from '@/constants/designTokens';
+import { logger, securityLogger } from '@/utils/logger';
 
 /**
  * Rend le contenu Rich Text de Storyblok avec les styles Art Déco cohérents
@@ -51,7 +52,21 @@ export function renderStoryblokRichText(document: any): string {
       .replace(/<h3>/g, `<h3 class="${getTypography('subsectionTitle')} text-accent ${getVerticalSpacing('element')}">`)
       .replace(/<h4>/g, `<h4 class="${getTypography('secondaryText')} text-accent ${getVerticalSpacing('text')} font-bold uppercase tracking-wide">`);
   } catch (error) {
-    console.error('Error rendering rich text:', error);
+    logger.error('Error rendering rich text', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      document_type: typeof document,
+      has_content: Boolean(document?.content),
+      stack: error instanceof Error ? error.stack : undefined
+    });
+    
+    // Check for potential XSS attempt
+    if (document && typeof document === 'string' && /<script|javascript:|on\w+=/i.test(document)) {
+      securityLogger.suspiciousActivity('Potential XSS in Rich Text content', {
+        content_preview: document.substring(0, 100),
+        detected_patterns: 'script tags or event handlers'
+      });
+    }
+    
     return '';
   }
 }
@@ -139,7 +154,13 @@ export function extractPlainText(document: any): string {
     
     return finalResult;
   } catch (error) {
-    console.error('Error extracting plain text:', error);
+    logger.error('Error extracting plain text', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      document_type: typeof document,
+      document_keys: document && typeof document === 'object' ? Object.keys(document) : undefined,
+      stack: error instanceof Error ? error.stack : undefined
+    });
+    
     // Si l'extraction échoue, retourner une chaîne vide pour éviter les erreurs de rendu
     return '';
   }
