@@ -46,12 +46,11 @@ const NAV_LABELS: Record<Language, NavigationLabels> = {
 interface StoryblokLiveProps {
   story: StoryblokStory | null;
   isConfigured: boolean;
-  tokenInfo: string;
   error: string | null;
   isPreview: boolean;
 }
 
-export default function StoryblokLive({ story, isConfigured, tokenInfo, error, isPreview }: StoryblokLiveProps) {
+export default function StoryblokLive({ story, isConfigured, error, isPreview }: StoryblokLiveProps) {
   const browserLang = useBrowserLanguage();
   const [currentLang, setCurrentLang] = useState<Language>(browserLang);
 
@@ -218,8 +217,6 @@ export default function StoryblokLive({ story, isConfigured, tokenInfo, error, i
 
 export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
   const isConfigured = isStoryblokConfigured();
-  const token = getStoryblokToken();
-  const tokenInfo = token ? `${token.substring(0, 8)}...` : 'Non configuré';
   const isPreview = context.preview || false;
 
   let story: StoryblokStory | null = null;
@@ -244,7 +241,6 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
     props: {
       story,
       isConfigured,
-      tokenInfo,
       error,
       isPreview,
     },
