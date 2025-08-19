@@ -116,7 +116,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
       {/* Mobile Navigation Toggle Button - Simple Square */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed right-4 top-20 xs:top-20 sm:top-24 z-[45] w-12 h-12 bg-black/60 backdrop-blur-sm flex items-center justify-center text-primary hover:text-accent transition-colors duration-300"
+        className="lg:hidden fixed right-4 top-20 xs:top-20 sm:top-24 z-[45] w-12 h-12 bg-black/60 backdrop-blur-sm border border-primary/30 flex items-center justify-center text-primary hover:text-accent transition-colors duration-300"
         style={{
           display: isOpen ? 'none' : 'flex'
         }}
@@ -171,7 +171,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
               {/* Close Button - Simple Square */}
               <motion.button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 w-10 h-10 bg-black/60 backdrop-blur-sm flex items-center justify-center text-accent hover:text-primary transition-colors duration-300"
+                className="absolute top-4 right-4 w-10 h-10 bg-black/60 backdrop-blur-sm border border-accent/30 flex items-center justify-center text-accent hover:text-primary transition-colors duration-300"
                 initial={{ opacity: 0, scale: 0.5, rotate: 45 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 exit={{ opacity: 0, scale: 0.5, rotate: -45 }}
