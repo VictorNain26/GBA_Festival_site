@@ -81,15 +81,18 @@ export default function AboutSection({ blok, lang, isCompactMode }: AboutSection
   const objectiveTitleDoc = blok[`objective_title_${lang}` as keyof StoryblokAboutSectionData];
   const objectiveTextDoc = blok[`objective_text_${lang}` as keyof StoryblokAboutSectionData];
   
-  // Extraction du titre en texte brut pour le menu
-  const title = extractPlainText(titleDoc) || '';
+  // Extraction du titre en texte brut pour le menu avec vérification de sécurité renforcée
+  const titleText = extractPlainText(titleDoc) || '';
+  const title = (typeof titleText === 'string' && titleText.trim()) ? titleText.trim() : 'About';
   
   // Rendu des contenus Rich Text avec formatage
   const introParagraphsHtml = renderStoryblokRichText(introParagraphsDoc);
   const conclusionParagraphsHtml = renderStoryblokRichText(conclusionParagraphsDoc);
-  const targetTitle = extractPlainText(targetTitleDoc) || '';
+  const targetTitleText = extractPlainText(targetTitleDoc) || '';
+  const targetTitle = (typeof targetTitleText === 'string' && targetTitleText.trim()) ? targetTitleText.trim() : '';
   const targetTextHtml = renderStoryblokRichText(targetTextDoc);
-  const objectiveTitle = extractPlainText(objectiveTitleDoc) || '';
+  const objectiveTitleText = extractPlainText(objectiveTitleDoc) || '';
+  const objectiveTitle = (typeof objectiveTitleText === 'string' && objectiveTitleText.trim()) ? objectiveTitleText.trim() : '';
   const objectiveTextHtml = renderStoryblokRichText(objectiveTextDoc);
 
   return (

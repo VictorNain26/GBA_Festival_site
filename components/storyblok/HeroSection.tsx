@@ -52,12 +52,21 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
     };
   }, [prefersReducedMotion]);
 
-  // Récupération des données avec fallbacks
-  const subtitle = blok[`subtitle_${lang}` as keyof StoryblokHeroSectionData] as string || '';
-  const date = blok[`date_${lang}` as keyof StoryblokHeroSectionData] as string || '';
-  const hotelName = blok[`hotel_name_${lang}` as keyof StoryblokHeroSectionData] as string || '';
-  const location = blok.location || '';
-  const cta = blok[`cta_text_${lang}` as keyof StoryblokHeroSectionData] as string || '';
+  // Récupération des données avec fallbacks et sécurité d'objet
+  const subtitleRaw = blok[`subtitle_${lang}` as keyof StoryblokHeroSectionData];
+  const subtitle = typeof subtitleRaw === 'string' ? subtitleRaw : '';
+  
+  const dateRaw = blok[`date_${lang}` as keyof StoryblokHeroSectionData];
+  const date = typeof dateRaw === 'string' ? dateRaw : '';
+  
+  const hotelNameRaw = blok[`hotel_name_${lang}` as keyof StoryblokHeroSectionData];
+  const hotelName = typeof hotelNameRaw === 'string' ? hotelNameRaw : '';
+  
+  const locationRaw = blok.location;
+  const location = typeof locationRaw === 'string' ? locationRaw : '';
+  
+  const ctaRaw = blok[`cta_text_${lang}` as keyof StoryblokHeroSectionData];
+  const cta = typeof ctaRaw === 'string' ? ctaRaw : '';
 
   return (
     <section 

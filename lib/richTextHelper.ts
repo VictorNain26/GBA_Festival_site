@@ -25,7 +25,7 @@ export function renderStoryblokRichText(document: any): string {
   try {
     const html = renderRichText(document);
     
-    if (!html) {
+    if (!html || typeof html !== 'string') {
       return '';
     }
     
@@ -66,8 +66,15 @@ export function extractPlainText(document: any): string {
     return '';
   }
   
+  // Si c'est déjà une chaîne, la retourner directement
   if (typeof document === 'string') {
     return document;
+  }
+  
+  // Si c'est un objet React, le convertir en chaîne vide pour éviter l'erreur
+  if (typeof document === 'object' && (document.$$typeof || document.type || document.props)) {
+    console.warn('extractPlainText: React element detected, returning empty string');
+    return '';
   }
   
   // Parcourir le document Rich Text pour extraire le texte
@@ -77,20 +84,61 @@ export function extractPlainText(document: any): string {
         return '';
       }
       
-      if (node.text) {
+      // Si c'est un nombre ou booléen, le convertir en string
+      if (typeof node === 'number' || typeof node === 'boolean') {
+        return String(node);
+      }
+      
+      // Si c'est déjà une string
+      if (typeof node === 'string') {
+        return node;
+      }
+      
+      // Si c'est un objet React, ne pas l'utiliser
+      if (typeof node === 'object' && (node.$$typeof || node.type || node.props)) {
+        return '';
+      }
+      
+      // Gestion des objets text avec la propriété text
+      if (node && typeof node === 'object' && node.text && typeof node.text === 'string') {
         return node.text;
       }
       
-      if (node.content && Array.isArray(node.content)) {
+      // Gestion des objets avec contenu (paragraphes, etc.)
+      if (node && typeof node === 'object' && node.content && Array.isArray(node.content)) {
         return node.content.map(extractText).join('');
       }
       
-      return '';
+      // Pour les objets Rich Text Storyblok, vérifier la structure
+      if (node && typeof node === 'object' && node.type === 'doc' && node.content && Array.isArray(node.content)) {
+        return node.content.map(extractText).join(' ');
+      }
+      
+      if (node && typeof node === 'object' && node.type === 'paragraph' && node.content && Array.isArray(node.content)) {
+        return node.content.map(extractText).join('');
+      }
+      
+      // Pour tous les autres objets, tenter de convertir en string
+      if (typeof node === 'object') {
+        return '';
+      }
+      
+      return String(node);
     };
     
-    return extractText(document);
+    const result = extractText(document);
+    const finalResult = typeof result === 'string' ? result.trim() : '';
+    
+    // Dernière vérification de sécurité
+    if (typeof finalResult !== 'string') {
+      console.error('extractPlainText: Non-string result detected', finalResult);
+      return '';
+    }
+    
+    return finalResult;
   } catch (error) {
     console.error('Error extracting plain text:', error);
+    // Si l'extraction échoue, retourner une chaîne vide pour éviter les erreurs de rendu
     return '';
   }
 }

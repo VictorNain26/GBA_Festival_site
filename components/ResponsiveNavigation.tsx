@@ -2,7 +2,7 @@ import { memo, useCallback, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
-import { getTypography, PRESET_CLASSES } from '@/constants/designTokens';
+import { PRESET_CLASSES } from '@/constants/designTokens';
 import type { ResponsiveNavigationProps, Language } from '@/types';
 
 /**
@@ -53,17 +53,17 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
 
   return (
     <>
-      {/* Desktop Navigation - Affichage sur laptop et plus */}
+      {/* Desktop Navigation - Plus compact et discret */}
       <nav 
-        className={`hidden lg:block fixed top-1/2 right-4 xl:right-8 z-50 -translate-y-1/2 transition-all duration-700 ease-out ${
+        className={`hidden lg:block fixed top-1/2 right-2 xl:right-4 z-40 -translate-y-1/2 transition-all duration-700 ease-out ${
           showNavigation && !isCompactMode
             ? 'opacity-100 translate-x-0' 
             : 'opacity-0 translate-x-8 pointer-events-none'
         }`}
         aria-label="Desktop site navigation"
-        style={{ maxWidth: 'calc(100vw - 2rem)' }}
+        style={{ maxWidth: 'calc(100vw - 1rem)' }}
       >
-        <div className="flex flex-col space-y-4 text-right bg-black/90 backdrop-blur-md rounded-lg py-6 pr-6">
+        <div className="flex flex-col space-y-3 text-right bg-black/70 backdrop-blur-sm rounded-lg py-4 px-4 shadow-lg border border-primary/20">
           {/* Navigation Items */}
           {navItems.map((item) => (
             <button
@@ -79,16 +79,16 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
             </button>
           ))}
 
-          {/* Tickets Button - Consistent Style with centered text */}
+          {/* Tickets Button - Plus compact */}
           <button
             onClick={(e) => handleNavClick(e, ticketsItem.id)}
-            className={`px-4 xl:px-5 py-2 xl:py-3 mt-4 ${getTypography('navigationText')} uppercase tracking-wider transition-all duration-300 border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center`}
+            className={`px-3 py-2 mt-3 text-sm font-title uppercase tracking-wider transition-all duration-300 border border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center rounded`}
           >
             {ticketsItem.label}
           </button>
 
-          {/* Language Selector */}
-          <div className="flex flex-row space-x-4 justify-end pt-4 mt-4 border-t border-primary/20">
+          {/* Language Selector - Plus compact */}
+          <div className="flex flex-row space-x-2 justify-end pt-3 mt-3 border-t border-primary/20">
             <button
               onClick={() => changeLang('fr')}
               className={`${PRESET_CLASSES.navigationLink} text-right ${
@@ -115,7 +115,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
           Position fixe avec z-index contrôlé pour éviter les conflits */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed right-4 top-20 xs:top-20 sm:top-24 z-[55] w-12 h-12 border-2 border-primary bg-black/40 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-background"
+        className="lg:hidden fixed right-3 top-16 xs:top-16 sm:top-20 z-[45] w-10 h-10 border border-primary/60 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-background transition-all duration-300"
         style={{
           display: isOpen ? 'none' : 'flex',
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(211, 170, 65, 0.2)'
@@ -181,14 +181,14 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
               animate={{ opacity: 1, translateX: '0%' }}
               exit={{ opacity: 0, translateX: '100%' }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="lg:hidden fixed top-0 right-0 h-full w-64 sm:w-72 md:w-80 bg-black/95 backdrop-blur-md border-l border-primary/30 z-[60] flex flex-col justify-center px-8"
+              className="lg:hidden fixed top-0 right-0 h-full w-56 sm:w-60 md:w-64 bg-black/90 backdrop-blur-md border-l border-primary/20 z-[50] flex flex-col justify-center px-6"
               style={{ maxWidth: '100vw' }}
               aria-label="Mobile site navigation"
             >
               {/* Bouton Croix X - En haut à droite du menu avec design élégant */}
               <motion.button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-6 right-6 w-12 h-12 border-2 border-accent bg-black/40 backdrop-blur-md flex items-center justify-center text-accent hover:bg-accent hover:text-background transition-all duration-300 group"
+                className="absolute top-4 right-4 w-8 h-8 border border-accent/60 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-accent hover:bg-accent hover:text-background transition-all duration-300 group"
                 initial={{ opacity: 0, scale: 0.5, rotate: 45 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 exit={{ opacity: 0, scale: 0.5, rotate: -45 }}
@@ -212,8 +212,8 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
                   />
                 </div>
               </motion.button>
-              {/* Mobile Navigation items */}
-              <div className="flex flex-col space-y-6 text-right">
+              {/* Mobile Navigation items - Plus compact */}
+              <div className="flex flex-col space-y-4 text-right">
                 {navItems.map((item) => (
                   <button
                     key={item.id}
@@ -228,16 +228,16 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
                   </button>
                 ))}
 
-                {/* Mobile Tickets Button - Consistent Style with centered text */}
+                {/* Mobile Tickets Button - Plus compact */}
                 <button
                   onClick={(e) => handleNavClick(e, ticketsItem.id)}
-                  className={`px-6 py-3 mt-4 ${getTypography('navigationText')} uppercase tracking-wider transition-all duration-300 border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center`}
+                  className="px-4 py-2 mt-3 text-sm font-title uppercase tracking-wider transition-all duration-300 border border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center rounded"
                 >
                   {ticketsItem.label}
                 </button>
 
-                {/* Mobile Language selector */}
-                <div className="flex justify-end space-x-4 pt-6 mt-6 border-t border-primary/20">
+                {/* Mobile Language selector - Plus compact */}
+                <div className="flex justify-end space-x-3 pt-4 mt-4 border-t border-primary/20">
                   <button
                     onClick={() => changeLang('fr')}
                     className={`${PRESET_CLASSES.navigationLink} ${
