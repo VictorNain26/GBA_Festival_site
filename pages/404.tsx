@@ -136,20 +136,6 @@ export default function Custom404() {
               </motion.div>
             </motion.div>
 
-            {/* Citation Art Déco */}
-            <motion.div
-              className="mt-12 xs:mt-16 sm:mt-20"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.8 }}
-            >
-              <blockquote className="font-body text-sm xs:text-base sm:text-lg text-primary/60 italic leading-relaxed">
-                &ldquo;L&apos;art déco ne disparaît jamais, il se réinvente.&rdquo;
-              </blockquote>
-              <cite className="font-title text-xs xs:text-sm text-accent mt-2 block">
-                — Grand Battement d&apos;Ailes
-              </cite>
-            </motion.div>
 
           </div>
         </Frame>

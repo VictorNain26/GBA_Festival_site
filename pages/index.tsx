@@ -121,44 +121,6 @@ export default function StoryblokLive({ story, isConfigured, tokenInfo, error, i
       {/* Contenu principal */}
       <main className="relative z-10">
         
-        {/* Badge Storyblok Live */}
-        <motion.div
-          className="fixed top-4 right-4 z-50 flex flex-col gap-2"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <div className={`px-3 py-2 font-title text-sm ${
-            isConfigured && liveStory ? (isPreview ? 'bg-orange-600' : 'bg-green-600') : 'bg-red-600'
-          } text-white`}>
-            {isConfigured && liveStory ? (isPreview ? 'PREVIEW MODE 🔶' : 'STORYBLOK LIVE ✅') : 'STORYBLOK ERROR ❌'}
-          </div>
-          
-          {/* Bouton de rechargement */}
-          <button
-            onClick={testConnection}
-            disabled={loading}
-            className="px-3 py-2 bg-accent text-background font-title text-sm hover:bg-accent/80 transition-colors disabled:opacity-50"
-          >
-            {loading ? 'LOADING...' : 'RELOAD'}
-          </button>
-        </motion.div>
-
-        {/* Section de debug/status */}
-        <motion.div
-          className="fixed bottom-4 right-4 z-50 max-w-md"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
-        >
-          <div className="bg-black/80 text-primary p-4 font-mono text-xs border border-primary/30">
-            <h4 className="text-accent mb-2">DEBUG INFO:</h4>
-            <p><span className="text-primary/60">Configured:</span> {isConfigured ? '✅' : '❌'}</p>
-            <p><span className="text-primary/60">Token:</span> {tokenInfo}</p>
-            <p><span className="text-primary/60">Story:</span> {liveStory ? '✅' : '❌'}</p>
-            {apiError && <p className="text-red-400 mt-2">Error: {apiError}</p>}
-          </div>
-        </motion.div>
 
         {/* Contenu conditionnel */}
         {!isConfigured ? (
@@ -246,23 +208,6 @@ export default function StoryblokLive({ story, isConfigured, tokenInfo, error, i
               }
             })}
 
-            {/* Footer Live */}
-            <footer className="py-8 px-4 text-center text-primary border-t border-primary/20">
-              <motion.p
-                className="text-sm opacity-80"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
-              >
-                {currentLang === 'fr' 
-                  ? '🔴 LIVE - Contenu chargé depuis Storyblok API'
-                  : '🔴 LIVE - Content loaded from Storyblok API'
-                }
-              </motion.p>
-              <p className="text-xs mt-2 opacity-60">
-                Story: {liveStory.name} | Updated: {new Date(liveStory.published_at).toLocaleString(currentLang)}
-              </p>
-            </footer>
           </>
         )}
 
