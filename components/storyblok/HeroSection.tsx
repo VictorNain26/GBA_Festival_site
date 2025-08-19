@@ -9,6 +9,7 @@ import { storyblokEditable } from '@storyblok/react';
 import HeroTitle from '@/components/HeroTitle';
 import HeroSubtitle from '@/components/HeroSubtitle';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { extractPlainText } from '@/lib/richTextHelper';
 import { getVerticalSpacing, getTypography, PRESET_CLASSES } from '@/constants/designTokens';
 import type { Language } from '@/types';
 import type { StoryblokBaseBlok } from '@/lib/storyblok';
@@ -52,21 +53,12 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
     };
   }, [prefersReducedMotion]);
 
-  // Récupération des données avec fallbacks et sécurité d'objet
-  const subtitleRaw = blok[`subtitle_${lang}` as keyof StoryblokHeroSectionData];
-  const subtitle = typeof subtitleRaw === 'string' ? subtitleRaw : '';
-  
-  const dateRaw = blok[`date_${lang}` as keyof StoryblokHeroSectionData];
-  const date = typeof dateRaw === 'string' ? dateRaw : '';
-  
-  const hotelNameRaw = blok[`hotel_name_${lang}` as keyof StoryblokHeroSectionData];
-  const hotelName = typeof hotelNameRaw === 'string' ? hotelNameRaw : '';
-  
-  const locationRaw = blok.location;
-  const location = typeof locationRaw === 'string' ? locationRaw : '';
-  
-  const ctaRaw = blok[`cta_text_${lang}` as keyof StoryblokHeroSectionData];
-  const cta = typeof ctaRaw === 'string' ? ctaRaw : '';
+  // Récupération des données avec gestion Rich Text et fallbacks
+  const subtitle = extractPlainText(blok[`subtitle_${lang}` as keyof StoryblokHeroSectionData]) || '';
+  const date = extractPlainText(blok[`date_${lang}` as keyof StoryblokHeroSectionData]) || '';
+  const hotelName = extractPlainText(blok[`hotel_name_${lang}` as keyof StoryblokHeroSectionData]) || '';
+  const location = extractPlainText(blok.location) || '';
+  const cta = extractPlainText(blok[`cta_text_${lang}` as keyof StoryblokHeroSectionData]) || '';
 
   return (
     <section 
