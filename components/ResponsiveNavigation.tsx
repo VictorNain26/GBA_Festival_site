@@ -79,10 +79,10 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
             </button>
           ))}
 
-          {/* Tickets Button - Simple */}
+          {/* Tickets Button */}
           <motion.button
             onClick={(e) => handleNavClick(e, ticketsItem.id)}
-            className="px-4 py-2 mt-3 text-xs font-title uppercase tracking-wider transition-all duration-300 bg-accent/90 text-background hover:bg-accent hover:scale-105 text-center border border-accent"
+            className="px-3 py-2 mt-3 text-xs font-title uppercase tracking-wider transition-all duration-300 bg-accent text-background hover:bg-accent/80 text-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -113,10 +113,10 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
         </div>
       </nav>
 
-      {/* Mobile Navigation Toggle Button - Simple */}
+      {/* Mobile Navigation Toggle Button - Simple Square */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed right-4 top-20 xs:top-20 sm:top-24 z-[45] w-12 h-12 bg-black/80 backdrop-blur-sm rounded flex items-center justify-center text-primary hover:text-accent transition-all duration-300 border border-primary/20"
+        className="lg:hidden fixed right-4 top-20 xs:top-20 sm:top-24 z-[45] w-12 h-12 bg-black/60 backdrop-blur-sm flex items-center justify-center text-primary hover:text-accent transition-colors duration-300"
         style={{
           display: isOpen ? 'none' : 'flex'
         }}
@@ -131,16 +131,16 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
           ease: 'easeOut',
           delay: showNavigation && isCompactMode ? 0.3 : 0
         }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         aria-label="Open menu"
         aria-expanded={false}
       >
-        {/* Simple Hamburger icon */}
-        <div className="w-5 h-5 flex flex-col justify-center space-y-1">
-          <div className="w-full h-0.5 bg-current transition-colors duration-300" />
-          <div className="w-full h-0.5 bg-current transition-colors duration-300" />
-          <div className="w-full h-0.5 bg-current transition-colors duration-300" />
+        {/* Hamburger icon - 3 lines */}
+        <div className="w-6 h-4 flex flex-col justify-between">
+          <div className="w-full h-0.5 bg-current" />
+          <div className="w-full h-0.5 bg-current" />
+          <div className="w-full h-0.5 bg-current" />
         </div>
       </motion.button>
 
@@ -168,21 +168,22 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
               style={{ maxWidth: '100vw' }}
               aria-label="Mobile site navigation"
             >
-              {/* Simple Close Button */}
+              {/* Close Button - Simple Square */}
               <motion.button
                 onClick={() => setIsOpen(false)}
-                className="absolute top-4 right-4 w-8 h-8 bg-black/80 backdrop-blur-sm rounded flex items-center justify-center text-accent hover:text-primary transition-all duration-300 border border-accent/20"
+                className="absolute top-4 right-4 w-10 h-10 bg-black/60 backdrop-blur-sm flex items-center justify-center text-accent hover:text-primary transition-colors duration-300"
                 initial={{ opacity: 0, scale: 0.5, rotate: 45 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 exit={{ opacity: 0, scale: 0.5, rotate: -45 }}
                 transition={{ duration: 0.5, delay: 0.3, ease: 'backOut' }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 aria-label="Close menu"
               >
-                {/* Simple X icon */}
-                <div className="relative w-4 h-4 flex items-center justify-center">
-                  <div className="absolute w-4 h-0.5 bg-current transform rotate-45" />
-                  <div className="absolute w-4 h-0.5 bg-current transform -rotate-45" />
+                {/* X icon */}
+                <div className="relative w-6 h-6">
+                  <div className="absolute top-1/2 left-1/2 w-6 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 rotate-45" />
+                  <div className="absolute top-1/2 left-1/2 w-6 h-0.5 bg-current transform -translate-x-1/2 -translate-y-1/2 -rotate-45" />
                 </div>
               </motion.button>
               {/* Mobile Navigation items */}
@@ -201,10 +202,10 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
                   </button>
                 ))}
 
-                {/* Mobile Tickets Button - Simple */}
+                {/* Mobile Tickets Button */}
                 <motion.button
                   onClick={(e) => handleNavClick(e, ticketsItem.id)}
-                  className="px-6 py-3 mt-6 text-sm font-title uppercase tracking-wider transition-all duration-300 bg-accent/90 text-background hover:bg-accent hover:scale-105 text-center border border-accent"
+                  className="px-6 py-3 mt-6 text-sm font-title uppercase tracking-wider transition-all duration-300 bg-accent text-background hover:bg-accent/80 text-center"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, x: 30 }}
