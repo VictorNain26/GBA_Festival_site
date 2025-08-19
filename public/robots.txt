@@ -1,0 +1,16 @@
+# Robots.txt pour Florilège de l'Art Déco
+# https://florilegeartdeco.com
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /storyblok-live
+Disallow: /index-original
+Disallow: /index-storyblok-backup
+
+# Crawl-delay pour éviter la surcharge
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://florilegeartdeco.com/sitemap.xml

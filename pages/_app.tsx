@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
 import { useEffect } from 'react';
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 /**
  * Custom application wrapper. Next.js will wrap every page
@@ -14,8 +15,11 @@ export default function App({ Component, pageProps }: AppProps) {
   }, []);
   
   return (
-    <div className="font-body text-primary relative min-h-screen">
-      <Component {...pageProps} />
-    </div>
+    <>
+      <GoogleAnalytics />
+      <div className="font-body text-primary relative min-h-screen">
+        <Component {...pageProps} />
+      </div>
+    </>
   );
 }

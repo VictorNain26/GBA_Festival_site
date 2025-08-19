@@ -5,9 +5,9 @@
 
 import React, { useState } from 'react';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
-import Head from 'next/head';
 import { motion } from 'framer-motion';
 import type { Language, NavigationLabels } from '@/types';
+import SEO from '@/components/SEO';
 
 // Import des composants Storyblok
 import HeroSection from '@/components/storyblok/HeroSection';
@@ -95,22 +95,7 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
 
   return (
     <>
-      <Head>
-        <title>
-          {currentLang === 'fr' 
-            ? 'Storyblok Live - Festival Art Déco' 
-            : 'Storyblok Live - Art Deco Festival'
-          }
-        </title>
-        <meta 
-          name="description" 
-          content={
-            currentLang === 'fr'
-              ? 'Intégration Live avec Storyblok CMS - Festival Art Déco'
-              : 'Live Storyblok CMS Integration - Art Deco Festival'
-          }
-        />
-      </Head>
+      <SEO lang={currentLang} />
 
       {/* Background progressif avec toutes les images Art Déco */}
       <ProgressiveBackground />
