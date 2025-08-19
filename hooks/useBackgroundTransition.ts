@@ -21,12 +21,14 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
       setWindowWidth(window.innerWidth);
     };
     
-    // Prevent initial scroll position jump on page load
+    // Force scroll to top on page load/refresh to avoid background issues
     const initializeAfterLoad = (): void => {
+      // Reset scroll position to top
+      window.scrollTo(0, 0);
+      
       setWindowHeight(window.innerHeight);
       setWindowWidth(window.innerWidth);
-      // Don't set scrollY immediately - let it stay at natural position
-      setScrollY(window.scrollY);
+      setScrollY(0); // Always start at top
       setIsHydrated(true);
     };
     
@@ -49,10 +51,10 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
 
   // Calculate transition states - simplified logic
   const getTransitionState = (): UseBackgroundTransitionReturn => {
-    // Server-side rendering: return safe neutral state
+    // Server-side rendering: start with hero state since we always scroll to top
     if (typeof window === 'undefined') {
       return {
-        showFirstBackground: false,
+        showFirstBackground: true,
         showOrnaments: false,
         showNavigation: false,
         scrollY: 0,
@@ -61,34 +63,16 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
       };
     }
 
-    // Before hydration: use current scroll position to determine state
+    // Before hydration: always start with hero state since we scroll to top
     if (!isHydrated) {
-      const currentScroll = window.scrollY || 0;
-      const windowH = window.innerHeight || 0;
-      const isCompact = (window.innerWidth || 1024) < 1024;
-      
-      // Simple logic based on scroll position
-      if (currentScroll < windowH * 0.8) {
-        // Likely in hero section
-        return {
-          showFirstBackground: true,
-          showOrnaments: false,
-          showNavigation: false,
-          scrollY: currentScroll,
-          windowHeight: windowH,
-          isCompactMode: isCompact
-        };
-      } else {
-        // Likely in middle sections
-        return {
-          showFirstBackground: false,
-          showOrnaments: true,
-          showNavigation: true,
-          scrollY: currentScroll,
-          windowHeight: windowH,
-          isCompactMode: isCompact
-        };
-      }
+      return {
+        showFirstBackground: true,
+        showOrnaments: false,
+        showNavigation: false,
+        scrollY: 0,
+        windowHeight: window.innerHeight || 0,
+        isCompactMode: (window.innerWidth || 1024) < 1024
+      };
     }
 
     // Detect compact mode based on screen width (mobile and tablet)
