@@ -15,7 +15,7 @@ import OnTheWaySection from '@/components/storyblok/OnTheWaySection';
 import DecoBallSection from '@/components/storyblok/DecoBallSection';
 import ContactSection from '@/components/storyblok/ContactSection';
 
-// Configuration Storyblok avec gestion des types stricts
+// Configuration Storyblok selon la documentation officielle
 storyblokInit({
   // Token d'accès avec vérification
   accessToken: process.env['NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN'] || '',
@@ -51,8 +51,8 @@ storyblokInit({
   enableFallbackComponent: true,
 });
 
-// Export de l'API pour utilisation dans les pages
-export const storyblokApi = getStoryblokApi();
+// Export de l'API Storyblok selon la documentation officielle
+export const storyblokApi = getStoryblokApi;
 
 // Types pour le contenu bilingue (alignés sur l'architecture actuelle)
 export interface BilingualContent<T> {
@@ -126,7 +126,10 @@ export interface StoryblokFestivalPage extends StoryblokBaseBlok {
 
 // Helper pour récupérer une histoire avec cache
 export async function getStory(slug: string, version: 'draft' | 'published' = 'published') {
-  const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
+  if (!storyblokApi) {
+    throw new Error('Storyblok API not initialized');
+  }
+  const { data } = await storyblokApi().get(`cdn/stories/${slug}`, {
     version,
   });
   return data.story;
@@ -134,7 +137,10 @@ export async function getStory(slug: string, version: 'draft' | 'published' = 'p
 
 // Helper pour récupérer toutes les histoires d'un type
 export async function getStoriesByContentType(content_type: string) {
-  const { data } = await storyblokApi.get('cdn/stories', {
+  if (!storyblokApi) {
+    throw new Error('Storyblok API not initialized');
+  }
+  const { data } = await storyblokApi().get('cdn/stories', {
     starts_with: content_type,
     version: 'published',
   });

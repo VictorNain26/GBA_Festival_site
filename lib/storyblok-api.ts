@@ -3,7 +3,7 @@
  * Fonctions pour récupérer le contenu en mode SSG et SSR
  */
 
-import { getStoryblokApi } from '@storyblok/react';
+import { storyblokApi } from './storyblok';
 
 export interface StoryblokStory {
   content: any;
@@ -44,14 +44,12 @@ export async function getStoryblokStory(
   version: 'draft' | 'published' = 'published'
 ): Promise<StoryblokStory | null> {
   try {
-    const storyblokApi = getStoryblokApi();
-    
     if (!storyblokApi) {
       console.error('Storyblok API not initialized. Check your configuration.');
       return null;
     }
 
-    const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
+    const { data } = await storyblokApi().get(`cdn/stories/${slug}`, {
       version,
       resolve_relations: [],
     });
@@ -71,14 +69,12 @@ export async function getStoryblokStories(
   version: 'draft' | 'published' = 'published'
 ): Promise<StoryblokStory[]> {
   try {
-    const storyblokApi = getStoryblokApi();
-    
     if (!storyblokApi) {
       console.error('Storyblok API not initialized. Check your configuration.');
       return [];
     }
 
-    const { data } = await storyblokApi.get('cdn/stories', {
+    const { data } = await storyblokApi().get('cdn/stories', {
       starts_with: startsWith,
       version,
       per_page: 100,

@@ -4,7 +4,7 @@
  */
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getStoryblokApi } from '@storyblok/react';
+import { storyblokApi } from '@/lib/storyblok';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Récupération du slug depuis les paramètres
@@ -24,14 +24,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     // Initialisation de l'API Storyblok
-    const storyblokApi = getStoryblokApi();
-    
     if (!storyblokApi) {
       throw new Error('Storyblok API not initialized');
     }
 
     // Récupération du contenu
-    const { data } = await storyblokApi.get(`cdn/stories/${storySlug}`, {
+    const { data } = await storyblokApi().get(`cdn/stories/${storySlug}`, {
       version: process.env.NODE_ENV === 'development' ? 'draft' : 'published',
       resolve_relations: [], // Peut être étendu selon les besoins
     });
