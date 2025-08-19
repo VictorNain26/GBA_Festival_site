@@ -1,26 +1,27 @@
 /**
  * Composant Storyblok: Section Héro du festival
- * Version éditable de la section héro actuelle
+ * Reproduit EXACTEMENT le design original avec tous les éléments visuels
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { storyblokEditable } from '@storyblok/react';
+import HeroTitle from '@/components/HeroTitle';
+import HeroSubtitle from '@/components/HeroSubtitle';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import type { Language } from '@/types';
 import type { StoryblokBaseBlok } from '@/lib/storyblok';
 
 export interface StoryblokHeroSectionData extends StoryblokBaseBlok {
-  title_fr: string;
-  title_en: string;
   subtitle_fr: string;
   subtitle_en: string;
   date_fr: string;
   date_en: string;
-  location_fr: string;
-  location_en: string;
+  hotel_name_fr: string;
+  hotel_name_en: string;
+  location: string;
   cta_text_fr: string;
   cta_text_en: string;
-  cta_link?: string;
 }
 
 interface HeroSectionProps {
@@ -29,91 +30,126 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ blok, lang }: HeroSectionProps) {
-  const title = blok[`title_${lang}` as keyof StoryblokHeroSectionData] as string || '';
+  const prefersReducedMotion = useReducedMotion();
+  
+  // Memoize animation variants pour éviter les recreations
+  const getAnimationVariants = useMemo(() => {
+    return (delay = 0) => {
+      if (prefersReducedMotion) {
+        return {
+          initial: { opacity: 0 },
+          whileInView: { opacity: 1 },
+          transition: { duration: 0.1, delay: Math.min(delay, 0.1) }
+        };
+      }
+      
+      return {
+        initial: { opacity: 0, y: 40 },
+        whileInView: { opacity: 1, y: 0 },
+        transition: { duration: 0.8, delay }
+      };
+    };
+  }, [prefersReducedMotion]);
+
+  // Récupération des données avec fallbacks
   const subtitle = blok[`subtitle_${lang}` as keyof StoryblokHeroSectionData] as string || '';
   const date = blok[`date_${lang}` as keyof StoryblokHeroSectionData] as string || '';
-  const location = blok[`location_${lang}` as keyof StoryblokHeroSectionData] as string || '';
+  const hotelName = blok[`hotel_name_${lang}` as keyof StoryblokHeroSectionData] as string || '';
+  const location = blok.location || '';
   const cta = blok[`cta_text_${lang}` as keyof StoryblokHeroSectionData] as string || '';
 
   return (
-    <section
+    <section 
       {...storyblokEditable(blok)}
-      id="hero"
-      className="relative min-h-screen flex items-center justify-center px-4 xs:px-6 sm:px-8 py-20"
+      id="hero" 
+      className="relative flex flex-col items-center justify-center min-h-screen px-6 xs:px-8 sm:px-12 lg:px-20 xl:px-24 text-center py-4 xs:py-5 sm:py-6 md:py-7 lg:py-8 xl:py-10"
     >
-      {/* Titre principal */}
-      <div className="text-center max-w-4xl mx-auto">
-        {title && (
-          <motion.h1
-            className="font-title text-3xl xs:text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-primary leading-tight tracking-wider mb-6 xs:mb-8 sm:mb-10"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            {title.split(' ').map((word, index) => (
-              <span key={index}>
-                {word.includes('Deco') ? (
-                  <span className="text-accent">{word}</span>
-                ) : (
-                  word
-                )}
-                {index < title.split(' ').length - 1 && ' '}
-              </span>
-            ))}
-          </motion.h1>
-        )}
+      {/* Festival subtitle */}
+      {subtitle && (
+        <HeroSubtitle 
+          subtitle={subtitle} 
+          getAnimationVariants={getAnimationVariants} 
+        />
+      )}
 
-        {/* Sous-titre */}
-        {subtitle && (
-          <motion.p
-            className="font-body text-lg xs:text-xl sm:text-2xl lg:text-3xl text-primary/90 mt-6 xs:mt-8 sm:mt-10"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            {subtitle}
-          </motion.p>
-        )}
+      {/* Date */}
+      {date && (
+        <motion.p
+          className="font-title text-base sm:text-lg lg:text-xl text-primary mb-2 xs:mb-3 sm:mb-3 lg:mb-2 xl:mb-3 relative z-10"
+          {...getAnimationVariants(0.1)}
+        >
+          {date}
+        </motion.p>
+      )}
 
-        {/* Date et lieu */}
-        {(date || location) && (
-          <motion.div
-            className="mt-8 xs:mt-10 sm:mt-12 space-y-2 xs:space-y-3"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            {date && (
-              <p className="font-title text-base xs:text-lg sm:text-xl lg:text-2xl text-accent tracking-wider">
-                {date}
-              </p>
-            )}
-            {location && (
-              <p className="font-body text-sm xs:text-base sm:text-lg lg:text-xl text-primary/80">
-                {location}
-              </p>
-            )}
-          </motion.div>
-        )}
+      {/* Titre principal - utilise le composant original */}
+      <HeroTitle getAnimationVariants={getAnimationVariants} />
 
-        {/* Call to Action */}
-        {cta && (
-          <motion.div
-            className="mt-10 xs:mt-12 sm:mt-16"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
+      {/* Call to action avec layout responsive identique à l'original */}
+      <div className="w-full flex flex-col items-center mt-4 xs:mt-5 sm:mt-6 md:mt-7 lg:mt-6 xl:mt-8">
+        {/* Mobile/Tablet: Vertical stack */}
+        <div className="flex lg:hidden flex-col items-center gap-3 xs:gap-4 sm:gap-4">
+          {cta && (
             <motion.a
-              href={blok.cta_link || "#contact"}
-              className="inline-block px-6 xs:px-8 sm:px-10 py-3 xs:py-4 font-title text-sm xs:text-base sm:text-lg lg:text-xl uppercase tracking-wider border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              href="#contact"
+              className="inline-block px-6 xs:px-7 sm:px-7 py-3 xs:py-4 sm:py-3 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
+              {...getAnimationVariants(0.2)}
             >
               {cta}
             </motion.a>
-          </motion.div>
-        )}
+          )}
+          
+          <div className="flex flex-col items-center gap-2 xs:gap-3 sm:gap-2">
+            {hotelName && (
+              <motion.p
+                className="font-title text-sm lg:text-base text-accent"
+                {...getAnimationVariants(0.5)}
+              >
+                {hotelName}
+              </motion.p>
+            )}
+            
+            {location && (
+              <motion.p
+                className="font-title text-sm lg:text-base text-accent"
+                {...getAnimationVariants(0.6)}
+              >
+                {location}
+              </motion.p>
+            )}
+          </div>
+        </div>
+
+        {/* Desktop: Horizontal grid */}
+        <div className="hidden lg:grid grid-cols-3 items-center w-full max-w-none">
+          {hotelName && (
+            <motion.p
+              className="font-title text-base lg:text-lg xl:text-xl text-accent text-right"
+              {...getAnimationVariants(0.2)}
+            >
+              {hotelName}
+            </motion.p>
+          )}
+          
+          {cta && (
+            <motion.a
+              href="#contact"
+              className="inline-block px-6 xs:px-7 sm:px-8 lg:px-8 xl:px-10 py-3 xs:py-4 sm:py-3 lg:py-4 font-title text-sm lg:text-base xl:text-lg uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background mx-auto"
+              {...getAnimationVariants(0.4)}
+            >
+              {cta}
+            </motion.a>
+          )}
+          
+          {location && (
+            <motion.p
+              className="font-title text-base lg:text-lg xl:text-xl text-accent text-left"
+              {...getAnimationVariants(0.6)}
+            >
+              {location}
+            </motion.p>
+          )}
+        </div>
       </div>
     </section>
   );

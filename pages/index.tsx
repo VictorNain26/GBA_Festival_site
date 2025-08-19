@@ -11,11 +11,13 @@ import type { Language, NavigationLabels } from '@/types';
 
 // Import des composants Storyblok
 import HeroSection from '@/components/storyblok/HeroSection';
+import AboutSection from '@/components/storyblok/AboutSection';
 
 // Components existants
 import ResponsiveNavigation from '@/components/ResponsiveNavigation';
 import ProgressiveBackground from '@/components/ProgressiveBackground';
 import useBrowserLanguage from '@/hooks/useBrowserLanguage';
+import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
 
 // API Storyblok
 import { getStoryblokStory, isStoryblokConfigured } from '@/lib/storyblok-api';
@@ -52,6 +54,7 @@ interface StoryblokLiveProps {
 export default function StoryblokLive({ story, isConfigured, error }: StoryblokLiveProps) {
   const browserLang = useBrowserLanguage();
   const [currentLang, setCurrentLang] = useState<Language>(browserLang);
+  const { isCompactMode } = useBackgroundTransition();
 
   // État pour le contenu dynamique
   const [liveStory, setLiveStory] = useState<StoryblokStory | null>(story);
@@ -105,7 +108,7 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
         />
       </Head>
 
-      {/* Background progressif */}
+      {/* Background progressif avec toutes les images Art Déco */}
       <ProgressiveBackground />
 
       {/* Navigation */}
@@ -113,7 +116,7 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
         labels={NAV_LABELS[currentLang]}
         lang={currentLang}
         setLang={setCurrentLang}
-        isCompactMode={false}
+        isCompactMode={isCompactMode}
       />
 
       {/* Contenu principal */}
@@ -188,6 +191,15 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
                       key={section._uid}
                       blok={section}
                       lang={currentLang}
+                    />
+                  );
+                case 'about-section':
+                  return (
+                    <AboutSection
+                      key={section._uid}
+                      blok={section}
+                      lang={currentLang}
+                      isCompactMode={isCompactMode}
                     />
                   );
                 default:

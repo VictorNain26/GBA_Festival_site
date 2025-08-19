@@ -1,151 +1,163 @@
 /**
  * Composant Storyblok: Section À propos du festival
- * Gère les paragraphes multiples avec mise en valeur automatique
+ * Reproduit EXACTEMENT le design original avec SectionGroup, toutes les images et layout exact
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { storyblokEditable } from '@storyblok/react';
-import Frame from '@/components/Frame';
-import TitleBlock from './TitleBlock';
-import TextBlock from './TextBlock';
+import SectionGroup from '@/components/SectionGroup';
 import OptimizedImage from '@/components/OptimizedImage';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import type { Language } from '@/types';
-import type { StoryblokBaseBlok, StoryblokTitleBlock, StoryblokTextBlock } from '@/lib/storyblok';
+import type { StoryblokBaseBlok } from '@/lib/storyblok';
 
 export interface StoryblokAboutSectionData extends StoryblokBaseBlok {
-  title: StoryblokTitleBlock;
-  content_blocks: StoryblokTextBlock[];
-  image?: string;
-  image_alt_fr?: string;
-  image_alt_en?: string;
-  image_position?: 'left' | 'right' | 'none';
+  title_fr: string;
+  title_en: string;
+  intro_paragraphs_fr: string[];
+  intro_paragraphs_en: string[];
+  conclusion_paragraphs_fr: string[];
+  conclusion_paragraphs_en: string[];
+  target_title_fr: string;
+  target_title_en: string;
+  target_text_fr: string;
+  target_text_en: string;
+  objective_title_fr: string;
+  objective_title_en: string;
+  objective_text_fr: string;
+  objective_text_en: string;
 }
 
 interface AboutSectionProps {
   blok: StoryblokAboutSectionData;
   lang: Language;
+  isCompactMode: boolean;
 }
 
-export default function AboutSection({ blok, lang }: AboutSectionProps) {
-  const imageAlt = blok[`image_alt_${lang}` as keyof StoryblokAboutSectionData] as string || 'Art Déco';
-  const hasImage = blok.image && blok.image_position !== 'none';
-  const imagePosition = blok.image_position || 'none';
+export default function AboutSection({ blok, lang, isCompactMode }: AboutSectionProps) {
+  const prefersReducedMotion = useReducedMotion();
+  
+  // Memoize animation variants pour éviter les recreations
+  const getAnimationVariants = useMemo(() => {
+    return (delay = 0) => {
+      if (prefersReducedMotion) {
+        return {
+          initial: { opacity: 0 },
+          whileInView: { opacity: 1 },
+          transition: { duration: 0.1, delay: Math.min(delay, 0.1) }
+        };
+      }
+      
+      return {
+        initial: { opacity: 0, y: 40 },
+        whileInView: { opacity: 1, y: 0 },
+        transition: { duration: 0.8, delay }
+      };
+    };
+  }, [prefersReducedMotion]);
+
+  // Helper pour rendre les paragraphes avec HTML
+  const renderParagraphs = (paragraphs: string[]) => {
+    if (!paragraphs || paragraphs.length === 0) return null;
+    
+    return paragraphs.map((p, idx) => (
+      <p
+        key={idx}
+        className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base sm:text-lg lg:text-xl text-primary text-justify"
+        dangerouslySetInnerHTML={{ __html: p }}
+      />
+    ));
+  };
+
+  // Récupération des données avec fallbacks
+  const title = blok[`title_${lang}` as keyof StoryblokAboutSectionData] as string || '';
+  const introParagraphs = blok[`intro_paragraphs_${lang}` as keyof StoryblokAboutSectionData] as string[] || [];
+  const conclusionParagraphs = blok[`conclusion_paragraphs_${lang}` as keyof StoryblokAboutSectionData] as string[] || [];
+  const targetTitle = blok[`target_title_${lang}` as keyof StoryblokAboutSectionData] as string || '';
+  const targetText = blok[`target_text_${lang}` as keyof StoryblokAboutSectionData] as string || '';
+  const objectiveTitle = blok[`objective_title_${lang}` as keyof StoryblokAboutSectionData] as string || '';
+  const objectiveText = blok[`objective_text_${lang}` as keyof StoryblokAboutSectionData] as string || '';
 
   return (
-    <section
+    <SectionGroup 
       {...storyblokEditable(blok)}
-      id="about"
-      className="py-16 xs:py-20 sm:py-24 lg:py-32 px-4 xs:px-6 sm:px-8"
+      id="about" 
+      title={title} 
+      isCompactMode={isCompactMode}
     >
-      <div className="max-w-6xl mx-auto">
-        <Frame>
-          <div className="py-8 xs:py-10 sm:py-12 lg:py-16">
-            
-            {/* Titre de la section */}
-            <motion.div
-              className="mb-12 xs:mb-16 sm:mb-20"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true, margin: '-100px' }}
-            >
-              <TitleBlock blok={blok.title} lang={lang} />
-            </motion.div>
-
-            {/* Contenu principal */}
-            <div className={`${
-              hasImage 
-                ? 'grid lg:grid-cols-2 gap-8 xs:gap-10 sm:gap-12 lg:gap-16 items-center' 
-                : 'max-w-4xl mx-auto'
-            }`}>
-              
-              {/* Image (si présente et position gauche) */}
-              {hasImage && imagePosition === 'left' && (
-                <motion.div
-                  className="order-1 lg:order-none"
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                >
-                  <OptimizedImage
-                    src={blok.image!}
-                    alt={imageAlt}
-                    width={600}
-                    height={400}
-                    className="w-full h-auto object-cover"
-                  />
-                </motion.div>
-              )}
-
-              {/* Blocs de contenu */}
-              <div className={`space-y-6 xs:space-y-8 sm:space-y-10 ${
-                hasImage ? 'order-2' : ''
-              }`}>
-                {blok.content_blocks?.map((textBlok, index) => (
-                  <motion.div
-                    key={textBlok._uid}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ 
-                      duration: 0.8, 
-                      delay: hasImage ? 0.4 + (index * 0.1) : index * 0.1 
-                    }}
-                    viewport={{ once: true, margin: '-50px' }}
-                  >
-                    <TextBlock 
-                      blok={textBlok} 
-                      lang={lang}
-                      className="text-justify leading-relaxed"
-                    />
-                  </motion.div>
-                ))}
+      <motion.div
+        {...getAnimationVariants(0.2)}
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        {/* Premiers paragraphes d'introduction */}
+        <div className="mb-4 xs:mb-5 sm:mb-6 lg:mb-8">
+          {renderParagraphs(introParagraphs)}
+        </div>
+        
+        {/* Erté Angel Image - EXACTEMENT comme l'original */}
+        <div className="flex justify-center mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
+          <OptimizedImage
+            src="/images/ange_erte.jpg"
+            alt="Ange d'Erté - Illustration Art Déco"
+            width={450}
+            height={570}
+            className="w-full max-w-sm xs:max-w-md sm:max-w-lg lg:max-w-xl object-cover"
+          />
+        </div>
+        
+        {/* Paragraphes de conclusion */}
+        <div>
+          {renderParagraphs(conclusionParagraphs)}
+        </div>
+        
+        {/* Danseuse image et objectifs - Layout exact en 2 colonnes */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xs:gap-5 sm:gap-6 lg:gap-8 mt-4 xs:mt-5 sm:mt-6 lg:mt-8">
+          {/* Colonne gauche - Image Danseuse */}
+          <OptimizedImage
+            src="/images/danseuse.png"
+            alt="Danseuse Art Déco"
+            width={320}
+            height={410}
+            className="w-full max-w-44 xs:max-w-48 sm:max-w-52 lg:max-w-56 object-cover mx-auto"
+          />
+          
+          {/* Colonne droite - Objectifs avec bordures */}
+          <div className="flex flex-col justify-center space-y-3 xs:space-y-4">
+            {/* Public Cible */}
+            {(targetTitle || targetText) && (
+              <div className="p-3 xs:p-4 sm:p-4 border border-primary">
+                {targetTitle && (
+                  <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
+                    {targetTitle}
+                  </h4>
+                )}
+                {targetText && (
+                  <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
+                    {targetText}
+                  </p>
+                )}
               </div>
-
-              {/* Image (si présente et position droite) */}
-              {hasImage && imagePosition === 'right' && (
-                <motion.div
-                  className="order-1 lg:order-2"
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  viewport={{ once: true, margin: '-50px' }}
-                >
-                  <OptimizedImage
-                    src={blok.image!}
-                    alt={imageAlt}
-                    width={600}
-                    height={400}
-                    className="w-full h-auto object-cover"
-                  />
-                </motion.div>
-              )}
-
-            </div>
-
-            {/* Image centrée (si position none mais image présente) */}
-            {blok.image && blok.image_position === 'none' && (
-              <motion.div
-                className="mt-12 xs:mt-16 sm:mt-20 text-center"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                viewport={{ once: true, margin: '-50px' }}
-              >
-                <OptimizedImage
-                  src={blok.image!}
-                  alt={imageAlt}
-                  width={800}
-                  height={400}
-                  className="max-w-3xl mx-auto w-full h-auto object-cover"
-                />
-              </motion.div>
             )}
-
+            
+            {/* Notre Objectif */}
+            {(objectiveTitle || objectiveText) && (
+              <div className="p-3 xs:p-4 sm:p-4 border border-primary">
+                {objectiveTitle && (
+                  <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
+                    {objectiveTitle}
+                  </h4>
+                )}
+                {objectiveText && (
+                  <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
+                    {objectiveText}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
-        </Frame>
-      </div>
-    </section>
+        </div>
+      </motion.div>
+    </SectionGroup>
   );
 }
