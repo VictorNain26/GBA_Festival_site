@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import type { HeroTitleProps } from '@/types';
+import { getTypography } from '@/constants/designTokens';
 
 /**
  * Hero title component with Eiffel Tower and symmetric statues
@@ -13,7 +14,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
       <div className="lg:hidden flex flex-col items-center">
         {/* Titre principal - Mobile/Tablet */}
         <motion.h1
-          className="font-title text-lg xs:text-xl sm:text-2xl md:text-3xl leading-tight text-accent text-center mb-3 xs:mb-4 sm:mb-5 md:mb-6"
+          className={`${getTypography('heroTitle')} text-accent text-center mb-6 xs:mb-8 sm:mb-10 lg:mb-12`}
           style={{
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5)'
           }}
@@ -130,7 +131,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
         {/* Titre principal superposé - Desktop uniquement */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <motion.h1
-            className="font-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight text-accent text-center"
+            className={`${getTypography('heroTitle')} text-accent text-center`}
             style={{
               textShadow: '3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 0, 0, 0.5)'
             }}

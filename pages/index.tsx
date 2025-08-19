@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import { motion } from 'framer-motion';
-import type { Language, NavigationLabels } from '@/types';
+import type { Language } from '@/types';
 import SEO from '@/components/SEO';
 
 // Import des composants Storyblok
@@ -27,27 +27,10 @@ import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
 import { getStoryblokStory, isStoryblokConfigured } from '@/lib/storyblok-api';
 import type { StoryblokStory } from '@/lib/storyblok-api';
 
-// Navigation labels
-const NAV_LABELS: Record<Language, NavigationLabels> = {
-  fr: {
-    hero: 'Accueil',
-    about: 'Art Deco et Neo Art Deco',
-    partners: 'Nos Partenaires',
-    ontheway: 'On the Way',
-    decoball: 'Le Bal Art Deco',
-    contact: 'Contact',
-    tickets: 'Billeterie',
-  },
-  en: {
-    hero: 'Home',
-    about: 'Art Deco and Neo Art Deco',
-    partners: 'Our Partners',
-    ontheway: 'On the Way',
-    decoball: 'The Art Deco Ball',
-    contact: 'Contact',
-    tickets: 'Tickets',
-  },
-};
+// Helpers pour les titres de sections
+import { extractSectionTitles, generateNavigationLabels } from '@/lib/sectionTitles';
+
+// Navigation labels (maintenant dynamiques via extractSectionTitles)
 
 interface StoryblokLiveProps {
   story: StoryblokStory | null;
@@ -65,6 +48,10 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(error);
 
+  // Extraction dynamique des titres depuis le story Storyblok
+  const extractedTitles = liveStory ? extractSectionTitles(liveStory) : {};
+  const dynamicLabels = generateNavigationLabels(extractedTitles, currentLang);
+
   // Fonction pour recharger le contenu depuis l'API
   const reloadContent = async () => {
     setLoading(true);
@@ -80,6 +67,7 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
       
       const data = await response.json();
       setLiveStory(data.story);
+      // Les titres dynamiques seront automatiquement mis à jour via extractedTitles
     } catch (err) {
       setApiError(err instanceof Error ? err.message : 'Erreur de chargement');
       console.error('Erreur rechargement:', err);
@@ -102,7 +90,7 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
 
       {/* Navigation */}
       <ResponsiveNavigation
-        labels={NAV_LABELS[currentLang]}
+        labels={dynamicLabels}
         lang={currentLang}
         setLang={setCurrentLang}
         isCompactMode={isCompactMode}

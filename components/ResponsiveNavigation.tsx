@@ -2,6 +2,7 @@ import { memo, useCallback, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useActiveSection } from '@/hooks/useActiveSection';
 import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
+import { getTypography, PRESET_CLASSES } from '@/constants/designTokens';
 import type { ResponsiveNavigationProps, Language } from '@/types';
 
 /**
@@ -68,7 +69,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
             <button
               key={item.id}
               onClick={(e) => handleNavClick(e, item.id)}
-              className={`text-sm lg:text-base xl:text-lg font-medium transition-colors hover:text-accent cursor-pointer text-right ${
+              className={`${PRESET_CLASSES.navigationLink} text-right ${
                 activeSection === item.id 
                   ? 'text-accent' 
                   : 'text-primary'
@@ -81,7 +82,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
           {/* Tickets Button - Consistent Style with centered text */}
           <button
             onClick={(e) => handleNavClick(e, ticketsItem.id)}
-            className="px-4 xl:px-5 py-2 xl:py-3 mt-4 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center"
+            className={`px-4 xl:px-5 py-2 xl:py-3 mt-4 ${getTypography('navigationText')} uppercase tracking-wider transition-all duration-300 border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center`}
           >
             {ticketsItem.label}
           </button>
@@ -90,7 +91,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
           <div className="flex flex-row space-x-4 justify-end pt-4 mt-4 border-t border-primary/20">
             <button
               onClick={() => changeLang('fr')}
-              className={`text-sm lg:text-base font-medium transition-colors hover:text-accent text-right ${
+              className={`${PRESET_CLASSES.navigationLink} text-right ${
                 lang === 'fr' ? 'text-accent' : 'text-primary'
               }`}
               aria-label="Switch to French"
@@ -99,7 +100,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
             </button>
             <button
               onClick={() => changeLang('en')}
-              className={`text-sm lg:text-base font-medium transition-colors hover:text-accent text-right ${
+              className={`${PRESET_CLASSES.navigationLink} text-right ${
                 lang === 'en' ? 'text-accent' : 'text-primary'
               }`}
               aria-label="Switch to English"
@@ -217,7 +218,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
                   <button
                     key={item.id}
                     onClick={(e) => handleNavClick(e, item.id)}
-                    className={`text-lg font-medium transition-colors hover:text-accent cursor-pointer ${
+                    className={`${PRESET_CLASSES.navigationLink} ${
                       activeSection === item.id 
                         ? 'text-accent' 
                         : 'text-primary'
@@ -230,7 +231,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
                 {/* Mobile Tickets Button - Consistent Style with centered text */}
                 <button
                   onClick={(e) => handleNavClick(e, ticketsItem.id)}
-                  className="px-6 py-3 mt-4 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center"
+                  className={`px-6 py-3 mt-4 ${getTypography('navigationText')} uppercase tracking-wider transition-all duration-300 border-2 border-accent bg-transparent text-accent hover:bg-accent hover:text-background text-center flex items-center justify-center`}
                 >
                   {ticketsItem.label}
                 </button>
@@ -239,7 +240,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
                 <div className="flex justify-end space-x-4 pt-6 mt-6 border-t border-primary/20">
                   <button
                     onClick={() => changeLang('fr')}
-                    className={`text-base font-medium transition-colors hover:text-accent ${
+                    className={`${PRESET_CLASSES.navigationLink} ${
                       lang === 'fr' ? 'text-accent' : 'text-primary'
                     }`}
                     aria-label="Switch to French"
@@ -248,7 +249,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
                   </button>
                   <button
                     onClick={() => changeLang('en')}
-                    className={`text-base font-medium transition-colors hover:text-accent ${
+                    className={`${PRESET_CLASSES.navigationLink} ${
                       lang === 'en' ? 'text-accent' : 'text-primary'
                     }`}
                     aria-label="Switch to English"

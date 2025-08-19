@@ -9,6 +9,7 @@ import { storyblokEditable } from '@storyblok/react';
 import HeroTitle from '@/components/HeroTitle';
 import HeroSubtitle from '@/components/HeroSubtitle';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { getVerticalSpacing, getTypography, PRESET_CLASSES } from '@/constants/designTokens';
 import type { Language } from '@/types';
 import type { StoryblokBaseBlok } from '@/lib/storyblok';
 
@@ -62,7 +63,7 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
     <section 
       {...storyblokEditable(blok)}
       id="hero" 
-      className="relative flex flex-col items-center justify-center min-h-screen px-6 xs:px-8 sm:px-12 lg:px-20 xl:px-24 text-center py-4 xs:py-5 sm:py-6 md:py-7 lg:py-8 xl:py-10"
+      className={`relative flex flex-col items-center justify-center min-h-screen ${PRESET_CLASSES.container} text-center ${getVerticalSpacing('content')}`}
     >
       {/* Festival subtitle */}
       {subtitle && (
@@ -75,7 +76,7 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
       {/* Date */}
       {date && (
         <motion.p
-          className="font-title text-base sm:text-lg lg:text-xl text-primary mb-2 xs:mb-3 sm:mb-3 lg:mb-2 xl:mb-3 relative z-10"
+          className={`${getTypography('secondaryText')} text-primary ${getVerticalSpacing('text')} relative z-10`}
           {...getAnimationVariants(0.1)}
         >
           {date}
@@ -86,13 +87,13 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
       <HeroTitle getAnimationVariants={getAnimationVariants} />
 
       {/* Call to action avec layout responsive identique à l'original */}
-      <div className="w-full flex flex-col items-center mt-4 xs:mt-5 sm:mt-6 md:mt-7 lg:mt-6 xl:mt-8">
+      <div className={`w-full flex flex-col items-center ${getVerticalSpacing('element')}`}>
         {/* Mobile/Tablet: Vertical stack */}
         <div className="flex lg:hidden flex-col items-center gap-3 xs:gap-4 sm:gap-4">
           {cta && (
             <motion.a
               href="#contact"
-              className="inline-block px-6 xs:px-7 sm:px-7 py-3 xs:py-4 sm:py-3 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
+              className={`inline-block px-6 xs:px-7 sm:px-7 py-3 xs:py-4 sm:py-3 ${getTypography('navigationText')} uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background`}
               {...getAnimationVariants(0.2)}
             >
               {cta}
@@ -102,7 +103,7 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
           <div className="flex flex-col items-center gap-2 xs:gap-3 sm:gap-2">
             {hotelName && (
               <motion.p
-                className="font-title text-sm lg:text-base text-accent"
+                className={`${getTypography('secondaryText')} text-accent`}
                 {...getAnimationVariants(0.5)}
               >
                 {hotelName}
@@ -111,7 +112,7 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
             
             {location && (
               <motion.p
-                className="font-title text-sm lg:text-base text-accent"
+                className={`${getTypography('secondaryText')} text-accent`}
                 {...getAnimationVariants(0.6)}
               >
                 {location}
@@ -124,7 +125,7 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
         <div className="hidden lg:grid grid-cols-3 items-center w-full max-w-none">
           {hotelName && (
             <motion.p
-              className="font-title text-base lg:text-lg xl:text-xl text-accent text-right"
+              className={`${getTypography('secondaryText')} text-accent text-right`}
               {...getAnimationVariants(0.2)}
             >
               {hotelName}
@@ -134,7 +135,7 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
           {cta && (
             <motion.a
               href="#contact"
-              className="inline-block px-6 xs:px-7 sm:px-8 lg:px-8 xl:px-10 py-3 xs:py-4 sm:py-3 lg:py-4 font-title text-sm lg:text-base xl:text-lg uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background mx-auto"
+              className={`inline-block px-6 xs:px-7 sm:px-8 lg:px-8 xl:px-10 py-3 xs:py-4 sm:py-3 lg:py-4 ${getTypography('navigationText')} uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background mx-auto`}
               {...getAnimationVariants(0.4)}
             >
               {cta}
@@ -143,7 +144,7 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
           
           {location && (
             <motion.p
-              className="font-title text-base lg:text-lg xl:text-xl text-accent text-left"
+              className={`${getTypography('secondaryText')} text-accent text-left`}
               {...getAnimationVariants(0.6)}
             >
               {location}

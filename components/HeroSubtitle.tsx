@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { getTypography, getVerticalSpacing } from '@/constants/designTokens';
 
 interface HeroSubtitleProps {
   subtitle: string;
@@ -15,21 +16,21 @@ export default function HeroSubtitle({
 }: HeroSubtitleProps) {
   return (
     <motion.div
-      className="mb-3 xs:mb-4 sm:mb-4 lg:mb-3 xl:mb-4 relative z-10"
+      className={`${getVerticalSpacing('text')} relative z-10`}
       {...getAnimationVariants(0.0)}
     >
       {/* Mobile version: 2 lines */}
       <div className="lg:hidden">
-        <p className="font-title text-sm lg:text-base uppercase tracking-wide xs:tracking-wider text-accent">
+        <p className={`${getTypography('heroSubtitle')} text-accent`}>
           {subtitle}
         </p>
-        <p className="font-title text-sm lg:text-base uppercase tracking-wide xs:tracking-wider text-accent mt-1">
+        <p className={`${getTypography('heroSubtitle')} text-accent mt-2`}>
           1ère Edition
         </p>
       </div>
       
       {/* Desktop version: 1 line */}
-      <p className="hidden lg:block font-title text-base lg:text-lg uppercase tracking-wide text-accent">
+      <p className={`hidden lg:block ${getTypography('heroSubtitle')} text-accent`}>
         {subtitle} - 1ère Edition
       </p>
     </motion.div>

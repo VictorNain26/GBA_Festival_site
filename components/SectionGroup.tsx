@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import SectionTitle from './SectionTitle';
+import { getVerticalSpacing, getTypography } from '@/constants/designTokens';
 
 interface SectionGroupProps {
   id: string;
@@ -26,13 +27,13 @@ export default function SectionGroup({
   return (
     <div className="relative">
       {/* Title section with navigation anchor */}
-      <section id={id} className="relative flex flex-col justify-center py-12 xs:py-16 sm:py-20 lg:py-24 xl:py-28">
+      <section id={id} className={`relative flex flex-col justify-center ${getVerticalSpacing('section')}`}>
         <SectionTitle delay={titleDelay}>
           {title}
         </SectionTitle>
         {subtitle && (
-          <div className="text-center mt-3 xs:mt-4 sm:mt-5 lg:mt-6">
-            <p className="font-body text-base xs:text-lg sm:text-xl lg:text-2xl xl:text-3xl text-primary uppercase tracking-wider">
+          <div className={`text-center ${getVerticalSpacing('text')}`}>
+            <p className={`${getTypography('secondaryText')} text-primary uppercase tracking-wider`}>
               {subtitle}
             </p>
           </div>
@@ -40,7 +41,7 @@ export default function SectionGroup({
       </section>
 
       {/* Content section with reduced top spacing */}
-      <section className="relative py-0 pb-8 xs:pb-10 sm:pb-12 lg:pb-16 xl:pb-20">
+      <section className={`relative py-0 ${getVerticalSpacing('content')}`}>
         <div className={`max-w-none mx-8 xs:mx-12 sm:mx-16 lg:ml-20 xl:ml-24 2xl:ml-32 ${
           !isCompactMode 
             ? 'lg:mr-56 xl:mr-64 2xl:mr-72' 

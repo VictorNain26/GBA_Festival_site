@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import TitleFrame from './TitleFrame';
+import { getTypography } from '@/constants/designTokens';
 import type { ReactNode } from 'react';
 
 interface SectionTitleProps {
@@ -21,7 +22,7 @@ export default function SectionTitle({
   return (
     <TitleFrame className={`mx-8 xs:mx-12 sm:mx-16 lg:ml-16 lg:mr-32 xl:ml-20 xl:mr-36 2xl:ml-24 2xl:mr-40 ${className}`}>
       <motion.h2
-        className="font-title font-bold text-xl xs:text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-accent leading-tight"
+        className={`${getTypography('sectionTitle')} text-accent font-bold`}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay }}

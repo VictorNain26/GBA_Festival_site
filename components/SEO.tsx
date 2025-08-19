@@ -20,18 +20,18 @@ interface SEOProps {
 const SEO_CONFIG = {
   fr: {
     siteName: "Florilège de l'Art Déco",
-    defaultTitle: "Florilège de l'Art Déco - Festival Art Déco et Neo Art Déco",
-    titleTemplate: "%s | Florilège de l'Art Déco",
-    defaultDescription: "Festival Art Déco à Paris les 28-29-30 Juin 2025. Spectacle immersif ON THE WAY, bal Art Déco, expositions et animations à l'Hôtel du Collectionneur.",
-    defaultKeywords: "Art Déco, Neo Art Déco, festival Paris, spectacle immersif, ON THE WAY, bal Art Déco, Hôtel Collectionneur, juin 2025, années folles, Julie Durieux, Coco Chanel, culture Art Déco, événement Paris",
+    defaultTitle: "Florilège de l'Art Déco",
+    titleTemplate: "%s | Florilège de l'Art Déco", 
+    defaultDescription: "Florilège de l'Art Déco - Festival Art Déco et Neo Art Déco à Paris les 28-29-30 Juin 2025. Spectacle immersif ON THE WAY, bal Art Déco, expositions et animations à l'Hôtel du Collectionneur.",
+    defaultKeywords: "Florilège de l'Art Déco, Art Déco, Neo Art Déco, festival Paris, spectacle immersif, ON THE WAY, bal Art Déco, Hôtel Collectionneur, juin 2025, années folles, Julie Durieux, Coco Chanel, culture Art Déco, événement Paris",
     locale: "fr_FR",
   },
   en: {
-    siteName: "Art Deco Festival",
-    defaultTitle: "Art Deco Festival - Art Deco and Neo Art Deco Festival",
-    titleTemplate: "%s | Art Deco Festival",
-    defaultDescription: "Art Deco Festival in Paris, June 28-29-30, 2025. Immersive show ON THE WAY, Art Deco ball, exhibitions and events at Hotel Collectionneur.",
-    defaultKeywords: "Art Deco, Neo Art Deco, Paris festival, immersive show, ON THE WAY, Art Deco ball, Hotel Collectionneur, June 2025, roaring twenties, Julie Durieux, Coco Chanel, Art Deco culture, Paris event",
+    siteName: "Florilège de l'Art Déco",
+    defaultTitle: "Florilège de l'Art Déco",
+    titleTemplate: "%s | Florilège de l'Art Déco",
+    defaultDescription: "Florilège de l'Art Déco - Art Deco and Neo Art Deco Festival in Paris, June 28-29-30, 2025. Immersive show ON THE WAY, Art Deco ball, exhibitions and events at Hotel Collectionneur.",
+    defaultKeywords: "Florilège de l'Art Déco, Art Deco, Neo Art Deco, Paris festival, immersive show, ON THE WAY, Art Deco ball, Hotel Collectionneur, June 2025, roaring twenties, Julie Durieux, Coco Chanel, Art Deco culture, Paris event",
     locale: "en_US",
   }
 };
@@ -185,6 +185,14 @@ export default function SEO({
       {/* Thème et couleurs */}
       <meta name="theme-color" content="#D3AA41" />
       <meta name="msapplication-TileColor" content="#000000" />
+      
+      {/* Favicon et icônes */}
+      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+      <link rel="manifest" href="/site.webmanifest" />
+      <meta name="msapplication-config" content="/browserconfig.xml" />
       
       {/* Performance hints */}
       <link rel="dns-prefetch" href="https://fonts.googleapis.com" />

@@ -4,11 +4,12 @@ import type { Language } from '@/types';
 /**
  * Function to detect browser language (client-side only)
  * Returns 'fr' if browser language is French, otherwise 'en'
+ * Defaults to 'fr' for better French user experience
  */
 export function detectBrowserLanguage(): Language {
   // Only run on client side
   if (typeof window === 'undefined') {
-    return 'en'; // Server-side fallback
+    return 'fr'; // Server-side fallback changed to French
   }
   
   // Get browser language - handle deprecated userLanguage property for IE
@@ -22,9 +23,10 @@ export function detectBrowserLanguage(): Language {
 
 /**
  * Hook to get browser language with SSR support
+ * Now defaults to French to match server-side rendering
  */
 export function useBrowserLanguage(): Language {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>('fr');
 
   useEffect(() => {
     setLanguage(detectBrowserLanguage());
