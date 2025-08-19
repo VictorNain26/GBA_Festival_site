@@ -18,7 +18,7 @@ import ProgressiveBackground from '@/components/ProgressiveBackground';
 import useBrowserLanguage from '@/hooks/useBrowserLanguage';
 
 // API Storyblok
-import { getStoryblokStory, isStoryblokConfigured, getStoryblokToken } from '@/lib/storyblok-api';
+import { getStoryblokStory, isStoryblokConfigured } from '@/lib/storyblok-api';
 import type { StoryblokStory } from '@/lib/storyblok-api';
 
 // Navigation labels
@@ -47,10 +47,9 @@ interface StoryblokLiveProps {
   story: StoryblokStory | null;
   isConfigured: boolean;
   error: string | null;
-  isPreview: boolean;
 }
 
-export default function StoryblokLive({ story, isConfigured, error, isPreview }: StoryblokLiveProps) {
+export default function StoryblokLive({ story, isConfigured, error }: StoryblokLiveProps) {
   const browserLang = useBrowserLanguage();
   const [currentLang, setCurrentLang] = useState<Language>(browserLang);
 
@@ -242,7 +241,6 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
       story,
       isConfigured,
       error,
-      isPreview,
     },
     revalidate: isPreview ? 1 : 60, // Revalidation plus fréquente en mode preview
   };
