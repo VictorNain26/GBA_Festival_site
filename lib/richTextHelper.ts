@@ -72,7 +72,8 @@ export function extractPlainText(document: any): string {
   }
   
   // Si c'est un objet React, le convertir en chaîne vide pour éviter l'erreur
-  if (typeof document === 'object' && (document.$$typeof || document.type || document.props)) {
+  // MAIS pas si c'est un objet Rich Text Storyblok (qui a type: "doc")
+  if (typeof document === 'object' && (document.$$typeof || (document.type && document.type !== 'doc' && document.type !== 'paragraph') || document.props)) {
     console.warn('extractPlainText: React element detected, returning empty string');
     return '';
   }
@@ -95,7 +96,8 @@ export function extractPlainText(document: any): string {
       }
       
       // Si c'est un objet React, ne pas l'utiliser
-      if (typeof node === 'object' && (node.$$typeof || node.type || node.props)) {
+      // MAIS pas si c'est un objet Rich Text Storyblok
+      if (typeof node === 'object' && (node.$$typeof || (node.type && node.type !== 'doc' && node.type !== 'paragraph' && node.type !== 'text') || node.props)) {
         return '';
       }
       

@@ -49,10 +49,10 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
 
   // Calculate transition states - simplified logic
   const getTransitionState = (): UseBackgroundTransitionReturn => {
-    // Server-side rendering: return neutral state to prevent flash
+    // Server-side rendering: return state that shows first background (hero state)
     if (typeof window === 'undefined') {
       return {
-        showFirstBackground: false,
+        showFirstBackground: true, // Afficher le background du hero par défaut
         showOrnaments: false,
         showNavigation: false,
         scrollY: 0,
@@ -61,59 +61,17 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
       };
     }
 
-    // Before hydration: try to determine correct state immediately to prevent flash
+    // Before hydration: always show first background for hero section
     if (!isHydrated) {
-      const currentScroll = window.scrollY;
-      const currentHeight = window.innerHeight;
-      const currentWidth = window.innerWidth;
-      const currentCompactMode = currentWidth < 1024;
-      
-      // Quick check for sections to determine initial state
-      const aboutSection = document.getElementById('about');
-      const contactSection = document.getElementById('contact');
-      
-      if (aboutSection) {
-        const aboutRect = aboutSection.getBoundingClientRect();
-        const aboutTop = aboutRect.top + currentScroll;
-        let switchPointOffset = currentWidth < 480 ? 100 : currentWidth < 768 ? 125 : 150;
-        const switchPoint = aboutTop - currentHeight + switchPointOffset;
-        
-        let contactStart = currentHeight * 5.5;
-        if (contactSection) {
-          const contactRect = contactSection.getBoundingClientRect();
-          contactStart = contactRect.top + currentScroll - (currentHeight * 0.1);
-        }
-        
-        // Return correct initial state to prevent flash
-        if (currentScroll >= contactStart) {
-          return {
-            showFirstBackground: true,
-            showOrnaments: false,
-            showNavigation: false,
-            scrollY: currentScroll,
-            windowHeight: currentHeight,
-            isCompactMode: currentCompactMode
-          };
-        } else if (currentScroll >= switchPoint) {
-          return {
-            showFirstBackground: false,
-            showOrnaments: true,
-            showNavigation: true,
-            scrollY: currentScroll,
-            windowHeight: currentHeight,
-            isCompactMode: currentCompactMode
-          };
-        }
-      }
-      
-      // Default to first background if no sections found or at top
+      // Simplifier la logique initiale - toujours afficher le background du hero
+      // pendant l'hydration pour éviter les problèmes d'affichage
       return {
-        showFirstBackground: true,
+        showFirstBackground: true, // Toujours vrai pendant l'hydration
         showOrnaments: false,
         showNavigation: false,
-        scrollY: currentScroll,
-        windowHeight: currentHeight,
-        isCompactMode: currentCompactMode
+        scrollY: window.scrollY,
+        windowHeight: window.innerHeight,
+        isCompactMode: window.innerWidth < 1024
       };
     }
 

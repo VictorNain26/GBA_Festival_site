@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import { storyblokEditable } from '@storyblok/react';
 import HeroTitle from '@/components/HeroTitle';
 import HeroSubtitle from '@/components/HeroSubtitle';
+import Frame from '@/components/Frame';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { extractPlainText } from '@/lib/richTextHelper';
 import { getVerticalSpacing, getTypography, PRESET_CLASSES } from '@/constants/designTokens';
@@ -60,12 +61,14 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
   const location = extractPlainText(blok.location) || '';
   const cta = extractPlainText(blok[`cta_text_${lang}` as keyof StoryblokHeroSectionData]) || '';
 
+
   return (
     <section 
       {...storyblokEditable(blok)}
       id="hero" 
       className={`relative flex flex-col items-center justify-center min-h-screen ${PRESET_CLASSES.container} text-center ${getVerticalSpacing('content')}`}
     >
+      <Frame className="w-full max-w-6xl mx-auto">
       {/* Festival subtitle */}
       {subtitle && (
         <HeroSubtitle 
@@ -153,6 +156,7 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
           )}
         </div>
       </div>
+      </Frame>
     </section>
   );
 }
