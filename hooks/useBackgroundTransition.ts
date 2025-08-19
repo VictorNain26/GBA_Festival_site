@@ -63,31 +63,13 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
 
     // Before hydration: always show first background for hero section
     if (!isHydrated) {
-      // Simplifier la logique initiale - toujours afficher le background du hero
-      // pendant l'hydration pour éviter les problèmes d'affichage
-      // Vérifier la position de scroll initiale
-      const currentScrollY = window.scrollY || 0;
-      
-      // Si on est en haut de page (scroll < 100px), toujours afficher le background
-      if (currentScrollY < 100) {
-        return {
-          showFirstBackground: true,
-          showOrnaments: false,
-          showNavigation: false,
-          scrollY: currentScrollY,
-          windowHeight: window.innerHeight,
-          isCompactMode: window.innerWidth < 1024
-        };
-      }
-      
-      // Sinon, utiliser une logique simplifiée basée sur la position
       return {
-        showFirstBackground: currentScrollY < window.innerHeight, // Afficher si on est dans la première section
+        showFirstBackground: true, // Toujours afficher pendant l'hydration
         showOrnaments: false,
         showNavigation: false,
-        scrollY: currentScrollY,
-        windowHeight: window.innerHeight,
-        isCompactMode: window.innerWidth < 1024
+        scrollY: window.scrollY || 0,
+        windowHeight: window.innerHeight || 0,
+        isCompactMode: (window.innerWidth || 1024) < 1024
       };
     }
 

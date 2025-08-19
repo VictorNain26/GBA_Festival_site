@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
 import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
 
 /**
@@ -12,19 +11,6 @@ import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
  */
 export default function ProgressiveBackground() {
   const { showFirstBackground, showOrnaments, isCompactMode } = useBackgroundTransition();
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
-
-  // Force l'affichage du background pendant les premiers moments après le chargement
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsInitialLoad(false);
-    }, 500); // Laisser 500ms pour que l'hydration se fasse correctement
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Au premier chargement ou si showFirstBackground est true, afficher le background
-  const shouldShowFirstBackground = isInitialLoad || showFirstBackground;
 
   return (
     <>
@@ -34,12 +20,16 @@ export default function ProgressiveBackground() {
         style={{ zIndex: -30 }}
       />
       
-      {/* First Background Images - CSS-first approach to prevent flash */}
+      {/* First Background Images - Force initial visibility */}
       <div 
-        className={`background-container bg-black transition-opacity duration-500 ease-in-out ${
-          shouldShowFirstBackground ? 'opacity-100' : 'opacity-0'
+        className={`fixed inset-0 bg-black transition-opacity duration-500 ease-in-out ${
+          showFirstBackground ? 'opacity-100' : 'opacity-0'
         }`}
-        style={{ zIndex: -10 }}
+        style={{ 
+          zIndex: -10,
+          // Force initial opacity to 1 until React hydrates
+          opacity: typeof window === 'undefined' ? 1 : undefined
+        }}
       >
         {/* Desktop Image - Hidden on mobile/tablet with CSS */}
         <Image
