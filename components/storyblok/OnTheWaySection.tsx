@@ -46,12 +46,12 @@ export default function OnTheWaySection({ blok, lang, isCompactMode }: OnTheWayS
   const section4Text = blok[`section4_text_${lang}` as keyof StoryblokOnTheWaySectionData] as string || '';
   const section5Text = blok[`section5_text_${lang}` as keyof StoryblokOnTheWaySectionData] as string || '';
 
-  // Titre complexe avec sous-titre EXACTEMENT comme l'original
+  // Titre complexe avec sous-titre EXACTEMENT comme l'original - TAILLES AJUSTÉES
   const complexTitle = (
     <div className="text-center space-y-1">
       <div className="font-bold leading-tight">{title}</div>
       <div className="h-px w-12 bg-accent mx-auto opacity-60"></div>
-      <div className="font-body text-accent text-[0.5em] font-normal uppercase tracking-[0.3em] leading-none opacity-90">
+      <div className="font-body text-accent text-[0.6em] xs:text-[0.65em] sm:text-[0.7em] lg:text-[0.75em] font-normal uppercase tracking-[0.2em] xs:tracking-[0.25em] sm:tracking-[0.3em] leading-tight opacity-90">
         SPECTACLE IMMERSIF
       </div>
     </div>
