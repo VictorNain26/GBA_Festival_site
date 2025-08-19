@@ -9,24 +9,25 @@ import { storyblokEditable } from '@storyblok/react';
 import SectionGroup from '@/components/SectionGroup';
 import OptimizedImage from '@/components/OptimizedImage';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { renderStoryblokRichText, extractPlainText } from '@/lib/richTextHelper';
 import type { Language } from '@/types';
 import type { StoryblokBaseBlok } from '@/lib/storyblok';
 
 export interface StoryblokAboutSectionData extends StoryblokBaseBlok {
-  title_fr: string;
-  title_en: string;
-  intro_paragraphs_fr: string;
-  intro_paragraphs_en: string;
-  conclusion_paragraphs_fr: string;
-  conclusion_paragraphs_en: string;
-  target_title_fr: string;
-  target_title_en: string;
-  target_text_fr: string;
-  target_text_en: string;
-  objective_title_fr: string;
-  objective_title_en: string;
-  objective_text_fr: string;
-  objective_text_en: string;
+  title_fr: any; // Rich Text
+  title_en: any; // Rich Text
+  intro_paragraphs_fr: any; // Rich Text
+  intro_paragraphs_en: any; // Rich Text
+  conclusion_paragraphs_fr: any; // Rich Text
+  conclusion_paragraphs_en: any; // Rich Text
+  target_title_fr: any; // Rich Text
+  target_title_en: any; // Rich Text
+  target_text_fr: any; // Rich Text
+  target_text_en: any; // Rich Text
+  objective_title_fr: any; // Rich Text
+  objective_title_en: any; // Rich Text
+  objective_text_fr: any; // Rich Text
+  objective_text_en: any; // Rich Text
 }
 
 interface AboutSectionProps {
@@ -57,47 +58,39 @@ export default function AboutSection({ blok, lang, isCompactMode }: AboutSection
     };
   }, [prefersReducedMotion]);
 
-  // Helper pour rendre les paragraphes avec HTML
-  const renderParagraphs = (paragraphs: string[]) => {
-    if (!paragraphs || paragraphs.length === 0) {
+  // Helper pour rendre le contenu Rich Text
+  const renderRichTextContent = (htmlContent: string) => {
+    if (!htmlContent) {
       return null;
     }
     
-    return paragraphs.map((p, idx) => (
-      <p
-        key={idx}
-        className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base sm:text-lg lg:text-xl text-primary text-justify"
-        dangerouslySetInnerHTML={{ __html: p }}
+    return (
+      <div 
+        className="rich-text-content"
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
-    ));
+    );
   };
 
-  // Titre sur deux lignes pour le cadre (mais menu reste en une ligne)
-  const title = (
-    <div className="text-center leading-tight">
-      {lang === 'fr' ? (
-        <>
-          <div>ART DÉCO</div>
-          <div>ET NEO ART DÉCO</div>
-        </>
-      ) : (
-        <>
-          <div>ART DECO</div>
-          <div>AND NEO ART DECO</div>
-        </>
-      )}
-    </div>
-  );
-  const introParagraphsRaw = blok[`intro_paragraphs_${lang}` as keyof StoryblokAboutSectionData] as string || '';
-  const conclusionParagraphsRaw = blok[`conclusion_paragraphs_${lang}` as keyof StoryblokAboutSectionData] as string || '';
-  const targetTitle = blok[`target_title_${lang}` as keyof StoryblokAboutSectionData] as string || '';
-  const targetText = blok[`target_text_${lang}` as keyof StoryblokAboutSectionData] as string || '';
-  const objectiveTitle = blok[`objective_title_${lang}` as keyof StoryblokAboutSectionData] as string || '';
-  const objectiveText = blok[`objective_text_${lang}` as keyof StoryblokAboutSectionData] as string || '';
-
-  // Conversion des strings en tableaux de paragraphes
-  const introParagraphs = introParagraphsRaw ? introParagraphsRaw.split('\n\n').filter(p => p.trim()) : [];
-  const conclusionParagraphs = conclusionParagraphsRaw ? conclusionParagraphsRaw.split('\n\n').filter(p => p.trim()) : [];
+  // Récupération des contenus Rich Text depuis Storyblok
+  const titleDoc = blok[`title_${lang}` as keyof StoryblokAboutSectionData];
+  const introParagraphsDoc = blok[`intro_paragraphs_${lang}` as keyof StoryblokAboutSectionData];
+  const conclusionParagraphsDoc = blok[`conclusion_paragraphs_${lang}` as keyof StoryblokAboutSectionData];
+  const targetTitleDoc = blok[`target_title_${lang}` as keyof StoryblokAboutSectionData];
+  const targetTextDoc = blok[`target_text_${lang}` as keyof StoryblokAboutSectionData];
+  const objectiveTitleDoc = blok[`objective_title_${lang}` as keyof StoryblokAboutSectionData];
+  const objectiveTextDoc = blok[`objective_text_${lang}` as keyof StoryblokAboutSectionData];
+  
+  // Extraction du titre en texte brut pour le menu
+  const title = extractPlainText(titleDoc) || '';
+  
+  // Rendu des contenus Rich Text avec formatage
+  const introParagraphsHtml = renderStoryblokRichText(introParagraphsDoc);
+  const conclusionParagraphsHtml = renderStoryblokRichText(conclusionParagraphsDoc);
+  const targetTitle = extractPlainText(targetTitleDoc) || '';
+  const targetTextHtml = renderStoryblokRichText(targetTextDoc);
+  const objectiveTitle = extractPlainText(objectiveTitleDoc) || '';
+  const objectiveTextHtml = renderStoryblokRichText(objectiveTextDoc);
 
   return (
     <SectionGroup 
@@ -112,7 +105,7 @@ export default function AboutSection({ blok, lang, isCompactMode }: AboutSection
       >
         {/* Premiers paragraphes d'introduction */}
         <div className="mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
-          {renderParagraphs(introParagraphs)}
+          {renderRichTextContent(introParagraphsHtml)}
         </div>
         
         {/* Erté Angel Image - EXACTEMENT comme l'original */}
@@ -128,7 +121,7 @@ export default function AboutSection({ blok, lang, isCompactMode }: AboutSection
         
         {/* Paragraphes de conclusion */}
         <div>
-          {renderParagraphs(conclusionParagraphs)}
+          {renderRichTextContent(conclusionParagraphsHtml)}
         </div>
         
         {/* Danseuse image et objectifs - Layout exact en 2 colonnes */}
@@ -145,33 +138,33 @@ export default function AboutSection({ blok, lang, isCompactMode }: AboutSection
           {/* Colonne droite - Objectifs avec bordures */}
           <div className="flex flex-col justify-center space-y-3 xs:space-y-4">
             {/* Public Cible */}
-            {(targetTitle || targetText) && (
+            {(targetTitle || targetTextHtml) && (
               <div className="p-3 xs:p-4 sm:p-4 border border-primary">
                 {targetTitle && (
                   <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
                     {targetTitle}
                   </h4>
                 )}
-                {targetText && (
-                  <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
-                    {targetText}
-                  </p>
+                {targetTextHtml && (
+                  <div className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: targetTextHtml }}
+                  />
                 )}
               </div>
             )}
             
             {/* Notre Objectif */}
-            {(objectiveTitle || objectiveText) && (
+            {(objectiveTitle || objectiveTextHtml) && (
               <div className="p-3 xs:p-4 sm:p-4 border border-primary">
                 {objectiveTitle && (
                   <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
                     {objectiveTitle}
                   </h4>
                 )}
-                {objectiveText && (
-                  <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
-                    {objectiveText}
-                  </p>
+                {objectiveTextHtml && (
+                  <div className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: objectiveTextHtml }}
+                  />
                 )}
               </div>
             )}
