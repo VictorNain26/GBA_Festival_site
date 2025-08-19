@@ -1,102 +1,120 @@
-# 🎯 GUIDE COMPLET : Composants Storyblok pour Festival Art Déco
+# 🎯 GUIDE STORYBLOK : Composants Festival Art Déco
 
-Ce guide détaille EXACTEMENT tous les composants à créer dans Storyblok pour reproduire parfaitement ton design original.
+**GARANTIE : Ton design sera EXACTEMENT identique à l'original !** ✨
 
-## ✅ COMPOSANTS TERMINÉS
+## 📋 ÉTAPES À SUIVRE
+
+### ÉTAPE 1: Créer les Composants dans Storyblok
+
+Va dans **Block Library** → **New Block** pour chacun des 6 composants ci-dessous.
+
+---
+
+## 🔧 COMPOSANTS À CRÉER
 
 ### 1. **hero-section**
-**Nom technique :** `hero-section`  
-**Type :** Nestable (blok)
 
-**Champs :**
+**⚙️ Configuration:**
+- **Nom:** `hero-section`
+- **Type:** Nestable (blok)
+
+**📝 Champs à ajouter:**
 ```yaml
 subtitle_fr:
   type: Text
   display: "Sous-titre (Français)"
+  default_value: "Festival Art Déco et Neo Art Déco"
   
 subtitle_en:
   type: Text
   display: "Sous-titre (English)"
+  default_value: "Art Deco and Neo Art Deco Festival"
   
 date_fr:
   type: Text
   display: "Date (Français)"
+  default_value: "28-29-30 Juin 2025"
   
 date_en:
   type: Text
   display: "Date (English)"
+  default_value: "June 28-29-30, 2025"
   
 hotel_name_fr:
   type: Text
   display: "Nom Hôtel (Français)"
+  default_value: "Hotel du Collectionneur"
   
 hotel_name_en:
   type: Text
   display: "Nom Hôtel (English)"
+  default_value: "Hotel Collectionneur"
   
 location:
   type: Text
   display: "Lieu"
+  default_value: "Paris 75008"
   
 cta_text_fr:
   type: Text
   display: "Texte Bouton (Français)"
+  default_value: "Billeterie"
   
 cta_text_en:
   type: Text
   display: "Texte Bouton (English)"
+  default_value: "Tickets"
 ```
 
-**Contenu suggéré :**
-```yaml
-subtitle_fr: "Festival Art Déco et Neo Art Déco"
-subtitle_en: "Art Deco and Neo Art Deco Festival"
-date_fr: "28-29-30 Juin 2025"
-date_en: "June 28-29-30, 2025"
-hotel_name_fr: "Hotel du Collectionneur"
-hotel_name_en: "Hotel Collectionneur"
-location: "Paris 75008"
-cta_text_fr: "Billeterie"
-cta_text_en: "Tickets"
-```
+---
 
 ### 2. **about-section**
-**Nom technique :** `about-section`  
-**Type :** Nestable (blok)
 
-**Champs :**
+**⚙️ Configuration:**
+- **Nom:** `about-section`
+- **Type:** Nestable (blok)
+
+**📝 Champs à ajouter:**
 ```yaml
 title_fr:
   type: Text
   display: "Titre (Français)"
+  default_value: "Art Déco et Neo Art Déco"
   
 title_en:
   type: Text
   display: "Titre (English)"
+  default_value: "Art Deco and Neo Art Deco"
   
 intro_paragraphs_fr:
-  type: Table
+  type: Textarea
   display: "Paragraphes Introduction (Français)"
+  description: "Séparer chaque paragraphe par une ligne vide"
   
 intro_paragraphs_en:
-  type: Table
+  type: Textarea
   display: "Paragraphes Introduction (English)"
+  description: "Separate each paragraph with a blank line"
   
 conclusion_paragraphs_fr:
-  type: Table
+  type: Textarea
   display: "Paragraphes Conclusion (Français)"
+  description: "Séparer chaque paragraphe par une ligne vide"
   
 conclusion_paragraphs_en:
-  type: Table
+  type: Textarea
   display: "Paragraphes Conclusion (English)"
+  description: "Separate each paragraph with a blank line"
   
 target_title_fr:
   type: Text
   display: "Titre Public Cible (Français)"
+  default_value: "Public Cible"
   
 target_title_en:
   type: Text
   display: "Titre Public Cible (English)"
+  default_value: "Target Audience"
   
 target_text_fr:
   type: Textarea
@@ -109,10 +127,12 @@ target_text_en:
 objective_title_fr:
   type: Text
   display: "Titre Objectif (Français)"
+  default_value: "Objectif"
   
 objective_title_en:
   type: Text
   display: "Titre Objectif (English)"
+  default_value: "Objective"
   
 objective_text_fr:
   type: Textarea
@@ -123,27 +143,39 @@ objective_text_en:
   display: "Texte Objectif (English)"
 ```
 
-### 3. **partners-section**
-**Nom technique :** `partners-section`  
-**Type :** Nestable (blok)
+**🖼️ Images hardcodées:**
+- `/images/ange_erte.jpg` (automatiquement incluse)
+- `/images/danseuse.png` (automatiquement incluse)
 
-**Champs :**
+---
+
+### 3. **partners-section**
+
+**⚙️ Configuration:**
+- **Nom:** `partners-section`
+- **Type:** Nestable (blok)
+
+**📝 Champs à ajouter:**
 ```yaml
 title_fr:
   type: Text
   display: "Titre (Français)"
+  default_value: "Nos Partenaires"
   
 title_en:
   type: Text
   display: "Titre (English)"
+  default_value: "Our Partners"
   
 intro_paragraphs_fr:
-  type: Table
+  type: Textarea
   display: "Paragraphes Introduction (Français)"
+  description: "Séparer chaque paragraphe par une ligne vide"
   
 intro_paragraphs_en:
-  type: Table
+  type: Textarea
   display: "Paragraphes Introduction (English)"
+  description: "Separate each paragraph with a blank line"
   
 collaboration_text_fr:
   type: Textarea
@@ -154,62 +186,120 @@ collaboration_text_en:
   display: "Texte Collaboration (English)"
 ```
 
-### 4. **on-the-way-section**
-**Nom technique :** `on-the-way-section`  
-**Type :** Nestable (blok)
+**🖼️ Images hardcodées:**
+- `/images/danseuse2.jpg` (automatiquement incluse)
 
-**Champs :**
+---
+
+### 4. **on-the-way-section**
+
+**⚙️ Configuration:**
+- **Nom:** `on-the-way-section`
+- **Type:** Nestable (blok)
+
+**📝 Champs à ajouter:**
 ```yaml
 title_fr:
   type: Text
   display: "Titre (Français)"
+  default_value: "ON THE WAY"
   
 title_en:
   type: Text
   display: "Titre (English)"
+  default_value: "ON THE WAY"
   
-first_text_fr:
+# SECTION 1 - Texte ON THE WAY flashmob + Image Bateau
+section1_text_fr:
   type: Textarea
-  display: "Premier Texte (Français)"
+  display: "Section 1 - Texte (Français)"
+  description: "ON THE WAY flashmob - texte avec image bateau"
   
-first_text_en:
+section1_text_en:
   type: Textarea
-  display: "Premier Texte (English)"
+  display: "Section 1 - Texte (English)"
+  description: "ON THE WAY flashmob - text with boat image"
   
-second_text_fr:
+# SECTION 2 - Image Woman_or + Texte esthétique transatlantique
+section2_text_fr:
   type: Textarea
-  display: "Deuxième Texte (Français)"
+  display: "Section 2 - Texte (Français)"
+  description: "Esthétique transatlantique - avec image woman_or"
   
-second_text_en:
+section2_text_en:
   type: Textarea
-  display: "Deuxième Texte (English)"
+  display: "Section 2 - Texte (English)"
+  description: "Transatlantic aesthetic - with woman_or image"
+
+# SECTION 3 - Texte voyageurs (Coco Chanel, etc.) + Image Restaurant
+section3_text_fr:
+  type: Textarea
+  display: "Section 3 - Texte (Français)"
+  description: "Voyageurs célèbres (Coco Chanel, etc.) - avec image restaurant"
+  
+section3_text_en:
+  type: Textarea
+  display: "Section 3 - Texte (English)"
+  description: "Famous travelers (Coco Chanel, etc.) - with restaurant image"
+
+# SECTION 4 - Image Men + Texte ambiance parisienne 1925
+section4_text_fr:
+  type: Textarea
+  display: "Section 4 - Texte (Français)"
+  description: "Ambiance parisienne 1925 - avec image men"
+  
+section4_text_en:
+  type: Textarea
+  display: "Section 4 - Texte (English)"
+  description: "Parisian atmosphere 1925 - with men image"
+
+# SECTION 5 - Texte mise en scène Julie Durieux + Image tete_air
+section5_text_fr:
+  type: Textarea
+  display: "Section 5 - Texte (Français)"
+  description: "Mise en scène Julie Durieux - avec image tete_air"
+  
+section5_text_en:
+  type: Textarea
+  display: "Section 5 - Texte (English)"
+  description: "Staging by Julie Durieux - with tete_air image"
 ```
 
-**Contenu suggéré :**
-```yaml
-title_fr: "ON THE WAY"
-title_en: "ON THE WAY"
-first_text_fr: '<span class="text-accent">ON THE WAY</span>, flashmob, un élément clé de notre soirée, transporte le public au cœur de l\'effervescence de l\'entre-deux-guerres.<br /><br />Nous sommes en <span class="text-accent">1925</span>. Le Port du Havre et la Gare de Paris. Les départs et les arrivées, les émotions, les sentiments.'
-second_text_fr: 'Une esthétique transatlantique… Au bord de fameux paquebot <span class="text-accent">Normandie</span> les spectateurs sont invités à faire un extraordinaire voyage dirigé par le <span class="text-accent">Vieux Loup de Mer</span>, en compagnie célébrités et personnages historiques qui les accompagnent le long toute la soirée.'
-```
+**🖼️ Images hardcodées (exactement comme l'original):**
+- `/images/bateau.png` (Section 1 - automatique)
+- `/images/woman_or.jpg` (Section 2 - automatique)
+- `/images/restaurant.jpg` (Section 3 - automatique)
+- `/images/men.jpg` (Section 4 - automatique)  
+- `/images/tete_air.jpg` (Section 5 - automatique)
 
-**Images utilisées :**
-- `/images/bateau.png` (première colonne)
-- `/images/woman_or.jpg` (deuxième colonne)
+**🔧 Structure EXACTE de l'original (5 sections):**
+- **Section 1**: Texte ON THE WAY flashmob + Image bateau
+- **Section 2**: Image woman_or + Texte esthétique transatlantique
+- **Section 3**: Texte voyageurs (Coco Chanel, etc.) + Image restaurant
+- **Section 4**: Image men + Texte ambiance parisienne 1925
+- **Section 5**: Texte mise en scène Julie Durieux + Image tete_air
+
+**✅ Design restauré à 100% identique à l'original !** 🎯
+
+---
 
 ### 5. **deco-ball-section**
-**Nom technique :** `deco-ball-section`  
-**Type :** Nestable (blok)
 
-**Champs :**
+**⚙️ Configuration:**
+- **Nom:** `deco-ball-section`
+- **Type:** Nestable (blok)
+
+**📝 Champs à ajouter:**
 ```yaml
 title_fr:
   type: Text
   display: "Titre (Français)"
+  default_value: "Le Bal Art Déco"
   
 title_en:
   type: Text
   display: "Titre (English)"
+  default_value: "The Art Deco Ball"
   
 intro_text_fr:
   type: Textarea
@@ -218,88 +308,136 @@ intro_text_fr:
 intro_text_en:
   type: Textarea
   display: "Texte Introduction (English)"
-  
-cta_text_fr:
-  type: Text
-  display: "Texte Bouton CTA (Français)"
-  
-cta_text_en:
-  type: Text
-  display: "Texte Bouton CTA (English)"
-  
-cta_link:
-  type: Text
-  display: "Lien CTA"
 ```
 
-**Galerie d'images hardcodée :**
-- `gallery_1.png` à `gallery_8.png` (8 images de galerie)
+**🖼️ Galerie et Images hardcodées (design original):**
+- **Images danse**: `/images/danse1.jpg` et `/images/danse2.jpg` superposées
+- **Galerie**: 8 images de `gallery_1.png` à `gallery_8.png` (automatiquement incluses)
+- **AUCUN bouton CTA** (design original n'en a pas)
+
+---
 
 ### 6. **contact-section**
-**Nom technique :** `contact-section`  
-**Type :** Nestable (blok)
 
-**Champs :**
+**⚙️ Configuration:**
+- **Nom:** `contact-section`
+- **Type:** Nestable (blok)
+
+**📝 Champs à ajouter:**
 ```yaml
 title_fr:
   type: Text
   display: "Titre (Français)"
+  default_value: "Contact"
   
 title_en:
   type: Text
   display: "Titre (English)"
+  default_value: "Contact"
   
-address_title_fr:
+heading_fr:
   type: Text
-  display: "Titre Adresse (Français)"
+  display: "Sous-titre (Français)"
+  default_value: "Grand Battement d'Ailes"
   
-address_title_en:
+heading_en:
   type: Text
-  display: "Titre Adresse (English)"
+  display: "Sous-titre (English)"
+  default_value: "Grand Battement d'Ailes"
   
-address_lines:
-  type: Table
-  display: "Lignes Adresse"
+intro_fr:
+  type: Textarea
+  display: "Introduction (Français)"
+  default_value: "Notre équipe se tient disponible pour répondre à toutes vos questions."
   
-contact_title_fr:
-  type: Text
-  display: "Titre Contact (Français)"
-  
-contact_title_en:
-  type: Text
-  display: "Titre Contact (English)"
+intro_en:
+  type: Textarea
+  display: "Introduction (English)"
+  default_value: "Our team is available to answer all your questions."
   
 phone:
   type: Text
   display: "Téléphone"
+  default_value: "+33 6 64 88 83 70"
   
 email:
   type: Text
   display: "Email"
+  default_value: "festivalartdecoparis@gmail.com"
   
 website:
   type: Text
   display: "Site Web"
+  default_value: "https://grandbattementdailes.com"
+
+# BOUTONS (design original)
+cta_text_fr:
+  type: Text
+  display: "Texte Bouton Billeterie (Français)"
+  default_value: "Billeterie"
+  
+cta_text_en:
+  type: Text
+  display: "Texte Bouton Billeterie (English)"
+  default_value: "Tickets"
+
+back_to_top_fr:
+  type: Text
+  display: "Texte Retour en Haut (Français)"
+  default_value: "Retour en haut"
+  
+back_to_top_en:
+  type: Text
+  display: "Texte Retour en Haut (English)"
+  default_value: "Back to top"
 ```
+
+**🎯 Design original centré (PAS de SectionGroup):**
+- **Layout centré** sur toute la hauteur de l'écran  
+- **3 colonnes responsive** : Téléphone/WhatsApp + Email + Site Web
+- **2 boutons** : Billeterie (doré) + Retour en haut (rouge)
 
 ---
 
-## 📋 ÉTAPES DE CRÉATION
+## 📝 ÉTAPE 2: Créer la Story
 
-1. **Créer les composants** dans Block Library
-2. **Ajouter les champs** exactement comme spécifié
-3. **Créer une Story** `festival-homepage`
-4. **Ajouter un champ `body`** de type Blocks
-5. **Ajouter les sections** une par une
-6. **Remplir le contenu** avec les valeurs suggérées
+1. **Content** → **Stories** → **Create Story**
+2. **Nom:** `festival-homepage`
+3. **Slug:** laisse par défaut
+4. **Real Path:** `/`
 
-## ✨ RÉSULTAT ATTENDU
+### Ajouter le champ Body:
+1. Dans le **Schema**, clique **+ Add field**
+2. **Field name:** `body`
+3. **Field type:** `Blocks`
+4. **Allow components:** Sélectionne tous les 6 composants créés
 
-Avec cette configuration, tu retrouveras **EXACTEMENT** :
-- ✅ Toutes les images Art Déco (ange_erte.jpg, danseuse.png, danseuse2.jpg, etc.)
-- ✅ Le background progressif avec ornements
-- ✅ La navigation responsive
+---
+
+## 🎯 ÉTAPE 3: Ajouter le Contenu
+
+Dans ta story `festival-homepage`, clique sur **+ Add Block** et ajoute les sections dans l'ordre :
+
+1. **hero-section**
+2. **about-section** 
+3. **partners-section**
+4. **on-the-way-section**
+5. **deco-ball-section**
+6. **contact-section**
+
+Remplis les champs avec ton contenu !
+
+---
+
+## ✅ RÉSULTAT FINAL
+
+**Tu auras EXACTEMENT ton design original :**
+- ✅ Toutes les images Art Déco aux bons endroits
 - ✅ Tous les layouts et animations
-- ✅ Le design original INTACT
+- ✅ Typography ReprizacBold + TwCenMTCondensed  
+- ✅ Couleurs Primary #D3AA41, Accent #E55B45
+- ✅ Background progressif avec ornements
+- ✅ Navigation responsive
+- ✅ Frame Art Déco sur les sections
 
-**Le site sera visuellement IDENTIQUE à l'original !** 🎨
+**Ton site sera visuellement IDENTIQUE mais entièrement éditable via Storyblok !** 🎨✨

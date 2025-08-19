@@ -1,9 +1,9 @@
 /**
- * Composant Storyblok: Section "Le Bal Art Déco" / "The Art Deco Ball"
- * Reproduit EXACTEMENT le design original avec SectionGroup, galerie d'images et CTA
+ * Composant Storyblok: Section "Le Bal Art Déco"
+ * Reproduit EXACTEMENT le design original avec images danse superposées + galerie
  */
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { storyblokEditable } from '@storyblok/react';
 import SectionGroup from '@/components/SectionGroup';
@@ -17,9 +17,6 @@ export interface StoryblokDecoBallSectionData extends StoryblokBaseBlok {
   title_en: string;
   intro_text_fr: string;
   intro_text_en: string;
-  cta_text_fr: string;
-  cta_text_en: string;
-  cta_link: string;
 }
 
 interface DecoBallSectionProps {
@@ -30,10 +27,9 @@ interface DecoBallSectionProps {
 
 export default function DecoBallSection({ blok, lang, isCompactMode }: DecoBallSectionProps) {
   const prefersReducedMotion = useReducedMotion();
-  
-  // Memoize animation variants pour éviter les recreations
-  const getAnimationVariants = useMemo(() => {
-    return (delay = 0) => {
+
+  const getAnimationVariants = React.useMemo(() => {
+    return (delay: number = 0) => {
       if (prefersReducedMotion) {
         return {
           initial: { opacity: 0 },
@@ -53,19 +49,18 @@ export default function DecoBallSection({ blok, lang, isCompactMode }: DecoBallS
   // Récupération des données
   const title = blok[`title_${lang}` as keyof StoryblokDecoBallSectionData] as string || '';
   const introText = blok[`intro_text_${lang}` as keyof StoryblokDecoBallSectionData] as string || '';
-  const ctaText = blok[`cta_text_${lang}` as keyof StoryblokDecoBallSectionData] as string || '';
-  const ctaLink = blok.cta_link || '#tickets';
 
-  // Galerie d'images hardcodée - EXACTEMENT comme l'original
+  // Galerie d'images hardcodée - EXACTEMENT comme l'original (9 images .jpg)
   const galleryImages = [
-    { src: '/images/gallery_1.png', alt: 'Art Déco - Galerie 1' },
-    { src: '/images/gallery_2.png', alt: 'Art Déco - Galerie 2' },
-    { src: '/images/gallery_3.png', alt: 'Art Déco - Galerie 3' },
-    { src: '/images/gallery_4.png', alt: 'Art Déco - Galerie 4' },
-    { src: '/images/gallery_5.png', alt: 'Art Déco - Galerie 5' },
-    { src: '/images/gallery_6.png', alt: 'Art Déco - Galerie 6' },
-    { src: '/images/gallery_7.png', alt: 'Art Déco - Galerie 7' },
-    { src: '/images/gallery_8.png', alt: 'Art Déco - Galerie 8' },
+    { src: '/images/gallery_1.jpg', alt: 'Art Déco Gallery 1', rotate: -12 },
+    { src: '/images/gallery_2.jpg', alt: 'Art Déco Gallery 2', rotate: 6 },
+    { src: '/images/gallery_3.jpg', alt: 'Art Déco Gallery 3', rotate: -8 },
+    { src: '/images/gallery_4.jpg', alt: 'Art Déco Gallery 4', rotate: 10 },
+    { src: '/images/gallery_5.jpg', alt: 'Art Déco Gallery 5', rotate: -15 },
+    { src: '/images/gallery_6.jpg', alt: 'Art Déco Gallery 6', rotate: 8 },
+    { src: '/images/gallery_7.jpg', alt: 'Art Déco Gallery 7', rotate: -12 },
+    { src: '/images/gallery_8.jpg', alt: 'Art Déco Gallery 8', rotate: 14 },
+    { src: '/images/gallery_9.jpg', alt: 'Art Déco Gallery 9', rotate: -6 },
   ];
 
   return (
@@ -75,62 +70,104 @@ export default function DecoBallSection({ blok, lang, isCompactMode }: DecoBallS
       title={title} 
       isCompactMode={isCompactMode}
     >
-      {/* Texte d'introduction */}
-      <motion.div {...getAnimationVariants(0.2)} viewport={{ once: true, margin: "-100px" }}>
-        <div className="text-center mb-6 xs:mb-7 sm:mb-8 lg:mb-10">
-          {introText && (
+      {/* Two columns: content text and stacked dance images - EXACTEMENT comme l'original */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10">
+        {/* Left column - Content text */}
+        {introText && (
+          <motion.div
+            className="flex flex-col justify-center"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <p 
-              className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed max-w-4xl mx-auto"
+              className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify"
               dangerouslySetInnerHTML={{ __html: introText }}
             />
-          )}
-        </div>
-      </motion.div>
-
-      {/* Galerie d'images - Grid responsive EXACTEMENT comme l'original */}
-      <motion.div {...getAnimationVariants(0.4)} viewport={{ once: true, margin: "-100px" }}>
-        <div className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-4 lg:gap-5 mb-8 xs:mb-9 sm:mb-10 lg:mb-12">
-          {galleryImages.map((image, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true, margin: '-50px' }}
-              whileHover={!prefersReducedMotion ? { scale: 1.05 } : {}}
-              className="relative group cursor-pointer overflow-hidden"
-            >
+          </motion.div>
+        )}
+        
+        {/* Right column - Stacked dance images with offset - EXACTEMENT comme l'original */}
+        <div className="relative w-full flex justify-center">
+          <div className="relative">
+            {/* Image de fond - danse2 - TRÈS GRANDE SANS LIMITATION */}
+            <div className="relative z-10">
               <OptimizedImage
-                src={image.src}
-                alt={image.alt}
-                width={300}
-                height={300}
-                className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-110"
+                src="/images/danse2.jpg"
+                alt="Danse Art Déco - Bal des Années Folles"
+                width={900}
+                height={1080}
+                className="w-full max-w-[320px] xs:max-w-[400px] sm:max-w-[500px] lg:max-w-[600px] xl:max-w-[700px] object-cover"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                viewport={{ once: true }}
               />
-              {/* Overlay au hover */}
-              <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </motion.div>
+            </div>
+            
+            {/* Image superposée - danse1 - BAS GAUCHE avec danse2 qui dépasse un peu */}
+            <div className="absolute z-20 bottom-8 -left-6 xs:bottom-10 xs:-left-8 sm:bottom-12 sm:-left-10 lg:bottom-14 lg:-left-12 xl:bottom-16 xl:-left-16 transform translate-y-2 xs:translate-y-3 sm:translate-y-4 lg:translate-y-5 xl:translate-y-6">
+              <OptimizedImage
+                src="/images/danse1.jpg"
+                alt="Élégance Art Déco - Soirée Dansante"
+                width={240}
+                height={300}
+                className="w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover shadow-2xl"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                viewport={{ once: true }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Florilège gallery - Images artistiquement disposées EXACTEMENT comme l'original */}
+      <div className="mt-12 xs:mt-14 sm:mt-16 lg:mt-20 xl:mt-24">
+        {/* Première ligne - 5 images décalées */}
+        <div className="relative flex flex-wrap justify-center items-center gap-4 xs:gap-6 sm:gap-8 lg:gap-10 xl:gap-12 mb-8 xs:mb-10 sm:mb-12 lg:mb-16 xl:mb-20">
+          {galleryImages.slice(0, 5).map((image, index) => (
+            <OptimizedImage
+              key={index}
+              src={image.src}
+              alt={image.alt}
+              width={160}
+              height={200}
+              className={`w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer will-change-transform ${
+                index === 1 ? '-mt-2' : index === 2 ? 'mt-1' : index === 3 ? '-mt-3' : index === 4 ? 'mt-2' : ''
+              }`}
+              initial={{ opacity: 0, rotate: image.rotate, scale: 0.8 }}
+              whileInView={{ opacity: 1, rotate: image.rotate, scale: 1 }}
+              whileHover={{ rotate: image.rotate / 2, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              viewport={{ once: true }}
+            />
           ))}
         </div>
-      </motion.div>
-
-      {/* Bouton CTA - EXACTEMENT comme l'original */}
-      {ctaText && ctaLink && (
-        <motion.div 
-          {...getAnimationVariants(0.6)} 
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center"
-        >
-          <motion.a
-            href={ctaLink}
-            className="inline-block px-8 xs:px-10 sm:px-12 lg:px-16 py-3 xs:py-4 sm:py-4 lg:py-5 border-2 border-accent text-accent font-title text-base xs:text-lg sm:text-xl lg:text-2xl transition-all duration-300 hover:bg-accent hover:text-background hover:scale-105"
-            whileHover={!prefersReducedMotion ? { scale: 1.05 } : {}}
-            whileTap={!prefersReducedMotion ? { scale: 0.95 } : {}}
-          >
-            {ctaText}
-          </motion.a>
-        </motion.div>
-      )}
+        
+        {/* Deuxième ligne - 4 images décalées */}
+        <div className="relative flex flex-wrap justify-center items-center gap-6 xs:gap-8 sm:gap-10 lg:gap-12 xl:gap-16">
+          {galleryImages.slice(5).map((image, index) => (
+            <OptimizedImage
+              key={index + 5}
+              src={image.src}
+              alt={image.alt}
+              width={160}
+              height={200}
+              className={`w-full max-w-20 xs:max-w-24 sm:max-w-28 lg:max-w-32 xl:max-w-36 object-cover cursor-pointer will-change-transform ${
+                index === 0 ? 'mt-1' : index === 1 ? '-mt-1' : index === 2 ? 'mt-3' : '-mt-2'
+              }`}
+              initial={{ opacity: 0, rotate: image.rotate, scale: 0.8 }}
+              whileInView={{ opacity: 1, rotate: image.rotate, scale: 1 }}
+              whileHover={{ rotate: image.rotate / 2, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              viewport={{ once: true }}
+            />
+          ))}
+        </div>
+      </div>
     </SectionGroup>
   );
 }

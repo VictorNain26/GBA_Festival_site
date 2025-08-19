@@ -187,7 +187,7 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
         ) : (
           // Contenu Storyblok réussi
           <>
-            {liveStory.content.body?.map((section: any) => {
+            {Array.isArray(liveStory.content.body) && liveStory.content.body.map((section: any) => {
               switch (section.component) {
                 case 'hero-section':
                   return (

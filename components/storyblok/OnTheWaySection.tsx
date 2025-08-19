@@ -14,10 +14,21 @@ import type { StoryblokBaseBlok } from '@/lib/storyblok';
 export interface StoryblokOnTheWaySectionData extends StoryblokBaseBlok {
   title_fr: string;
   title_en: string;
-  first_text_fr: string;
-  first_text_en: string;
-  second_text_fr: string;
-  second_text_en: string;
+  // Section 1 - Texte + Image bateau
+  section1_text_fr: string;
+  section1_text_en: string;
+  // Section 2 - Image woman_or + Texte esthétique transatlantique
+  section2_text_fr: string;
+  section2_text_en: string;
+  // Section 3 - Texte voyageurs + Image restaurant
+  section3_text_fr: string;
+  section3_text_en: string;
+  // Section 4 - Image men + Texte ambiance parisienne
+  section4_text_fr: string;
+  section4_text_en: string;
+  // Section 5 - Texte mise en scène + Image tete_air
+  section5_text_fr: string;
+  section5_text_en: string;
 }
 
 interface OnTheWaySectionProps {
@@ -27,10 +38,13 @@ interface OnTheWaySectionProps {
 }
 
 export default function OnTheWaySection({ blok, lang, isCompactMode }: OnTheWaySectionProps) {
-  // Récupération des données
+  // Récupération des données EXACTEMENT comme l'original
   const title = blok[`title_${lang}` as keyof StoryblokOnTheWaySectionData] as string || '';
-  const firstText = blok[`first_text_${lang}` as keyof StoryblokOnTheWaySectionData] as string || '';
-  const secondText = blok[`second_text_${lang}` as keyof StoryblokOnTheWaySectionData] as string || '';
+  const section1Text = blok[`section1_text_${lang}` as keyof StoryblokOnTheWaySectionData] as string || '';
+  const section2Text = blok[`section2_text_${lang}` as keyof StoryblokOnTheWaySectionData] as string || '';
+  const section3Text = blok[`section3_text_${lang}` as keyof StoryblokOnTheWaySectionData] as string || '';
+  const section4Text = blok[`section4_text_${lang}` as keyof StoryblokOnTheWaySectionData] as string || '';
+  const section5Text = blok[`section5_text_${lang}` as keyof StoryblokOnTheWaySectionData] as string || '';
 
   // Titre complexe avec sous-titre EXACTEMENT comme l'original
   const complexTitle = (
@@ -50,10 +64,10 @@ export default function OnTheWaySection({ blok, lang, isCompactMode }: OnTheWayS
       title={complexTitle}
       isCompactMode={isCompactMode}
     >
-      {/* Premier layout: texte et image bateau */}
+      {/* SECTION 1: texte ON THE WAY flashmob + image bateau */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10">
-        {/* Colonne gauche - Premier texte */}
-        {firstText && (
+        {/* Colonne gauche - Texte section 1 */}
+        {section1Text && (
           <motion.div
             className="flex flex-col justify-center"
             initial={{ opacity: 0, x: -30 }}
@@ -63,7 +77,7 @@ export default function OnTheWaySection({ blok, lang, isCompactMode }: OnTheWayS
           >
             <p 
               className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify"
-              dangerouslySetInnerHTML={{ __html: firstText }}
+              dangerouslySetInnerHTML={{ __html: section1Text }}
             />
           </motion.div>
         )}
@@ -82,7 +96,7 @@ export default function OnTheWaySection({ blok, lang, isCompactMode }: OnTheWayS
         />
       </div>
       
-      {/* Deuxième layout: image woman_or et texte esthétique transatlantique */}
+      {/* SECTION 2: image woman_or + texte esthétique transatlantique */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 mt-6 xs:mt-7 sm:mt-8 lg:mt-10">
         {/* Colonne gauche - Image woman_or */}
         <OptimizedImage
@@ -97,8 +111,8 @@ export default function OnTheWaySection({ blok, lang, isCompactMode }: OnTheWayS
           viewport={{ once: true, margin: '-50px' }}
         />
         
-        {/* Colonne droite - Deuxième texte */}
-        {secondText && (
+        {/* Colonne droite - Texte section 2 */}
+        {section2Text && (
           <motion.div
             className="flex flex-col justify-center"
             initial={{ opacity: 0, x: 30 }}
@@ -108,10 +122,106 @@ export default function OnTheWaySection({ blok, lang, isCompactMode }: OnTheWayS
           >
             <p 
               className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify"
-              dangerouslySetInnerHTML={{ __html: secondText }}
+              dangerouslySetInnerHTML={{ __html: section2Text }}
             />
           </motion.div>
         )}
+      </div>
+
+      {/* SECTION 3: texte voyageurs (Coco Chanel, etc.) + image restaurant */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 mt-6 xs:mt-7 sm:mt-8 lg:mt-10">
+        {/* Colonne gauche - Texte section 3 */}
+        {section3Text && (
+          <motion.div
+            className="flex flex-col justify-center"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-50px' }}
+          >
+            <p 
+              className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify"
+              dangerouslySetInnerHTML={{ __html: section3Text }}
+            />
+          </motion.div>
+        )}
+        
+        {/* Colonne droite - Image restaurant */}
+        <OptimizedImage
+          src="/images/restaurant.jpg"
+          alt="Restaurant Art Déco - Ambiance des Années Folles"
+          width={400}
+          height={500}
+          className="w-full max-w-48 xs:max-w-52 sm:max-w-56 lg:max-w-60 xl:max-w-64 object-cover mx-auto"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-50px' }}
+        />
+      </div>
+
+      {/* SECTION 4: image men + texte ambiance parisienne 1925 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 mt-6 xs:mt-7 sm:mt-8 lg:mt-10">
+        {/* Colonne gauche - Image men */}
+        <OptimizedImage
+          src="/images/men.jpg"
+          alt="Hommes élégants - Époque Art Déco"
+          width={400}
+          height={500}
+          className="w-full max-w-48 xs:max-w-52 sm:max-w-56 lg:max-w-60 xl:max-w-64 object-cover mx-auto"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-50px' }}
+        />
+        
+        {/* Colonne droite - Texte section 4 */}
+        {section4Text && (
+          <motion.div
+            className="flex flex-col justify-center"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-50px' }}
+          >
+            <p 
+              className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify"
+              dangerouslySetInnerHTML={{ __html: section4Text }}
+            />
+          </motion.div>
+        )}
+      </div>
+
+      {/* SECTION 5: texte mise en scène Julie Durieux + image tete_air */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10 mt-6 xs:mt-7 sm:mt-8 lg:mt-10">
+        {/* Colonne gauche - Texte section 5 */}
+        {section5Text && (
+          <motion.div
+            className="flex flex-col justify-center"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-50px' }}
+          >
+            <p 
+              className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify"
+              dangerouslySetInnerHTML={{ __html: section5Text }}
+            />
+          </motion.div>
+        )}
+        
+        {/* Colonne droite - Image tete_air */}
+        <OptimizedImage
+          src="/images/tete_air.jpg"
+          alt="Portrait Art Déco - Mise en scène Julie Durieux"
+          width={400}
+          height={500}
+          className="w-full max-w-48 xs:max-w-52 sm:max-w-56 lg:max-w-60 xl:max-w-64 object-cover mx-auto"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-50px' }}
+        />
       </div>
     </SectionGroup>
   );

@@ -15,10 +15,10 @@ import type { StoryblokBaseBlok } from '@/lib/storyblok';
 export interface StoryblokAboutSectionData extends StoryblokBaseBlok {
   title_fr: string;
   title_en: string;
-  intro_paragraphs_fr: string[];
-  intro_paragraphs_en: string[];
-  conclusion_paragraphs_fr: string[];
-  conclusion_paragraphs_en: string[];
+  intro_paragraphs_fr: string;
+  intro_paragraphs_en: string;
+  conclusion_paragraphs_fr: string;
+  conclusion_paragraphs_en: string;
   target_title_fr: string;
   target_title_en: string;
   target_text_fr: string;
@@ -72,14 +72,18 @@ export default function AboutSection({ blok, lang, isCompactMode }: AboutSection
     ));
   };
 
-  // Récupération des données avec fallbacks
+  // Récupération des données avec fallbacks et conversion string -> array
   const title = blok[`title_${lang}` as keyof StoryblokAboutSectionData] as string || '';
-  const introParagraphs = blok[`intro_paragraphs_${lang}` as keyof StoryblokAboutSectionData] as string[] || [];
-  const conclusionParagraphs = blok[`conclusion_paragraphs_${lang}` as keyof StoryblokAboutSectionData] as string[] || [];
+  const introParagraphsRaw = blok[`intro_paragraphs_${lang}` as keyof StoryblokAboutSectionData] as string || '';
+  const conclusionParagraphsRaw = blok[`conclusion_paragraphs_${lang}` as keyof StoryblokAboutSectionData] as string || '';
   const targetTitle = blok[`target_title_${lang}` as keyof StoryblokAboutSectionData] as string || '';
   const targetText = blok[`target_text_${lang}` as keyof StoryblokAboutSectionData] as string || '';
   const objectiveTitle = blok[`objective_title_${lang}` as keyof StoryblokAboutSectionData] as string || '';
   const objectiveText = blok[`objective_text_${lang}` as keyof StoryblokAboutSectionData] as string || '';
+
+  // Conversion des strings en tableaux de paragraphes
+  const introParagraphs = introParagraphsRaw ? introParagraphsRaw.split('\n\n').filter(p => p.trim()) : [];
+  const conclusionParagraphs = conclusionParagraphsRaw ? conclusionParagraphsRaw.split('\n\n').filter(p => p.trim()) : [];
 
   return (
     <SectionGroup 
@@ -93,7 +97,7 @@ export default function AboutSection({ blok, lang, isCompactMode }: AboutSection
         viewport={{ once: true, margin: "-100px" }}
       >
         {/* Premiers paragraphes d'introduction */}
-        <div className="mb-4 xs:mb-5 sm:mb-6 lg:mb-8">
+        <div className="mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
           {renderParagraphs(introParagraphs)}
         </div>
         

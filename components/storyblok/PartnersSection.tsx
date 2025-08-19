@@ -14,8 +14,8 @@ import type { StoryblokBaseBlok } from '@/lib/storyblok';
 export interface StoryblokPartnersSectionData extends StoryblokBaseBlok {
   title_fr: string;
   title_en: string;
-  intro_paragraphs_fr: string[];
-  intro_paragraphs_en: string[];
+  intro_paragraphs_fr: string;
+  intro_paragraphs_en: string;
   collaboration_text_fr: string;
   collaboration_text_en: string;
 }
@@ -43,10 +43,13 @@ export default function PartnersSection({ blok, lang, isCompactMode }: PartnersS
     ));
   };
 
-  // Récupération des données
+  // Récupération des données avec conversion string -> array
   const title = blok[`title_${lang}` as keyof StoryblokPartnersSectionData] as string || '';
-  const introParagraphs = blok[`intro_paragraphs_${lang}` as keyof StoryblokPartnersSectionData] as string[] || [];
+  const introParagraphsRaw = blok[`intro_paragraphs_${lang}` as keyof StoryblokPartnersSectionData] as string || '';
   const collaborationText = blok[`collaboration_text_${lang}` as keyof StoryblokPartnersSectionData] as string || '';
+
+  // Conversion de la string en tableau de paragraphes
+  const introParagraphs = introParagraphsRaw ? introParagraphsRaw.split('\n\n').filter(p => p.trim()) : [];
 
   return (
     <SectionGroup 
