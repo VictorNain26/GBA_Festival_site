@@ -87,22 +87,22 @@ title_en:
   default_value: "Art Deco and Neo Art Deco"
   
 intro_paragraphs_fr:
-  type: Textarea
+  type: Richtext
   display: "Paragraphes Introduction (Français)"
-  description: "Séparer chaque paragraphe par une ligne vide"
+  description: "Éditeur visuel : Sélectionnez le texte pour le mettre en rouge"
   
 intro_paragraphs_en:
-  type: Textarea
+  type: Richtext
   display: "Paragraphes Introduction (English)"
-  description: "Separate each paragraph with a blank line"
+  description: "Visual editor: Select text to make it red"
   
 conclusion_paragraphs_fr:
-  type: Textarea
+  type: Richtext
   display: "Paragraphes Conclusion (Français)"
   description: "Séparer chaque paragraphe par une ligne vide"
   
 conclusion_paragraphs_en:
-  type: Textarea
+  type: Richtext
   display: "Paragraphes Conclusion (English)"
   description: "Separate each paragraph with a blank line"
   
@@ -117,11 +117,11 @@ target_title_en:
   default_value: "Target Audience"
   
 target_text_fr:
-  type: Textarea
+  type: Richtext
   display: "Texte Public Cible (Français)"
   
 target_text_en:
-  type: Textarea
+  type: Richtext
   display: "Texte Public Cible (English)"
   
 objective_title_fr:
@@ -135,11 +135,11 @@ objective_title_en:
   default_value: "Objective"
   
 objective_text_fr:
-  type: Textarea
+  type: Richtext
   display: "Texte Objectif (Français)"
   
 objective_text_en:
-  type: Textarea
+  type: Richtext
   display: "Texte Objectif (English)"
 ```
 
@@ -183,21 +183,21 @@ title_en:
   default_value: "Our Partners"
   
 intro_paragraphs_fr:
-  type: Textarea
+  type: Richtext
   display: "Paragraphes Introduction (Français)"
-  description: "Séparer chaque paragraphe par une ligne vide"
+  description: "Éditeur visuel : Sélectionnez le texte pour le mettre en rouge"
   
 intro_paragraphs_en:
-  type: Textarea
+  type: Richtext
   display: "Paragraphes Introduction (English)"
-  description: "Separate each paragraph with a blank line"
+  description: "Visual editor: Select text to make it red"
   
 collaboration_text_fr:
-  type: Textarea
+  type: Richtext
   display: "Texte Collaboration (Français)"
   
 collaboration_text_en:
-  type: Textarea
+  type: Richtext
   display: "Texte Collaboration (English)"
 ```
 
@@ -226,56 +226,56 @@ title_en:
   
 # SECTION 1 - Texte ON THE WAY flashmob + Image Bateau
 section1_text_fr:
-  type: Textarea
+  type: Richtext
   display: "Section 1 - Texte (Français)"
   description: "ON THE WAY flashmob - texte avec image bateau"
   
 section1_text_en:
-  type: Textarea
+  type: Richtext
   display: "Section 1 - Texte (English)"
   description: "ON THE WAY flashmob - text with boat image"
   
 # SECTION 2 - Image Woman_or + Texte esthétique transatlantique
 section2_text_fr:
-  type: Textarea
+  type: Richtext
   display: "Section 2 - Texte (Français)"
   description: "Esthétique transatlantique - avec image woman_or"
   
 section2_text_en:
-  type: Textarea
+  type: Richtext
   display: "Section 2 - Texte (English)"
   description: "Transatlantic aesthetic - with woman_or image"
 
 # SECTION 3 - Texte voyageurs (Coco Chanel, etc.) + Image Restaurant
 section3_text_fr:
-  type: Textarea
+  type: Richtext
   display: "Section 3 - Texte (Français)"
   description: "Voyageurs célèbres (Coco Chanel, etc.) - avec image restaurant"
   
 section3_text_en:
-  type: Textarea
+  type: Richtext
   display: "Section 3 - Texte (English)"
   description: "Famous travelers (Coco Chanel, etc.) - with restaurant image"
 
 # SECTION 4 - Image Men + Texte ambiance parisienne 1925
 section4_text_fr:
-  type: Textarea
+  type: Richtext
   display: "Section 4 - Texte (Français)"
   description: "Ambiance parisienne 1925 - avec image men"
   
 section4_text_en:
-  type: Textarea
+  type: Richtext
   display: "Section 4 - Texte (English)"
   description: "Parisian atmosphere 1925 - with men image"
 
 # SECTION 5 - Texte mise en scène Julie Durieux + Image tete_air
 section5_text_fr:
-  type: Textarea
+  type: Richtext
   display: "Section 5 - Texte (Français)"
   description: "Mise en scène Julie Durieux - avec image tete_air"
   
 section5_text_en:
-  type: Textarea
+  type: Richtext
   display: "Section 5 - Texte (English)"
   description: "Staging by Julie Durieux - with tete_air image"
 ```
@@ -317,11 +317,11 @@ title_en:
   default_value: "The Art Deco Ball"
   
 intro_text_fr:
-  type: Textarea
+  type: Richtext
   display: "Texte Introduction (Français)"
   
 intro_text_en:
-  type: Textarea
+  type: Richtext
   display: "Texte Introduction (English)"
 ```
 
@@ -361,12 +361,12 @@ heading_en:
   default_value: "Grand Battement d'Ailes"
   
 intro_fr:
-  type: Textarea
+  type: Richtext
   display: "Introduction (Français)"
   default_value: "Notre équipe se tient disponible pour répondre à toutes vos questions."
   
 intro_en:
-  type: Textarea
+  type: Richtext
   display: "Introduction (English)"
   default_value: "Our team is available to answer all your questions."
   
@@ -442,44 +442,34 @@ Dans ta story `festival-homepage`, clique sur **+ Add Block** et ajoute les sect
 
 Remplis les champs avec ton contenu !
 
-## 🎨 **GUIDE STYLING : Mots en Rouge**
+## 🎨 **GUIDE SIMPLE : Éditeur Visuel (Rich Text)**
 
-### **Comment ajouter des mots en rouge :**
+### **✨ SOLUTION PARFAITE POUR CLIENTE NON-TECHNIQUE**
 
-Dans **TOUS** tes champs texte Storyblok, tu peux utiliser :
+**Dans Storyblok, utilise le type `Richtext` au lieu de `Textarea`**
 
-```html
-<span class="text-accent">Texte en rouge</span>
-```
+### **📝 Comment ça marche (Comme dans Word !) :**
 
-### **Exemples concrets :**
+1. **✍️ Tape ton texte** normalement dans l'éditeur
+2. **🖱️ Sélectionne le mot** que tu veux mettre en rouge
+3. **🎨 Dans la barre d'outils** :
+   - Clique sur **Styles** ou **Format**
+   - Choisis **Couleur du texte**
+   - Sélectionne **Rouge** (#E55B45)
+4. **✅ C'est fait !** Le mot apparaît en rouge
 
-**AboutSection :**
-```html
-L'Art Déco naît dans les <span class="text-accent">années 1920</span> à Paris.
+### **🖼️ Autres fonctionnalités disponibles :**
+- **Gras** : Sélectionne + Bouton **B**
+- **Italique** : Sélectionne + Bouton **I**
+- **Liens** : Sélectionne + Bouton chaîne 🔗
+- **Paragraphes** : Entrée pour nouveau paragraphe
 
-Cette esthétique <span class="text-accent">révolutionnaire</span> influence...
-```
-
-**OnTheWaySection :**
-```html
-<span class="text-accent">ON THE WAY</span>, flashmob, transporte le public...
-
-Nous sommes en <span class="text-accent">1925</span>. Le Port du Havre...
-
-Des voyageurs comme <span class="text-accent">Coco Chanel</span>...
-```
-
-**PartnersSection :**
-```html
-Nos <span class="text-accent">partenaires prestigieux</span> nous accompagnent...
-```
-
-### **Dans Storyblok Interface :**
-1. ✏️ **Tape ton texte normalement**
-2. 🎨 **Ajoute les balises** `<span class="text-accent">mot</span>` 
-3. 💾 **Sauvegarde** 
-4. ✨ **Le mot apparaît en rouge** sur ton site !
+### **💡 Avantages pour la cliente :**
+- ✅ **Interface visuelle** comme Word/Google Docs
+- ✅ **Aperçu en temps réel** du formatage
+- ✅ **Pas de code** à apprendre
+- ✅ **Copier-coller** depuis Word fonctionne
+- ✅ **Annuler/Refaire** disponible (Ctrl+Z)
 
 ---
 
