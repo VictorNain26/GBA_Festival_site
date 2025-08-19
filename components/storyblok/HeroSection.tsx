@@ -91,7 +91,7 @@ export default function HeroSection({ blok, lang }: HeroSectionProps) {
       <HeroTitle getAnimationVariants={getAnimationVariants} />
 
       {/* Call to action avec layout responsive identique à l'original */}
-      <div className={`w-full flex flex-col items-center ${getVerticalSpacing('element')}`}>
+      <div className={`w-full flex flex-col items-center ${getVerticalSpacing('content')}`}>
         {/* Mobile/Tablet: Vertical stack */}
         <div className="flex lg:hidden flex-col items-center gap-3 xs:gap-4 sm:gap-4">
           {cta && (
