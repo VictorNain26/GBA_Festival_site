@@ -61,10 +61,10 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
       };
     }
 
-    // Before hydration: always show first background for hero section
+    // Before hydration: don't show anything to prevent flash
     if (!isHydrated) {
       return {
-        showFirstBackground: true, // Toujours afficher pendant l'hydration
+        showFirstBackground: false, // Ne rien afficher pendant l'hydration pour éviter le flash
         showOrnaments: false,
         showNavigation: false,
         scrollY: window.scrollY || 0,

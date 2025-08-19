@@ -3,11 +3,10 @@ import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
 
 /**
  * Progressive background component with clean transitions:
- * - Desktop (≥1024px): first_background.jpg with object-contain
- * - Compact mode (<1024px): first_background_mobile.jpg with uniform 760px-like behavior
- * - Middle sections: Art Deco ornaments (appear when "À propos" title visible)
- * - Contact section: same responsive image logic
- * - No flash, no superposition, smooth CSS transitions
+ * - Hero section: first_background visible
+ * - Middle sections: Art Deco ornaments visible
+ * - Contact section: first_background visible
+ * - No flash during refresh
  */
 export default function ProgressiveBackground() {
   const { showFirstBackground, showOrnaments, isCompactMode } = useBackgroundTransition();
@@ -20,16 +19,12 @@ export default function ProgressiveBackground() {
         style={{ zIndex: -30 }}
       />
       
-      {/* First Background Images - Force initial visibility */}
+      {/* First Background Images - Hero and Contact sections only */}
       <div 
         className={`fixed inset-0 bg-black transition-opacity duration-500 ease-in-out ${
           showFirstBackground ? 'opacity-100' : 'opacity-0'
         }`}
-        style={{ 
-          zIndex: -10,
-          // Force initial opacity to 1 until React hydrates
-          opacity: typeof window === 'undefined' ? 1 : undefined
-        }}
+        style={{ zIndex: -10 }}
       >
         {/* Desktop Image - Hidden on mobile/tablet with CSS */}
         <Image
