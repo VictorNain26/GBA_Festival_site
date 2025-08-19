@@ -18,6 +18,7 @@ export default function TitleFrame({ children, className = '' }: FrameProps) {
             alt="Decorative frame"
             fill
             className="object-contain opacity-90"
+            priority={true}
             sizes="(max-width: 640px) 450px, (max-width: 1024px) 550px, 800px"
           />
         </div>
