@@ -49,28 +49,46 @@ export function useBackgroundTransition(): UseBackgroundTransitionReturn {
 
   // Calculate transition states - simplified logic
   const getTransitionState = (): UseBackgroundTransitionReturn => {
-    // Server-side rendering: return state that shows first background (hero state)
+    // Server-side rendering: return safe neutral state
     if (typeof window === 'undefined') {
       return {
-        showFirstBackground: true, // Afficher le background du hero par défaut
+        showFirstBackground: false,
         showOrnaments: false,
         showNavigation: false,
         scrollY: 0,
         windowHeight: 0,
-        isCompactMode: false // Always false during SSR to match server rendering
+        isCompactMode: false
       };
     }
 
-    // Before hydration: don't show anything to prevent flash
+    // Before hydration: use current scroll position to determine state
     if (!isHydrated) {
-      return {
-        showFirstBackground: false, // Ne rien afficher pendant l'hydration pour éviter le flash
-        showOrnaments: false,
-        showNavigation: false,
-        scrollY: window.scrollY || 0,
-        windowHeight: window.innerHeight || 0,
-        isCompactMode: (window.innerWidth || 1024) < 1024
-      };
+      const currentScroll = window.scrollY || 0;
+      const windowH = window.innerHeight || 0;
+      const isCompact = (window.innerWidth || 1024) < 1024;
+      
+      // Simple logic based on scroll position
+      if (currentScroll < windowH * 0.8) {
+        // Likely in hero section
+        return {
+          showFirstBackground: true,
+          showOrnaments: false,
+          showNavigation: false,
+          scrollY: currentScroll,
+          windowHeight: windowH,
+          isCompactMode: isCompact
+        };
+      } else {
+        // Likely in middle sections
+        return {
+          showFirstBackground: false,
+          showOrnaments: true,
+          showNavigation: true,
+          scrollY: currentScroll,
+          windowHeight: windowH,
+          isCompactMode: isCompact
+        };
+      }
     }
 
     // Detect compact mode based on screen width (mobile and tablet)

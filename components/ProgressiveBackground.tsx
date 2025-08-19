@@ -21,7 +21,7 @@ export default function ProgressiveBackground() {
       
       {/* First Background Images - Hero and Contact sections only */}
       <div 
-        className={`fixed inset-0 bg-black transition-opacity duration-500 ease-in-out ${
+        className={`fixed inset-0 bg-black ${
           showFirstBackground ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ zIndex: -10 }}
