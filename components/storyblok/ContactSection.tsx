@@ -6,7 +6,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { storyblokEditable } from '@storyblok/react';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
+// import { useReducedMotion } from '@/hooks/useReducedMotion'; // Unused in this simplified version
 import type { Language } from '@/types';
 import type { StoryblokBaseBlok } from '@/lib/storyblok';
 
@@ -32,26 +32,10 @@ interface ContactSectionProps {
   isCompactMode: boolean;
 }
 
-export default function ContactSection({ blok, lang, isCompactMode }: ContactSectionProps) {
-  const prefersReducedMotion = useReducedMotion();
+export default function ContactSection({ blok, lang }: ContactSectionProps) {
+  // const prefersReducedMotion = useReducedMotion(); // Unused in this simplified version
 
-  const getAnimationVariants = React.useMemo(() => {
-    return (delay: number = 0) => {
-      if (prefersReducedMotion) {
-        return {
-          initial: { opacity: 0 },
-          whileInView: { opacity: 1 },
-          transition: { duration: 0.1, delay: Math.min(delay, 0.1) }
-        };
-      }
-      
-      return {
-        initial: { opacity: 0, y: 40 },
-        whileInView: { opacity: 1, y: 0 },
-        transition: { duration: 0.8, delay }
-      };
-    };
-  }, [prefersReducedMotion]);
+  // Animations simplifiées pour ce composant centré
 
   // Récupération des données
   const title = blok[`title_${lang}` as keyof StoryblokContactSectionData] as string || '';

@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import { storyblokEditable } from '@storyblok/react';
 import SectionGroup from '@/components/SectionGroup';
 import OptimizedImage from '@/components/OptimizedImage';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
+// import { useReducedMotion } from '@/hooks/useReducedMotion'; // Unused in this simplified version
 import type { Language } from '@/types';
 import type { StoryblokBaseBlok } from '@/lib/storyblok';
 
@@ -26,25 +26,9 @@ interface DecoBallSectionProps {
 }
 
 export default function DecoBallSection({ blok, lang, isCompactMode }: DecoBallSectionProps) {
-  const prefersReducedMotion = useReducedMotion();
+  // const prefersReducedMotion = useReducedMotion(); // Unused in this simplified version
 
-  const getAnimationVariants = React.useMemo(() => {
-    return (delay: number = 0) => {
-      if (prefersReducedMotion) {
-        return {
-          initial: { opacity: 0 },
-          whileInView: { opacity: 1 },
-          transition: { duration: 0.1, delay: Math.min(delay, 0.1) }
-        };
-      }
-      
-      return {
-        initial: { opacity: 0, y: 40 },
-        whileInView: { opacity: 1, y: 0 },
-        transition: { duration: 0.8, delay }
-      };
-    };
-  }, [prefersReducedMotion]);
+  // Animations directement dans les composants pour ce design
 
   // Récupération des données
   const title = blok[`title_${lang}` as keyof StoryblokDecoBallSectionData] as string || '';
