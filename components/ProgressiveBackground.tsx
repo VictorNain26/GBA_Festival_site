@@ -48,27 +48,20 @@ export default function ProgressiveBackground() {
         />
       </div>
 
-      {/* Art Deco Ornaments Background - Preserved aspect ratio */}
+      {/* Art Deco Ornaments Background */}
       <div 
         className={`fixed inset-0 transition-opacity duration-500 ${
           showOrnaments ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ 
           zIndex: 45,
+          backgroundImage: `url(/images/${isCompactMode ? '1er_quart_transparent.png' : '1er_quart_transparent_horizontal.png'})`,
+          backgroundSize: '100% 100%',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
           pointerEvents: 'none'
         }}
-      >
-        {/* Utilisation de Next.js Image pour préserver le ratio et éviter la pixellisation */}
-        <Image
-          src={`/images/${isCompactMode ? '1er_quart_transparent.png' : '1er_quart_transparent_horizontal.png'}`}
-          alt=""
-          fill
-          className="object-contain opacity-80"
-          quality={100}
-          priority={false}
-          sizes="100vw"
-        />
-      </div>
+      />
     </>
   );
 }
