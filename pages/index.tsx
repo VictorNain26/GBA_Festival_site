@@ -38,20 +38,31 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
     setLang(detectedLang);
   }, []);
 
-  // Helper pour le texte simple
+  // Helper pour le texte simple depuis le hero-section
   const getSimpleText = (field: string, fallback?: string) => {
-    if (!hasStoryblokData || !story?.content) {
+    if (!hasStoryblokData || !story?.content || !story.content.body) {
       return fallback || `${field}`;
     }
-    return story.content[field] || fallback || `${field}`;
+    
+    // Chercher le bloc hero-section
+    const heroSection = story.content.body.find((block: any) => block.component === 'hero-section');
+    if (heroSection && heroSection[field]) {
+      return heroSection[field];
+    }
+    
+    return fallback || `${field}`;
   };
 
   // Helper pour récupérer des données depuis des blocs de section
   const getSectionData = (sectionName: string, field: string, fallback?: string) => {
-    if (!hasStoryblokData || !story?.content) {
+    if (!hasStoryblokData || !story?.content || !story.content.body) {
       return fallback || `${sectionName}_section.${field}`;
     }
-    const sectionContent = story.content[`${sectionName}_section`];
+    
+    // Chercher le bon composant dans body
+    const componentName = `${sectionName}-section`;
+    const sectionContent = story.content.body.find((block: any) => block.component === componentName);
+    
     if (sectionContent && sectionContent[field]) {
       return sectionContent[field];
     }
@@ -59,10 +70,14 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
   };
 
   const getSectionRichText = (sectionName: string, field: string) => {
-    if (!hasStoryblokData || !story?.content) {
+    if (!hasStoryblokData || !story?.content || !story.content.body) {
       return <span className="text-gray-400 italic">{sectionName}_section.{field}</span>;
     }
-    const sectionContent = story.content[`${sectionName}_section`];
+    
+    // Chercher le bon composant dans body
+    const componentName = `${sectionName}-section`;
+    const sectionContent = story.content.body.find((block: any) => block.component === componentName);
+    
     if (sectionContent && sectionContent[field]) {
       return renderRichText(sectionContent[field]);
     }
@@ -301,10 +316,10 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         {/* On the Way section */}
         <SectionGroup id="ontheway" isCompactMode={isCompactMode} title={
           <div className="text-center space-y-1">
-            <div className="font-bold leading-tight">{getSectionData('ontheway', `title_${lang}`)}</div>
+            <div className="font-bold leading-tight">{getSectionData('on-the-way', `title_${lang}`)}</div>
             <div className="h-px w-12 bg-accent mx-auto opacity-60"></div>
             <div className="font-body text-accent text-[0.5em] font-normal uppercase tracking-[0.3em] leading-none opacity-90">
-              {getSectionData('ontheway', `subtitle_${lang}`)}
+              {getSectionData('on-the-way', `subtitle_${lang}`)}
             </div>
           </div>
         }>
@@ -318,7 +333,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                  {getSectionRichText('ontheway', `content_1_${lang}`)}
+                  {getSectionRichText('on-the-way', `content_1_${lang}`)}
                 </div>
               </motion.div>
               
@@ -353,7 +368,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                  {getSectionRichText('ontheway', `content_2_${lang}`)}
+                  {getSectionRichText('on-the-way', `content_2_${lang}`)}
                 </div>
               </motion.div>
             </div>
@@ -366,7 +381,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                  {getSectionRichText('ontheway', `content_3_${lang}`)}
+                  {getSectionRichText('on-the-way', `content_3_${lang}`)}
                 </div>
               </motion.div>
               
@@ -401,7 +416,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                  {getSectionRichText('ontheway', `content_4_${lang}`)}
+                  {getSectionRichText('on-the-way', `content_4_${lang}`)}
                 </div>
               </motion.div>
             </div>
@@ -414,7 +429,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                  {getSectionRichText('ontheway', `content_5_${lang}`)}
+                  {getSectionRichText('on-the-way', `content_5_${lang}`)}
                 </div>
               </motion.div>
               
