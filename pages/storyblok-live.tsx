@@ -90,7 +90,7 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
   useEffect(() => {
     if (typeof window !== 'undefined' && (window as any).storyblok) {
       (window as any).storyblok.init({
-        accessToken: process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN
+        accessToken: process.env['NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN']
       });
 
       // Listen for story changes in the editor
@@ -125,7 +125,7 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
           }
         />
         {/* Storyblok Visual Editor */}
-        <script src="https://app.storyblok.com/f/storyblok-v2-latest.js" />
+        <script src="https://app.storyblok.com/f/storyblok-v2-latest.js" async />
       </Head>
 
       {/* Background progressif */}

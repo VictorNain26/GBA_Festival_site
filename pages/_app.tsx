@@ -2,10 +2,16 @@ import '@/styles/globals.css';
 import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import Script from 'next/script';
 import { useRouter } from 'next/router';
+import { storyblokInit, apiPlugin } from '@storyblok/react';
 import { performanceLogger } from '@/utils/logger';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+
+// Initialize Storyblok only once with modern approach
+storyblokInit({
+  accessToken: process.env['NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN'] || '',
+  use: [apiPlugin],
+});
 
 /**
  * Custom application wrapper. Next.js will wrap every page
@@ -30,18 +36,28 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, []);
   
-  // Initialize Storyblok Bridge when needed
+  // Enhanced Storyblok Bridge initialization for 2025
   useEffect(() => {
     if (shouldLoadStoryblokBridge && typeof window !== 'undefined' && (window as any).storyblok) {
-      const token = process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN;
+      const token = process.env['NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN'];
       if (token) {
+        // Initialize bridge with modern approach
         (window as any).storyblok.init({
-          accessToken: token
+          accessToken: token,
         });
 
-        // Listen for Visual Editor events
-        (window as any).storyblok.on(['input', 'published', 'change'], () => {
-          // Force reload to get new content
+        // Enhanced event handling for better performance
+        (window as any).storyblok.on(['input'], (payload: any) => {
+          // Real-time updates for input events
+          if (payload.action === 'input') {
+            // Trigger a soft refresh instead of full reload for better UX
+            const event = new Event('storyblok:input');
+            window.dispatchEvent(event);
+          }
+        });
+
+        (window as any).storyblok.on(['published', 'change'], () => {
+          // Full reload only for published changes
           router.reload();
         });
       }
@@ -51,17 +67,15 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        {/* Load Storyblok Bridge only when needed */}
-        {shouldLoadStoryblokBridge && (
-          <script src="https://app.storyblok.com/f/storyblok-v2-latest.js" />
-        )}
+        <title>Festival Art Déco</title>
+        <meta name="description" content="Festival Art Déco et Neo Art Déco" />
       </Head>
       
-      {/* Storyblok Bridge Script - Next.js optimized loading */}
+      {/* Modern Storyblok Bridge Script - Best Practice 2025 */}
       {shouldLoadStoryblokBridge && (
-        <Script 
+        <script 
           src="https://app.storyblok.com/f/storyblok-v2-latest.js"
-          strategy="afterInteractive"
+          async
         />
       )}
       
