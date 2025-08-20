@@ -135,9 +135,9 @@ export default function HeroTitle({ getAnimationVariants, title }: ExtendedHeroT
         </motion.div>
 
         {/* Titre principal superposé - Desktop uniquement */}
-        <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="absolute inset-0 flex items-center justify-center z-10 px-8 lg:px-16 xl:px-20">
           <motion.h1
-            className={`${getTypography(titleTypography)} text-accent text-center`}
+            className={`${getTypography(titleTypography)} text-accent text-center max-w-2xl lg:max-w-3xl xl:max-w-4xl`}
             style={{
               textShadow: '3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 0, 0, 0.5)'
             }}

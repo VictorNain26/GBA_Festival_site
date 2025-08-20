@@ -71,8 +71,8 @@ export const TYPOGRAPHY = {
   heroTitleCompact: {
     xs: 'text-base',          // 16px - Mobile (encore plus réduit)
     sm: 'text-xl',            // 20px - Tablette (encore plus réduit)
-    lg: 'text-3xl',           // 30px - Laptop (encore plus réduit)
-    xl: 'text-4xl',           // 36px - Desktop (encore plus réduit)
+    lg: 'text-4xl',           // 36px - Laptop (augmenté)
+    xl: 'text-5xl',           // 48px - Desktop (augmenté pour meilleure visibilité)
     weight: 'font-title',
     line: 'leading-tight',
     tracking: 'tracking-tight',
