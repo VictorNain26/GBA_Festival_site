@@ -191,7 +191,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         </section>
 
         {/* About section */}
-        <SectionGroup id="about" title={NAV_LABELS[lang]['about']} isCompactMode={isCompactMode}>
+        <SectionGroup id="about" title={getSimpleText(`section_title_about_${lang}`, '[à compléter dans Storyblok]')} isCompactMode={isCompactMode}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -249,7 +249,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         </SectionGroup>
 
         {/* Partners section */}
-        <SectionGroup id="partners" title={NAV_LABELS[lang].partners} isCompactMode={isCompactMode}>
+        <SectionGroup id="partners" title={getSimpleText(`section_title_partners_${lang}`, '[à compléter dans Storyblok]')} isCompactMode={isCompactMode}>
           <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10">
             <div className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base sm:text-lg lg:text-xl text-primary text-justify">
               {getRichTextContent(`partners_intro_${lang}`)}
@@ -284,7 +284,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         {/* On the Way section */}
         <SectionGroup id="ontheway" isCompactMode={isCompactMode} title={
           <div className="text-center space-y-1">
-            <div className="font-bold leading-tight">{NAV_LABELS[lang].ontheway}</div>
+            <div className="font-bold leading-tight">{getSimpleText(`section_title_ontheway_${lang}`, '[à compléter dans Storyblok]')}</div>
             <div className="h-px w-12 bg-accent mx-auto opacity-60"></div>
             <div className="font-body text-accent text-[0.5em] font-normal uppercase tracking-[0.3em] leading-none opacity-90">
               {getSimpleText(`ontheway_subtitle_${lang}`, '[à compléter dans Storyblok]')}
@@ -416,7 +416,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         </SectionGroup>
 
         {/* Deco Ball section */}
-        <SectionGroup id="decoball" title={NAV_LABELS[lang].decoball} isCompactMode={isCompactMode}>
+        <SectionGroup id="decoball" title={getSimpleText(`section_title_decoball_${lang}`, '[à compléter dans Storyblok]')} isCompactMode={isCompactMode}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10">
             <motion.div
               className="flex flex-col justify-center"
@@ -578,7 +578,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {NAV_LABELS[lang].contact}
+            {getSimpleText(`section_title_contact_${lang}`, '[à compléter dans Storyblok]')}
           </motion.h2>
           
           <div className="max-w-3xl mx-auto">

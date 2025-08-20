@@ -4,11 +4,17 @@
 
 Ce document liste tous les champs Storyblok utilisés par le site. Créez ces champs dans votre Story "festival-homepage" dans Storyblok.
 
-### Métadonnées du site
-- `site_title_fr` (Text) - Titre du site en français
-- `site_title_en` (Text) - Titre du site en anglais
-- `site_description_fr` (Text) - Description SEO en français
-- `site_description_en` (Text) - Description SEO en anglais
+### Titres des sections
+- `section_title_about_fr` (Text) - Titre de la section "Art Deco et Neo Art Deco" en français
+- `section_title_about_en` (Text) - Titre de la section About en anglais
+- `section_title_partners_fr` (Text) - Titre de la section "Nos Partenaires" en français
+- `section_title_partners_en` (Text) - Titre de la section Partners en anglais
+- `section_title_ontheway_fr` (Text) - Titre de la section "On the Way" en français
+- `section_title_ontheway_en` (Text) - Titre de la section "On the Way" en anglais
+- `section_title_decoball_fr` (Text) - Titre de la section "Le Bal Art Deco" en français
+- `section_title_decoball_en` (Text) - Titre de la section "The Art Deco Ball" en anglais
+- `section_title_contact_fr` (Text) - Titre de la section "Contact" en français
+- `section_title_contact_en` (Text) - Titre de la section "Contact" en anglais
 
 ### Section Hero
 - `hero_title_fr` (Text/HTML) - Titre principal en français (peut contenir du HTML pour les sauts de ligne)
