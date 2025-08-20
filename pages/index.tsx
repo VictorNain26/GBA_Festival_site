@@ -78,14 +78,14 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
     };
   }, [prefersReducedMotion]);
 
-  // Titre du site en fonction de la langue
+  // Titre du site en fonction de la langue (SEO en dur)
   const siteTitle = lang === 'fr' 
-    ? getSimpleText('site_title_fr', 'Florilège de l\'Art Déco - Festival Art Déco et Neo Art Déco')
-    : getSimpleText('site_title_en', 'Florilège de l\'Art Déco - Art Deco & Neo Art Deco Festival');
+    ? 'Florilège de l\'Art Déco - Festival Art Déco et Neo Art Déco'
+    : 'Florilège de l\'Art Déco - Art Deco & Neo Art Deco Festival';
 
   const siteDescription = lang === 'fr'
-    ? getSimpleText('site_description_fr', 'Festival Art Déco et Neo Art Déco - 18 octobre 2025 - Hôtel du Collectionneur, Paris')
-    : getSimpleText('site_description_en', 'Art Deco & Neo Art Deco Festival - October 18, 2025 - Hôtel du Collectionneur, Paris');
+    ? 'Festival Art Déco et Neo Art Déco - 18 octobre 2025 - Hôtel du Collectionneur, Paris'
+    : 'Art Deco & Neo Art Deco Festival - October 18, 2025 - Hôtel du Collectionneur, Paris';
 
   return (
     <>
@@ -110,7 +110,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         >
           {/* Festival subtitle */}
           <HeroSubtitle 
-            subtitle={getSimpleText(`hero_subtitle_${lang}`, lang === 'fr' ? 'Festival Art Déco et Neo Art Déco' : 'Art Deco & Neo Art Deco Festival')} 
+            subtitle={getSimpleText(`hero_subtitle_${lang}`, '[à compléter dans Storyblok]')} 
             getAnimationVariants={getAnimationVariants} 
           />
 
@@ -119,7 +119,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
             className="font-title text-base sm:text-lg lg:text-xl text-primary mb-2 xs:mb-3 sm:mb-3 lg:mb-2 xl:mb-3 relative z-10"
             {...getAnimationVariants(0.1)}
           >
-            {getSimpleText(`hero_date_${lang}`, lang === 'fr' ? '18 octobre 2025' : '18 October 2025')}
+            {getSimpleText(`hero_date_${lang}`, '[à compléter dans Storyblok]')}
           </motion.p>
 
           {/* Titre principal */}
@@ -129,13 +129,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               hasStoryblokData && story?.content?.[`hero_title_${lang}`] ? (
                 <div dangerouslySetInnerHTML={{ __html: story.content[`hero_title_${lang}`] }} />
               ) : (
-                <>
-                  {lang === 'fr' ? 'Florilège' : 'Florilege'}
-                  <br />
-                  <span className="block">
-                    {lang === 'fr' ? "de l'Art Déco" : "of Art Deco"}
-                  </span>
-                </>
+                <span className="text-gray-400 italic">[à compléter dans Storyblok]</span>
               )
             }
           />
@@ -149,7 +143,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 className="inline-block px-6 xs:px-7 sm:px-7 py-3 xs:py-4 sm:py-3 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText(`hero_cta_${lang}`, lang === 'fr' ? 'Billeterie' : 'Tickets')}
+                {getSimpleText(`hero_cta_${lang}`, '[à compléter dans Storyblok]')}
               </motion.a>
               
               <div className="flex flex-col items-center gap-2 xs:gap-3 sm:gap-2">
@@ -157,14 +151,14 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                   className="font-title text-sm lg:text-base text-accent"
                   {...getAnimationVariants(0.5)}
                 >
-                  {getSimpleText('hero_location_name', 'Hotel du Collectionneur')}
+                  {getSimpleText('hero_location_name', '[à compléter dans Storyblok]')}
                 </motion.p>
                 
                 <motion.p
                   className="font-title text-sm lg:text-base text-accent"
                   {...getAnimationVariants(0.6)}
                 >
-                  {getSimpleText('hero_location_address', 'Paris 75008')}
+                  {getSimpleText('hero_location_address', '[à compléter dans Storyblok]')}
                 </motion.p>
               </div>
             </div>
@@ -175,7 +169,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 className="font-title text-base lg:text-lg xl:text-xl text-accent text-right"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText('hero_location_name', 'Hotel du Collectionneur')}
+                {getSimpleText('hero_location_name', '[à compléter dans Storyblok]')}
               </motion.p>
               
               <motion.a
@@ -183,14 +177,14 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 className="inline-block px-8 lg:px-10 py-3 lg:py-4 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background text-center mx-auto"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText(`hero_cta_${lang}`, lang === 'fr' ? 'Billeterie' : 'Tickets')}
+                {getSimpleText(`hero_cta_${lang}`, '[à compléter dans Storyblok]')}
               </motion.a>
               
               <motion.p
                 className="font-title text-base lg:text-lg xl:text-xl text-accent text-left"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText('hero_location_address', 'Paris 75008')}
+                {getSimpleText('hero_location_address', '[à compléter dans Storyblok]')}
               </motion.p>
             </div>
           </div>
@@ -234,7 +228,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               <div className="flex flex-col justify-center space-y-3 xs:space-y-4">
                 <div className="p-3 xs:p-4 sm:p-4 border border-primary">
                   <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
-                    {getSimpleText(`target_audience_title_${lang}`, lang === 'fr' ? 'PUBLIC CIBLE' : 'TARGET AUDIENCE')}
+                    {getSimpleText(`target_audience_title_${lang}`, '[à compléter dans Storyblok]')}
                   </h4>
                   <div className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
                     {getRichTextContent(`target_audience_${lang}`)}
@@ -243,7 +237,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 
                 <div className="p-3 xs:p-4 sm:p-4 border border-primary">
                   <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
-                    {getSimpleText(`objective_title_${lang}`, lang === 'fr' ? 'NOTRE OBJECTIF' : 'OUR OBJECTIVE')}
+                    {getSimpleText(`objective_title_${lang}`, '[à compléter dans Storyblok]')}
                   </h4>
                   <div className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
                     {getRichTextContent(`objective_${lang}`)}
@@ -293,7 +287,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
             <div className="font-bold leading-tight">{NAV_LABELS[lang].ontheway}</div>
             <div className="h-px w-12 bg-accent mx-auto opacity-60"></div>
             <div className="font-body text-accent text-[0.5em] font-normal uppercase tracking-[0.3em] leading-none opacity-90">
-              {getSimpleText(`ontheway_subtitle_${lang}`, 'SPECTACLE IMMERSIF')}
+              {getSimpleText(`ontheway_subtitle_${lang}`, '[à compléter dans Storyblok]')}
             </div>
           </div>
         }>
@@ -594,7 +588,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {getSimpleText(`contact_heading_${lang}`, 'Grand Battement d\'Ailes')}
+              {getSimpleText(`contact_heading_${lang}`, '[à compléter dans Storyblok]')}
             </motion.h3>
             
             <motion.p
@@ -603,7 +597,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              {getSimpleText(`contact_intro_${lang}`, lang === 'fr' ? 'Notre équipe se tient disponible pour répondre à toutes vos questions.' : 'Our team is available to answer all your questions.')}
+              {getSimpleText(`contact_intro_${lang}`, '[à compléter dans Storyblok]')}
             </motion.p>
             
             <motion.div
@@ -613,7 +607,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               transition={{ duration: 0.5 }}
             >
               <motion.a
-                href={`https://wa.me/${getSimpleText('contact_phone', '+33664888370').replace(/\s+/g, '')}`}
+                href={`https://wa.me/${getSimpleText('contact_phone', '[à compléter dans Storyblok]').replace(/\s+/g, '')}`}
                 className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
                 whileHover={{ scale: 1.02 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -621,15 +615,15 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <span className="font-title text-sm lg:text-base block mb-1">
-                  {getSimpleText(`contact_whatsapp_${lang}`, lang === 'fr' ? 'Envoyer un message' : 'Send a message')}
+                  {getSimpleText(`contact_whatsapp_${lang}`, '[à compléter dans Storyblok]')}
                 </span>
                 <span className="font-body text-sm lg:text-base text-accent">
-                  {getSimpleText('contact_phone', '+33 6 64 88 83 70')}
+                  {getSimpleText('contact_phone', '[à compléter dans Storyblok]')}
                 </span>
               </motion.a>
               
               <motion.a
-                href={`mailto:${getSimpleText('contact_email', 'festivalartdecoparis@gmail.com')}`}
+                href={`mailto:${getSimpleText('contact_email', '[à compléter dans Storyblok]')}`}
                 className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
                 whileHover={{ scale: 1.02 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -640,12 +634,12 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                   Email
                 </span>
                 <span className="font-body text-sm lg:text-base break-all text-accent leading-tight">
-                  {getSimpleText('contact_email', 'festivalartdecoparis@gmail.com')}
+                  {getSimpleText('contact_email', '[à compléter dans Storyblok]')}
                 </span>
               </motion.a>
               
               <motion.a
-                href={getSimpleText('contact_website', 'https://grandbattementdailes.com')}
+                href={getSimpleText('contact_website', '[à compléter dans Storyblok]')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
@@ -677,7 +671,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
-                {getSimpleText(`hero_cta_${lang}`, lang === 'fr' ? 'Billeterie' : 'Tickets')}
+                {getSimpleText(`hero_cta_${lang}`, '[à compléter dans Storyblok]')}
               </motion.a>
 
               <motion.button
@@ -688,7 +682,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
               >
-                {getSimpleText(`back_to_top_${lang}`, lang === 'fr' ? 'Retour en haut' : 'Back to top')}
+                {getSimpleText(`back_to_top_${lang}`, '[à compléter dans Storyblok]')}
               </motion.button>
             </motion.div>
           </div>
