@@ -42,7 +42,7 @@ export interface NavigationLabels {
   hero: string;
   about: string;
   partners: string;
-  ontheway: string;
+  'on-the-way': string;
   decoball: string;
   contact: string;
   tickets: string;

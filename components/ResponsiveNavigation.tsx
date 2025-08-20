@@ -19,7 +19,7 @@ function ResponsiveNavigation({ labels, lang, setLang, isCompactMode }: Responsi
     { id: 'hero', label: labels.hero },
     { id: 'about', label: labels.about },
     { id: 'partners', label: labels.partners },
-    { id: 'ontheway', label: labels.ontheway },
+    { id: 'on-the-way', label: labels['on-the-way'] },
     { id: 'decoball', label: labels.decoball },
     { id: 'contact', label: labels.contact },
   ];

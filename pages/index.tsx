@@ -39,7 +39,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
   }, []);
 
   // Helper pour le texte simple depuis le hero-section
-  const getSimpleText = (field: string, fallback?: string) => {
+  const getSimpleText = (field: string, fallback?: string): string => {
     if (!hasStoryblokData || !story?.content || !story.content.body) {
       return fallback || `${field}`;
     }
@@ -47,7 +47,45 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
     // Chercher le bloc hero-section
     const heroSection = story.content.body.find((block: any) => block.component === 'hero-section');
     if (heroSection && heroSection[field]) {
-      return heroSection[field];
+      const fieldData = heroSection[field];
+      
+      // Si c'est déjà un string, le retourner
+      if (typeof fieldData === 'string') {
+        return fieldData;
+      }
+      
+      // Si c'est un objet Rich Text, extraire le texte
+      if (fieldData && typeof fieldData === 'object') {
+        try {
+          // Essayer d'extraire le texte brut des objets Rich Text
+          if (fieldData.type === 'doc' && fieldData.content) {
+            const extractText = (node: any): string => {
+              if (!node) {
+                return '';
+              }
+              if (typeof node === 'string') {
+                return node;
+              }
+              if (node.text) {
+                return node.text;
+              }
+              if (Array.isArray(node.content)) {
+                return node.content.map(extractText).join('');
+              }
+              if (Array.isArray(node)) {
+                return node.map(extractText).join('');
+              }
+              return '';
+            };
+            return extractText(fieldData);
+          }
+        } catch (error) {
+          console.warn(`Erreur extraction texte pour ${field}:`, error);
+        }
+      }
+      
+      // Fallback: convertir en string
+      return String(fieldData);
     }
     
     return fallback || `${field}`;
@@ -79,7 +117,27 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
     const sectionContent = story.content.body.find((block: any) => block.component === componentName);
     
     if (sectionContent && sectionContent[field]) {
-      return renderRichText(sectionContent[field]);
+      // Validation supplémentaire pour éviter les objets React invalides
+      const fieldData = sectionContent[field];
+      
+      // Si c'est un string simple
+      if (typeof fieldData === 'string') {
+        return (
+          <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
+            {fieldData}
+          </p>
+        );
+      }
+      
+      // Si c'est un objet Rich Text valide
+      if (fieldData && typeof fieldData === 'object') {
+        try {
+          return renderRichText(fieldData);
+        } catch (error) {
+          console.warn(`Erreur rendu Rich Text pour ${sectionName}.${field}:`, error);
+          return <span className="text-gray-400 italic">{sectionName}_section.{field} [erreur rendu]</span>;
+        }
+      }
     }
     return <span className="text-gray-400 italic">{sectionName}_section.{field}</span>;
   };
@@ -150,13 +208,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
           {/* Titre principal */}
           <HeroTitle 
             getAnimationVariants={getAnimationVariants} 
-            title={
-              hasStoryblokData && story?.content?.[`hero_title_${lang}`] ? (
-                <div dangerouslySetInnerHTML={{ __html: story.content[`hero_title_${lang}`] }} />
-              ) : (
-                <span className="text-gray-400 italic">[à compléter dans Storyblok]</span>
-              )
-            }
+            title={getSimpleText(`hero_title_${lang}`)}
           />
 
           {/* Call to action */}
@@ -314,7 +366,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         </SectionGroup>
 
         {/* On the Way section */}
-        <SectionGroup id="ontheway" isCompactMode={isCompactMode} title={
+        <SectionGroup id="on-the-way" isCompactMode={isCompactMode} title={
           <div className="text-center space-y-1">
             <div className="font-bold leading-tight">{getSectionData('on-the-way', `title_${lang}`)}</div>
             <div className="h-px w-12 bg-accent mx-auto opacity-60"></div>
