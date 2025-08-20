@@ -39,34 +39,34 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
   }, []);
 
   // Helper pour le texte simple
-  const getSimpleText = (field: string, fallback: string = "[à compléter dans Storyblok]") => {
+  const getSimpleText = (field: string, fallback?: string) => {
     if (!hasStoryblokData || !story?.content) {
-      return fallback;
+      return fallback || `${field}`;
     }
-    return story.content[field] || fallback;
+    return story.content[field] || fallback || `${field}`;
   };
 
   // Helper pour récupérer des données depuis des blocs de section
-  const getSectionData = (sectionName: string, field: string, fallback: string = "[à compléter dans Storyblok]") => {
+  const getSectionData = (sectionName: string, field: string, fallback?: string) => {
     if (!hasStoryblokData || !story?.content) {
-      return fallback;
+      return fallback || `${sectionName}_section.${field}`;
     }
     const sectionContent = story.content[`${sectionName}_section`];
     if (sectionContent && sectionContent[field]) {
       return sectionContent[field];
     }
-    return fallback;
+    return fallback || `${sectionName}_section.${field}`;
   };
 
   const getSectionRichText = (sectionName: string, field: string) => {
     if (!hasStoryblokData || !story?.content) {
-      return <span className="text-gray-400 italic">[à compléter dans Storyblok]</span>;
+      return <span className="text-gray-400 italic">{sectionName}_section.{field}</span>;
     }
     const sectionContent = story.content[`${sectionName}_section`];
     if (sectionContent && sectionContent[field]) {
       return renderRichText(sectionContent[field]);
     }
-    return <span className="text-gray-400 italic">[à compléter dans Storyblok]</span>;
+    return <span className="text-gray-400 italic">{sectionName}_section.{field}</span>;
   };
 
   // Memoize animation variants
@@ -120,7 +120,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         >
           {/* Festival subtitle */}
           <HeroSubtitle 
-            subtitle={getSimpleText(`hero_subtitle_${lang}`, '[à compléter dans Storyblok]')} 
+            subtitle={getSimpleText(`hero_subtitle_${lang}`)} 
             getAnimationVariants={getAnimationVariants} 
           />
 
@@ -129,7 +129,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
             className="font-title text-base sm:text-lg lg:text-xl text-primary mb-2 xs:mb-3 sm:mb-3 lg:mb-2 xl:mb-3 relative z-10"
             {...getAnimationVariants(0.1)}
           >
-            {getSimpleText(`hero_date_${lang}`, '[à compléter dans Storyblok]')}
+            {getSimpleText(`hero_date_${lang}`)}
           </motion.p>
 
           {/* Titre principal */}
@@ -153,7 +153,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 className="inline-block px-6 xs:px-7 sm:px-7 py-3 xs:py-4 sm:py-3 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText(`hero_cta_${lang}`, '[à compléter dans Storyblok]')}
+                {getSimpleText(`hero_cta_${lang}`)}
               </motion.a>
               
               <div className="flex flex-col items-center gap-2 xs:gap-3 sm:gap-2">
@@ -161,14 +161,14 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                   className="font-title text-sm lg:text-base text-accent"
                   {...getAnimationVariants(0.5)}
                 >
-                  {getSimpleText('hero_location_name', '[à compléter dans Storyblok]')}
+                  {getSimpleText('hero_location_name')}
                 </motion.p>
                 
                 <motion.p
                   className="font-title text-sm lg:text-base text-accent"
                   {...getAnimationVariants(0.6)}
                 >
-                  {getSimpleText('hero_location_address', '[à compléter dans Storyblok]')}
+                  {getSimpleText('hero_location_address')}
                 </motion.p>
               </div>
             </div>
@@ -179,7 +179,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 className="font-title text-base lg:text-lg xl:text-xl text-accent text-right"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText('hero_location_name', '[à compléter dans Storyblok]')}
+                {getSimpleText('hero_location_name')}
               </motion.p>
               
               <motion.a
@@ -187,21 +187,21 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 className="inline-block px-8 lg:px-10 py-3 lg:py-4 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background text-center mx-auto"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText(`hero_cta_${lang}`, '[à compléter dans Storyblok]')}
+                {getSimpleText(`hero_cta_${lang}`)}
               </motion.a>
               
               <motion.p
                 className="font-title text-base lg:text-lg xl:text-xl text-accent text-left"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText('hero_location_address', '[à compléter dans Storyblok]')}
+                {getSimpleText('hero_location_address')}
               </motion.p>
             </div>
           </div>
         </section>
 
         {/* About section */}
-        <SectionGroup id="about" title={getSectionData('about', `title_${lang}`, '[à compléter dans Storyblok]')} isCompactMode={isCompactMode}>
+        <SectionGroup id="about" title={getSectionData('about', `title_${lang}`)} isCompactMode={isCompactMode}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -245,7 +245,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               <div className="flex flex-col justify-center space-y-3 xs:space-y-4">
                 <div className="p-3 xs:p-4 sm:p-4 border border-primary">
                   <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
-                    {getSectionData('about', `target_audience_title_${lang}`, '[à compléter dans Storyblok]')}
+                    {getSectionData('about', `target_audience_title_${lang}`)}
                   </h4>
                   <div className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
                     {getSectionRichText('about', `target_audience_${lang}`)}
@@ -254,7 +254,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 
                 <div className="p-3 xs:p-4 sm:p-4 border border-primary">
                   <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
-                    {getSectionData('about', `objective_title_${lang}`, '[à compléter dans Storyblok]')}
+                    {getSectionData('about', `objective_title_${lang}`)}
                   </h4>
                   <div className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
                     {getSectionRichText('about', `objective_${lang}`)}
@@ -266,7 +266,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         </SectionGroup>
 
         {/* Partners section */}
-        <SectionGroup id="partners" title={getSectionData('partners', `title_${lang}`, '[à compléter dans Storyblok]')} isCompactMode={isCompactMode}>
+        <SectionGroup id="partners" title={getSectionData('partners', `title_${lang}`)} isCompactMode={isCompactMode}>
           <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10">
             <div className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base sm:text-lg lg:text-xl text-primary text-justify">
               {getSectionRichText('partners', `intro_${lang}`)}
@@ -301,10 +301,10 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         {/* On the Way section */}
         <SectionGroup id="ontheway" isCompactMode={isCompactMode} title={
           <div className="text-center space-y-1">
-            <div className="font-bold leading-tight">{getSectionData('ontheway', `title_${lang}`, '[à compléter dans Storyblok]')}</div>
+            <div className="font-bold leading-tight">{getSectionData('ontheway', `title_${lang}`)}</div>
             <div className="h-px w-12 bg-accent mx-auto opacity-60"></div>
             <div className="font-body text-accent text-[0.5em] font-normal uppercase tracking-[0.3em] leading-none opacity-90">
-              {getSectionData('ontheway', `subtitle_${lang}`, '[à compléter dans Storyblok]')}
+              {getSectionData('ontheway', `subtitle_${lang}`)}
             </div>
           </div>
         }>
@@ -433,7 +433,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         </SectionGroup>
 
         {/* Deco Ball section */}
-        <SectionGroup id="decoball" title={getSectionData('decoball', `title_${lang}`, '[à compléter dans Storyblok]')} isCompactMode={isCompactMode}>
+        <SectionGroup id="decoball" title={getSectionData('decoball', `title_${lang}`)} isCompactMode={isCompactMode}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10">
             <motion.div
               className="flex flex-col justify-center"
@@ -595,7 +595,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {getSectionData('contact', `title_${lang}`, '[à compléter dans Storyblok]')}
+            {getSectionData('contact', `title_${lang}`)}
           </motion.h2>
           
           <div className="max-w-3xl mx-auto">
@@ -605,7 +605,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {getSectionData('contact', `heading_${lang}`, '[à compléter dans Storyblok]')}
+              {getSectionData('contact', `heading_${lang}`)}
             </motion.h3>
             
             <motion.p
@@ -614,7 +614,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              {getSectionData('contact', `intro_${lang}`, '[à compléter dans Storyblok]')}
+              {getSectionData('contact', `intro_${lang}`)}
             </motion.p>
             
             <motion.div
@@ -624,7 +624,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               transition={{ duration: 0.5 }}
             >
               <motion.a
-                href={`https://wa.me/${getSectionData('contact', 'phone', '[à compléter dans Storyblok]').replace(/\s+/g, '')}`}
+                href={`https://wa.me/${getSectionData('contact', 'phone').replace(/\s+/g, '')}`}
                 className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
                 whileHover={{ scale: 1.02 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -632,15 +632,15 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <span className="font-title text-sm lg:text-base block mb-1">
-                  {getSectionData('contact', `whatsapp_${lang}`, '[à compléter dans Storyblok]')}
+                  {getSectionData('contact', `whatsapp_${lang}`)}
                 </span>
                 <span className="font-body text-sm lg:text-base text-accent">
-                  {getSectionData('contact', 'phone', '[à compléter dans Storyblok]')}
+                  {getSectionData('contact', 'phone')}
                 </span>
               </motion.a>
               
               <motion.a
-                href={`mailto:${getSectionData('contact', 'email', '[à compléter dans Storyblok]')}`}
+                href={`mailto:${getSectionData('contact', 'email')}`}
                 className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
                 whileHover={{ scale: 1.02 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -651,12 +651,12 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                   Email
                 </span>
                 <span className="font-body text-sm lg:text-base break-all text-accent leading-tight">
-                  {getSectionData('contact', 'email', '[à compléter dans Storyblok]')}
+                  {getSectionData('contact', 'email')}
                 </span>
               </motion.a>
               
               <motion.a
-                href={getSectionData('contact', 'website', '[à compléter dans Storyblok]')}
+                href={getSectionData('contact', 'website')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
@@ -688,7 +688,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
-                {getSimpleText(`hero_cta_${lang}`, '[à compléter dans Storyblok]')}
+                {getSimpleText(`hero_cta_${lang}`)}
               </motion.a>
 
               <motion.button
@@ -699,7 +699,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
               >
-                {getSectionData('contact', `back_to_top_${lang}`, '[à compléter dans Storyblok]')}
+                {getSectionData('contact', `back_to_top_${lang}`)}
               </motion.button>
             </motion.div>
           </div>

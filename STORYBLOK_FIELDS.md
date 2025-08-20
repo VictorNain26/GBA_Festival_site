@@ -105,7 +105,7 @@ Créez une story nommée "festival-homepage" avec les blocs suivants :
 2. **Champs Hero** : Restent au niveau racine car ils sont utilisés dans plusieurs endroits
 3. **Rich Text Fields** : Utilisez le type "Rich Text" pour les champs qui peuvent contenir des paragraphes et du formatage
 4. **Text Fields** : Utilisez le type "Text" pour les champs simples (titres, dates, boutons)
-5. **Fallback** : Si un champ n'est pas rempli, le système affichera "[à compléter dans Storyblok]" en gris italique
+5. **Fallback** : Si un champ n'est pas rempli, le système affichera le nom de la variable (ex: `hero_title_fr` ou `about_section.title_fr`) en gris italique pour faciliter l'identification
 
 ## Configuration dans Storyblok
 
