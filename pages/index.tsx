@@ -25,6 +25,9 @@ import { motion } from 'framer-motion';
 import { getStoryblokStory, getStoryblokVersion } from '@/lib/storyblok-api';
 import type { StoryblokStory } from '@/lib/storyblok-api';
 
+// Rich Text renderer pour le formatage avancé
+import { renderRichText, renderRichTextTitle } from '@/lib/richTextRenderer';
+
 // Contenu statique de fallback (design préservé)
 import { 
   HERO_CONTENT, 
@@ -82,9 +85,33 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
       return fallback;
     }
     
-    // Pour les champs simples de texte dans Storyblok
+    // Pour les champs Rich Text dans Storyblok
     const storyblokContent = story.content[field];
     return storyblokContent || fallback;
+  };
+
+  // Helper pour le contenu Rich Text avec rendu automatique
+  const getRichTextContent = (field: string, fallback: any) => {
+    const content = getContent(field, fallback);
+    
+    // Si c'est du contenu Storyblok (Rich Text), utiliser le renderer
+    if (hasStoryblokData && story?.content && story.content[field]) {
+      return renderRichText(content);
+    }
+    
+    // Sinon, rendre le fallback JSX directement
+    return <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify mb-3 xs:mb-4 sm:mb-4 lg:mb-4">{content}</p>;
+  };
+
+  // Helper pour les titres Rich Text
+  const getRichTextTitle = (field: string, fallback: any) => {
+    const content = getContent(field, fallback);
+    
+    if (hasStoryblokData && story?.content && story.content[field]) {
+      return renderRichTextTitle(content);
+    }
+    
+    return typeof fallback === 'string' ? fallback : fallback?.toString() || '';
   };
 
   // Animation variants
@@ -182,7 +209,10 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
                     }}
                     {...getAnimationVariants(0)}
                   >
-                    {getContent(`hero_title_${currentLang}`, HERO_CONTENT[currentLang].title)}
+                    {hasStoryblokData && story?.content?.[`hero_title_${currentLang}`] 
+                      ? renderRichText(story.content[`hero_title_${currentLang}`])
+                      : HERO_CONTENT[currentLang].title
+                    }
                   </motion.h1>
 
                   <motion.div 
@@ -270,20 +300,23 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
                       }}
                       {...getAnimationVariants(0)}
                     >
-                      {getContent(`hero_title_${currentLang}`, HERO_CONTENT[currentLang].title)}
+                      {hasStoryblokData && story?.content?.[`hero_title_${currentLang}`] 
+                        ? renderRichText(story.content[`hero_title_${currentLang}`])
+                        : HERO_CONTENT[currentLang].title
+                      }
                     </motion.h1>
                   </div>
                 </div>
               </div>
               
               <HeroSubtitle 
-                subtitle={getContent(`hero_subtitle_${currentLang}`, HERO_CONTENT[currentLang].subtitle)}
+                subtitle={getRichTextTitle(`hero_subtitle_${currentLang}`, HERO_CONTENT[currentLang].subtitle)}
                 getAnimationVariants={getAnimationVariants}
               />
               
               <div className="space-y-2 xs:space-y-3 text-base xs:text-lg sm:text-xl lg:text-2xl text-primary font-body mb-8 xs:mb-10 sm:mb-12 lg:mb-16">
-                <p>{getContent(`hero_date_${currentLang}`, HERO_CONTENT[currentLang].date)}</p>
-                <p>{getContent(`hero_location_${currentLang}`, HERO_CONTENT[currentLang].location)}</p>
+                <p>{getRichTextTitle(`hero_date_${currentLang}`, HERO_CONTENT[currentLang].date)}</p>
+                <p>{getRichTextTitle(`hero_location_${currentLang}`, HERO_CONTENT[currentLang].location)}</p>
               </div>
               
               <motion.a
@@ -292,7 +325,7 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {getContent(`hero_cta_${currentLang}`, HERO_CONTENT[currentLang].cta)}
+                {getRichTextTitle(`hero_cta_${currentLang}`, HERO_CONTENT[currentLang].cta)}
               </motion.a>
             </motion.div>
           </section>
@@ -306,9 +339,9 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
               {/* Paragraphes d'introduction */}
               <div className="mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
                 {ABOUT_CONTENT[currentLang].slice(0, 2).map((paragraph, index) => (
-                  <p key={index} className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
-                    {getContent(`about_paragraph_${index + 1}_${currentLang}`, paragraph)}
-                  </p>
+                  <div key={index}>
+                    {getRichTextContent(`about_paragraph_${index + 1}_${currentLang}`, paragraph)}
+                  </div>
                 ))}
               </div>
               
@@ -326,9 +359,9 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
               {/* Paragraphes de conclusion */}
               <div>
                 {ABOUT_CONTENT[currentLang].slice(2).map((paragraph, index) => (
-                  <p key={index + 2} className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
-                    {getContent(`about_paragraph_${index + 3}_${currentLang}`, paragraph)}
-                  </p>
+                  <div key={index + 2}>
+                    {getRichTextContent(`about_paragraph_${index + 3}_${currentLang}`, paragraph)}
+                  </div>
                 ))}
               </div>
               
@@ -346,15 +379,11 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
                 {/* Objectifs avec bordures */}
                 <div className="flex flex-col justify-center space-y-3 xs:space-y-4">
                   <div className="p-3 xs:p-4 sm:p-4 border border-primary">
-                    <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                      {getContent(`about_target_${currentLang}`, FESTIVAL_OBJECTIVE[currentLang][0])}
-                    </p>
+                    {getRichTextContent(`about_target_${currentLang}`, FESTIVAL_OBJECTIVE[currentLang][0])}
                   </div>
                   
                   <div className="p-3 xs:p-4 sm:p-4 border border-primary">
-                    <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                      {getContent(`about_objective_${currentLang}`, FESTIVAL_OBJECTIVE[currentLang][1])}
-                    </p>
+                    {getRichTextContent(`about_objective_${currentLang}`, FESTIVAL_OBJECTIVE[currentLang][1])}
                   </div>
                 </div>
               </div>
@@ -364,9 +393,7 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
           {/* Section Partners - Design original préservé */}
           <SectionGroup id="partners" title="Nos Partenaires" isCompactMode={isCompactMode}>
             <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10">
-              <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
-                {getContent(`partners_intro_${currentLang}`, PARTNERS_INTRO[currentLang][0])}
-              </p>
+              {getRichTextContent(`partners_intro_${currentLang}`, PARTNERS_INTRO[currentLang][0])}
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10">
@@ -377,9 +404,7 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true, margin: '-50px' }}
               >
-                <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                  {getContent(`partners_collaboration_${currentLang}`, PARTNERS_COLLABORATION[currentLang])}
-                </p>
+                {getRichTextContent(`partners_collaboration_${currentLang}`, PARTNERS_COLLABORATION[currentLang])}
               </motion.div>
               
               <OptimizedImage
@@ -400,14 +425,13 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
           <SectionGroup id="ontheway" title="On the Way" isCompactMode={isCompactMode}>
             <div className="space-y-3 xs:space-y-4 sm:space-y-4 lg:space-y-4">
               {ON_THE_WAY_CONTENT[currentLang].map((paragraph, index) => (
-                <motion.p 
+                <motion.div 
                   key={index}
-                  className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify"
                   {...getAnimationVariants(0.1 * index)}
                   viewport={{ once: true, margin: "-50px" }}
                 >
-                  {getContent(`ontheway_paragraph_${index + 1}_${currentLang}`, paragraph)}
-                </motion.p>
+                  {getRichTextContent(`ontheway_paragraph_${index + 1}_${currentLang}`, paragraph)}
+                </motion.div>
               ))}
             </div>
           </SectionGroup>
@@ -415,13 +439,13 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
           {/* Section Deco Ball - Design original préservé */}
           <SectionGroup id="decoball" title="Le Bal Art Deco" isCompactMode={isCompactMode}>
             <div className="text-center">
-              <motion.p
-                className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed mb-6 xs:mb-7 sm:mb-8 lg:mb-10"
+              <motion.div
                 {...getAnimationVariants(0.2)}
                 viewport={{ once: true, margin: "-100px" }}
+                className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10"
               >
-                {getContent(`decoball_intro_${currentLang}`, DECO_BALL_INTRO[currentLang])}
-              </motion.p>
+                {getRichTextContent(`decoball_intro_${currentLang}`, DECO_BALL_INTRO[currentLang])}
+              </motion.div>
               
               <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 xs:gap-3 sm:gap-4 lg:gap-6 max-w-4xl mx-auto">
                 {Array.from({ length: 8 }, (_, i) => (
@@ -451,18 +475,18 @@ export default function Home({ story, hasStoryblokData, buildTime }: HomeProps) 
                 viewport={{ once: true, margin: "-100px" }}
               >
                 <h3 className="font-title text-2xl sm:text-3xl lg:text-4xl text-accent mb-4 xs:mb-5 sm:mb-6 lg:mb-8">
-                  {getContent(`contact_heading_${currentLang}`, CONTACT_CONTENT[currentLang].heading)}
+                  {getRichTextTitle(`contact_heading_${currentLang}`, CONTACT_CONTENT[currentLang].heading)}
                 </h3>
                 
-                <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed mb-6 xs:mb-7 sm:mb-8 lg:mb-10">
-                  {getContent(`contact_intro_${currentLang}`, CONTACT_CONTENT[currentLang].intro)}
-                </p>
+                <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10">
+                  {getRichTextContent(`contact_intro_${currentLang}`, CONTACT_CONTENT[currentLang].intro)}
+                </div>
                 
                 <div className="space-y-2 xs:space-y-3 text-base xs:text-lg sm:text-xl lg:text-2xl text-primary font-body">
-                  <p>{getContent(`contact_phone_${currentLang}`, CONTACT_CONTENT[currentLang].phone)}</p>
-                  <p className="break-all">{getContent(`contact_email_${currentLang}`, CONTACT_CONTENT[currentLang].email)}</p>
+                  <p>{getRichTextTitle(`contact_phone_${currentLang}`, CONTACT_CONTENT[currentLang].phone)}</p>
+                  <p className="break-all">{getRichTextTitle(`contact_email_${currentLang}`, CONTACT_CONTENT[currentLang].email)}</p>
                   <a 
-                    href={getContent(`contact_website_${currentLang}`, CONTACT_CONTENT[currentLang].website)}
+                    href={getRichTextTitle(`contact_website_${currentLang}`, CONTACT_CONTENT[currentLang].website)}
                     className="text-accent hover:text-primary transition-colors duration-200 underline block"
                     target="_blank"
                     rel="noopener noreferrer"
