@@ -55,7 +55,7 @@ export async function getStoryblokStory(
       return null;
     }
 
-    const { data } = await storyblokApi().get(`cdn/stories/${slug}`, {
+    const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
       version,
       resolve_relations: [],
     });
@@ -114,7 +114,7 @@ export async function getStoryblokStories(
       return [];
     }
 
-    const { data } = await storyblokApi().get('cdn/stories', {
+    const { data } = await storyblokApi.get('cdn/stories', {
       starts_with: startsWith,
       version,
       per_page: 100,

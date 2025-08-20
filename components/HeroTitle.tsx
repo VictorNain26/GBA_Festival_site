@@ -3,11 +3,15 @@ import Image from 'next/image';
 import type { HeroTitleProps } from '@/types';
 import { getTypography } from '@/constants/designTokens';
 
+interface ExtendedHeroTitleProps extends HeroTitleProps {
+  title: React.ReactNode;
+}
+
 /**
  * Hero title component with Eiffel Tower and symmetric statues
  * Desktop: Title overlays the Eiffel Tower, Mobile: Images below title
  */
-export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
+export default function HeroTitle({ getAnimationVariants, title }: ExtendedHeroTitleProps) {
   return (
     <div className="flex flex-col items-center">
       {/* Mobile/Tablet - Titre puis images */}
@@ -20,9 +24,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
           }}
           {...getAnimationVariants(0)}
         >
-          Florilege
-          <br />
-          <span className="block">de l&apos;Art Deco</span>
+          {title}
         </motion.h1>
 
         {/* Images - Mobile/Tablet */}
@@ -137,9 +139,7 @@ export default function HeroTitle({ getAnimationVariants }: HeroTitleProps) {
             }}
             {...getAnimationVariants(0)}
           >
-            Florilege
-            <br />
-            <span className="block">de l&apos;Art Deco</span>
+            {title}
           </motion.h1>
         </div>
       </div>

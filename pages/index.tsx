@@ -123,7 +123,22 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
           </motion.p>
 
           {/* Titre principal */}
-          <HeroTitle getAnimationVariants={getAnimationVariants} />
+          <HeroTitle 
+            getAnimationVariants={getAnimationVariants} 
+            title={
+              hasStoryblokData && story?.content?.[`hero_title_${lang}`] ? (
+                <div dangerouslySetInnerHTML={{ __html: story.content[`hero_title_${lang}`] }} />
+              ) : (
+                <>
+                  {lang === 'fr' ? 'Florilège' : 'Florilege'}
+                  <br />
+                  <span className="block">
+                    {lang === 'fr' ? "de l'Art Déco" : "of Art Deco"}
+                  </span>
+                </>
+              )
+            }
+          />
 
           {/* Call to action */}
           <div className="w-full flex flex-col items-center mt-4 xs:mt-5 sm:mt-6 md:mt-7 lg:mt-6 xl:mt-8">

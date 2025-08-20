@@ -55,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // Récupération du contenu
-    const { data } = await storyblokApi().get(`cdn/stories/${storySlug}`, {
+    const { data } = await storyblokApi.get(`cdn/stories/${storySlug}`, {
       version: process.env.NODE_ENV === 'development' ? 'draft' : 'published',
       resolve_relations: [], // Peut être étendu selon les besoins
     });
