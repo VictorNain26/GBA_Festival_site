@@ -22,7 +22,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   
   // Check if we're on a Storyblok page or in preview mode
-  const isStoryblokPage = router.pathname.includes('storyblok');
+  // Maintenant que la page principale utilise Storyblok, on charge le bridge partout
+  const isStoryblokPage = router.pathname.includes('storyblok') || router.pathname === '/';
   const isPreview = router.isPreview || pageProps.preview;
   const shouldLoadStoryblokBridge = isStoryblokPage || isPreview;
   
