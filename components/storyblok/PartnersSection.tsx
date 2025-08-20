@@ -1,6 +1,7 @@
 /**
  * Composant Storyblok: Section Partenaires
  * Reproduit EXACTEMENT le design original avec SectionGroup et l'image danseuse2
+ * VERSION RICH TEXT ROBUSTE: Interface intuitive avec fallback intelligent
  */
 
 import React from 'react';
@@ -8,16 +9,18 @@ import { motion } from 'framer-motion';
 import { storyblokEditable } from '@storyblok/react';
 import SectionGroup from '@/components/SectionGroup';
 import OptimizedImage from '@/components/OptimizedImage';
+import { renderRichText, renderRichTextTitle } from '@/lib/richTextRenderer';
 import type { Language } from '@/types';
 import type { StoryblokBaseBlok } from '@/lib/storyblok';
+import type { StoryblokRichtext } from 'storyblok-rich-text-react-renderer';
 
 export interface StoryblokPartnersSectionData extends StoryblokBaseBlok {
-  title_fr: string;
-  title_en: string;
-  intro_paragraphs_fr: string;
-  intro_paragraphs_en: string;
-  collaboration_text_fr: string;
-  collaboration_text_en: string;
+  title_fr: StoryblokRichtext;
+  title_en: StoryblokRichtext;
+  intro_paragraphs_fr: StoryblokRichtext;
+  intro_paragraphs_en: StoryblokRichtext;
+  collaboration_text_fr: StoryblokRichtext;
+  collaboration_text_en: StoryblokRichtext;
 }
 
 interface PartnersSectionProps {
@@ -28,28 +31,13 @@ interface PartnersSectionProps {
 
 export default function PartnersSection({ blok, lang, isCompactMode }: PartnersSectionProps) {
 
-  // Helper pour rendre les paragraphes
-  const renderParagraphs = (paragraphs: string[]) => {
-    if (!paragraphs || paragraphs.length === 0) {
-      return null;
-    }
-    
-    return paragraphs.map((p, idx) => (
-      <p
-        key={idx}
-        className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base sm:text-lg lg:text-xl text-primary text-justify"
-        dangerouslySetInnerHTML={{ __html: p }}
-      />
-    ));
-  };
-
-  // Récupération des données avec conversion string -> array
-  const title = blok[`title_${lang}` as keyof StoryblokPartnersSectionData] as string || '';
-  const introParagraphsRaw = blok[`intro_paragraphs_${lang}` as keyof StoryblokPartnersSectionData] as string || '';
-  const collaborationText = blok[`collaboration_text_${lang}` as keyof StoryblokPartnersSectionData] as string || '';
-
-  // Conversion de la string en tableau de paragraphes
-  const introParagraphs = introParagraphsRaw ? introParagraphsRaw.split('\n\n').filter(p => p.trim()) : [];
+  // VERSION RICH TEXT ROBUSTE: Récupération des champs Rich Text avec rendu intelligent
+  const titleDoc = blok[`title_${lang}` as keyof StoryblokPartnersSectionData] as StoryblokRichtext;
+  const introParagraphsDoc = blok[`intro_paragraphs_${lang}` as keyof StoryblokPartnersSectionData] as StoryblokRichtext;
+  const collaborationTextDoc = blok[`collaboration_text_${lang}` as keyof StoryblokPartnersSectionData] as StoryblokRichtext;
+  
+  // Extraction du titre pour la navigation
+  const title = renderRichTextTitle(titleDoc) || 'Partners';
 
   return (
     <SectionGroup 
@@ -60,13 +48,13 @@ export default function PartnersSection({ blok, lang, isCompactMode }: PartnersS
     >
       {/* Paragraphe d'introduction */}
       <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10">
-        {renderParagraphs(introParagraphs)}
+        {renderRichText(introParagraphsDoc)}
       </div>
       
       {/* Deux colonnes: texte collaboration et image danseuse2 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10">
         {/* Colonne gauche - Texte Collaboration */}
-        {collaborationText && (
+        {collaborationTextDoc && (
           <motion.div
             className="flex flex-col justify-center"
             initial={{ opacity: 0, x: -30 }}
@@ -74,10 +62,7 @@ export default function PartnersSection({ blok, lang, isCompactMode }: PartnersS
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: '-50px' }}
           >
-            <p 
-              className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify"
-              dangerouslySetInnerHTML={{ __html: collaborationText }}
-            />
+            {renderRichText(collaborationTextDoc)}
           </motion.div>
         )}
         

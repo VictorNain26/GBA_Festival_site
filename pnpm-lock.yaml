@@ -23,6 +23,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.1.1(react@19.1.1)
+      storyblok-rich-text-react-renderer:
+        specifier: ^3.0.1
+        version: 3.0.1(react@19.1.1)
     devDependencies:
       '@testing-library/dom':
         specifier: ^10.4.0
@@ -2806,6 +2809,11 @@ packages:
 
   storyblok-js-client@7.1.3:
     resolution: {integrity: sha512-jIsd+5Gqeb4Yu4A3S/DxeTykF2GdlO9xiAyYJ2eb+IRDzytn1yR8J0Pc8WxM44LS2rXaDAiJWMScpIJ/95TYJQ==}
+
+  storyblok-rich-text-react-renderer@3.0.1:
+    resolution: {integrity: sha512-gd1nvjc95LEMLT4kVVXlN3p1qQUcIb/K4+LYnyAypX3MDP3dr2+DAX64nZb4CNbd8qHd+lM6SLxIxO53hgmK2Q==}
+    peerDependencies:
+      react: '>=16.0.0'
 
   string-length@4.0.2:
     resolution: {integrity: sha512-+l6rNN5fYHNhZZy41RXsYptCjA2Igmq4EG7kZAYFQI1E1VTXarr6ZPXBg6eq7Y6eK4FEhY6AJlyuFIb/v/S0VQ==}
@@ -6413,6 +6421,10 @@ snapshots:
       internal-slot: 1.1.0
 
   storyblok-js-client@7.1.3: {}
+
+  storyblok-rich-text-react-renderer@3.0.1(react@19.1.1):
+    dependencies:
+      react: 19.1.1
 
   string-length@4.0.2:
     dependencies:

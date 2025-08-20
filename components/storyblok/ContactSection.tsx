@@ -1,29 +1,31 @@
 /**
  * Composant Storyblok: Section Contact
  * Reproduit EXACTEMENT le design original centré (SANS SectionGroup ni Frame)
+ * VERSION RICH TEXT ROBUSTE: Interface intuitive avec fallback intelligent
  */
 
 import React from 'react';
 import { motion } from 'framer-motion';
 import { storyblokEditable } from '@storyblok/react';
-// import { useReducedMotion } from '@/hooks/useReducedMotion'; // Unused in this simplified version
+import { renderRichText, renderRichTextTitle } from '@/lib/richTextRenderer';
 import type { Language } from '@/types';
 import type { StoryblokBaseBlok } from '@/lib/storyblok';
+import type { StoryblokRichtext } from 'storyblok-rich-text-react-renderer';
 
 export interface StoryblokContactSectionData extends StoryblokBaseBlok {
-  title_fr: string;
-  title_en: string;
-  heading_fr: string;
-  heading_en: string;
-  intro_fr: string;
-  intro_en: string;
+  title_fr: StoryblokRichtext;
+  title_en: StoryblokRichtext;
+  heading_fr: StoryblokRichtext;
+  heading_en: StoryblokRichtext;
+  intro_fr: StoryblokRichtext;
+  intro_en: StoryblokRichtext;
   phone: string;
   email: string;
   website: string;
-  cta_text_fr: string;
-  cta_text_en: string;
-  back_to_top_fr: string;
-  back_to_top_en: string;
+  cta_text_fr: StoryblokRichtext;
+  cta_text_en: StoryblokRichtext;
+  back_to_top_fr: StoryblokRichtext;
+  back_to_top_en: StoryblokRichtext;
 }
 
 interface ContactSectionProps {
@@ -37,12 +39,18 @@ export default function ContactSection({ blok, lang }: ContactSectionProps) {
 
   // Animations simplifiées pour ce composant centré
 
-  // Récupération des données
-  const title = blok[`title_${lang}` as keyof StoryblokContactSectionData] as string || '';
-  const heading = blok[`heading_${lang}` as keyof StoryblokContactSectionData] as string || '';
-  const intro = blok[`intro_${lang}` as keyof StoryblokContactSectionData] as string || '';
-  const ctaText = blok[`cta_text_${lang}` as keyof StoryblokContactSectionData] as string || '';
-  const backToTopText = blok[`back_to_top_${lang}` as keyof StoryblokContactSectionData] as string || '';
+  // VERSION RICH TEXT ROBUSTE: Récupération des champs Rich Text avec rendu intelligent
+  const titleDoc = blok[`title_${lang}` as keyof StoryblokContactSectionData] as StoryblokRichtext;
+  const headingDoc = blok[`heading_${lang}` as keyof StoryblokContactSectionData] as StoryblokRichtext;
+  const introDoc = blok[`intro_${lang}` as keyof StoryblokContactSectionData] as StoryblokRichtext;
+  const ctaTextDoc = blok[`cta_text_${lang}` as keyof StoryblokContactSectionData] as StoryblokRichtext;
+  const backToTopTextDoc = blok[`back_to_top_${lang}` as keyof StoryblokContactSectionData] as StoryblokRichtext;
+  
+  // Extraction des textes pour l'affichage
+  const title = renderRichTextTitle(titleDoc) || 'Contact';
+  const heading = renderRichTextTitle(headingDoc) || '';
+  const ctaText = renderRichTextTitle(ctaTextDoc) || (lang === 'fr' ? 'Contact' : 'Contact');
+  const backToTopText = renderRichTextTitle(backToTopTextDoc) || (lang === 'fr' ? 'Retour en haut' : 'Back to top');
 
   return (
     // EXACTEMENT comme l'original: section centrée sans SectionGroup
@@ -76,7 +84,7 @@ export default function ContactSection({ blok, lang }: ContactSectionProps) {
           </motion.h3>
         )}
         
-        {intro && (
+        {introDoc && (
           <motion.p
             className="font-body text-base sm:text-lg lg:text-xl text-accent mb-4 xs:mb-5 sm:mb-5 lg:mb-6 xl:mb-7 text-center"
             initial={{ opacity: 0, y: 30 }}
@@ -84,7 +92,7 @@ export default function ContactSection({ blok, lang }: ContactSectionProps) {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            {intro}
+            {renderRichText(introDoc)}
           </motion.p>
         )}
         

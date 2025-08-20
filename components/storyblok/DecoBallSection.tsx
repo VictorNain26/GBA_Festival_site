@@ -1,6 +1,7 @@
 /**
  * Composant Storyblok: Section "Le Bal Art Déco"
  * Reproduit EXACTEMENT le design original avec images danse superposées + galerie
+ * VERSION RICH TEXT ROBUSTE: Interface intuitive avec fallback intelligent
  */
 
 import React from 'react';
@@ -8,15 +9,16 @@ import { motion } from 'framer-motion';
 import { storyblokEditable } from '@storyblok/react';
 import SectionGroup from '@/components/SectionGroup';
 import OptimizedImage from '@/components/OptimizedImage';
-// import { useReducedMotion } from '@/hooks/useReducedMotion'; // Unused in this simplified version
+import { renderRichText, renderRichTextTitle } from '@/lib/richTextRenderer';
 import type { Language } from '@/types';
 import type { StoryblokBaseBlok } from '@/lib/storyblok';
+import type { StoryblokRichtext } from 'storyblok-rich-text-react-renderer';
 
 export interface StoryblokDecoBallSectionData extends StoryblokBaseBlok {
-  title_fr: string;
-  title_en: string;
-  intro_text_fr: string;
-  intro_text_en: string;
+  title_fr: StoryblokRichtext;
+  title_en: StoryblokRichtext;
+  intro_text_fr: StoryblokRichtext;
+  intro_text_en: StoryblokRichtext;
 }
 
 interface DecoBallSectionProps {
@@ -30,9 +32,12 @@ export default function DecoBallSection({ blok, lang, isCompactMode }: DecoBallS
 
   // Animations directement dans les composants pour ce design
 
-  // Récupération des données
-  const title = blok[`title_${lang}` as keyof StoryblokDecoBallSectionData] as string || '';
-  const introText = blok[`intro_text_${lang}` as keyof StoryblokDecoBallSectionData] as string || '';
+  // VERSION RICH TEXT ROBUSTE: Récupération des champs Rich Text avec rendu intelligent
+  const titleDoc = blok[`title_${lang}` as keyof StoryblokDecoBallSectionData] as StoryblokRichtext;
+  const introTextDoc = blok[`intro_text_${lang}` as keyof StoryblokDecoBallSectionData] as StoryblokRichtext;
+  
+  // Extraction du titre pour la navigation
+  const title = renderRichTextTitle(titleDoc) || 'Le Bal Art Déco';
 
   // Galerie d'images hardcodée - EXACTEMENT comme l'original (9 images .jpg)
   const galleryImages = [
@@ -57,7 +62,7 @@ export default function DecoBallSection({ blok, lang, isCompactMode }: DecoBallS
       {/* Two columns: content text and stacked dance images - EXACTEMENT comme l'original */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10">
         {/* Left column - Content text */}
-        {introText && (
+        {introTextDoc && (
           <motion.div
             className="flex flex-col justify-center"
             initial={{ opacity: 0, x: -30 }}
@@ -65,10 +70,9 @@ export default function DecoBallSection({ blok, lang, isCompactMode }: DecoBallS
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <p 
-              className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify"
-              dangerouslySetInnerHTML={{ __html: introText }}
-            />
+            <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
+              {renderRichText(introTextDoc)}
+            </div>
           </motion.div>
         )}
         

@@ -23,7 +23,8 @@
     "framer-motion": "^11.11.17",
     "next": "^15.1.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "storyblok-rich-text-react-renderer": "^3.0.1"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",

@@ -4,7 +4,7 @@
  */
 
 import type { Language } from '@/types';
-import { extractPlainText } from '@/lib/richTextHelper';
+import { renderRichTextTitle } from '@/lib/richTextRenderer';
 
 interface SectionTitleMapping {
   [sectionId: string]: {
@@ -29,8 +29,8 @@ export function extractSectionTitles(story: any): SectionTitleMapping {
       case 'about-section':
         if (section.title_fr || section.title_en) {
           titles['about'] = {
-            fr: extractPlainText(section.title_fr) || 'Art Déco et Neo Art Déco',
-            en: extractPlainText(section.title_en) || 'Art Deco and Neo Art Deco'
+            fr: renderRichTextTitle(section.title_fr) || 'Art Déco et Neo Art Déco',
+            en: renderRichTextTitle(section.title_en) || 'Art Deco and Neo Art Deco'
           };
         }
         break;
@@ -38,8 +38,8 @@ export function extractSectionTitles(story: any): SectionTitleMapping {
       case 'partners-section':
         if (section.title_fr || section.title_en) {
           titles['partners'] = {
-            fr: extractPlainText(section.title_fr) || 'Nos Partenaires',
-            en: extractPlainText(section.title_en) || 'Our Partners'
+            fr: renderRichTextTitle(section.title_fr) || 'Nos Partenaires',
+            en: renderRichTextTitle(section.title_en) || 'Our Partners'
           };
         }
         break;
@@ -47,8 +47,8 @@ export function extractSectionTitles(story: any): SectionTitleMapping {
       case 'on-the-way-section':
         if (section.title_fr || section.title_en) {
           titles['ontheway'] = {
-            fr: extractPlainText(section.title_fr) || 'On the Way',
-            en: extractPlainText(section.title_en) || 'On the Way'
+            fr: renderRichTextTitle(section.title_fr) || 'On the Way',
+            en: renderRichTextTitle(section.title_en) || 'On the Way'
           };
         }
         break;
@@ -56,8 +56,8 @@ export function extractSectionTitles(story: any): SectionTitleMapping {
       case 'deco-ball-section':
         if (section.title_fr || section.title_en) {
           titles['decoball'] = {
-            fr: extractPlainText(section.title_fr) || 'Le Bal Art Déco',
-            en: extractPlainText(section.title_en) || 'The Art Deco Ball'
+            fr: renderRichTextTitle(section.title_fr) || 'Le Bal Art Déco',
+            en: renderRichTextTitle(section.title_en) || 'The Art Deco Ball'
           };
         }
         break;
@@ -65,8 +65,8 @@ export function extractSectionTitles(story: any): SectionTitleMapping {
       case 'contact-section':
         if (section.title_fr || section.title_en) {
           titles['contact'] = {
-            fr: extractPlainText(section.title_fr) || 'Contact',
-            en: extractPlainText(section.title_en) || 'Contact'
+            fr: renderRichTextTitle(section.title_fr) || 'Contact',
+            en: renderRichTextTitle(section.title_en) || 'Contact'
           };
         }
         break;
