@@ -28,6 +28,8 @@ Créez une story nommée "festival-homepage" avec les blocs suivants :
 - `title_en` (Text) - Titre de la section About en anglais
 - `content_fr` (Rich Text) - Contenu principal de la section About en français
 - `content_en` (Rich Text) - Contenu principal de la section About en anglais
+- `description_fr` (Rich Text) - Description après l'image Erté en français
+- `description_en` (Rich Text) - Description après l'image Erté en anglais
 - `target_audience_title_fr` (Text) - Titre "PUBLIC CIBLE"
 - `target_audience_title_en` (Text) - Titre "TARGET AUDIENCE"
 - `target_audience_fr` (Rich Text) - Description du public cible en français
@@ -110,7 +112,7 @@ Créez une story nommée "festival-homepage" avec les blocs suivants :
 1. Créez une story "festival-homepage"
 2. Créez les blocs suivants dans votre Schema :
    - `about_section` (Block)
-   - `partners_section` (Block) 
+   - `partners_section` (Block)
    - `ontheway_section` (Block)
    - `decoball_section` (Block)
    - `contact_section` (Block)

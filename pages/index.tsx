@@ -224,6 +224,13 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 className="w-full max-w-sm xs:max-w-md sm:max-w-lg lg:max-w-xl object-cover"
               />
             </div>
+
+            {/* Description after image */}
+            <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10">
+              <div className="leading-relaxed text-base sm:text-lg lg:text-xl text-primary text-justify">
+                {getSectionRichText('about', `description_${lang}`)}
+              </div>
+            </div>
             
             {/* Danseuse image and objectives */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xs:gap-5 sm:gap-6 lg:gap-8 mt-4 xs:mt-5 sm:mt-6 lg:mt-8">
