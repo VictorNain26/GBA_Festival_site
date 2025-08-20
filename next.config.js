@@ -1,17 +1,28 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Enable image optimization for better performance
-  // All assets are local, so we configure for optimal local image handling
+  
+  // Configuration spécifique pour IONOS Deploy Now (hébergement statique)
+  output: process.env['IONOS_STATIC'] === 'true' ? 'export' : undefined,
+  trailingSlash: process.env['IONOS_STATIC'] === 'true',
+  
+  // Optimisation des images pour IONOS
   images: {
+    unoptimized: process.env['IONOS_STATIC'] === 'true', // Requis pour l'export statique
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000, // 1 year cache for local images
   },
   
-  // Comprehensive security headers
+  // Comprehensive security headers (disabled for static export)
   async headers() {
+    // Les headers personnalisés ne fonctionnent pas avec output: export
+    // Ils seront gérés par .ionos.yml ou la configuration du serveur
+    if (process.env['IONOS_STATIC'] === 'true') {
+      return [];
+    }
+    
     const isProduction = process.env.NODE_ENV === 'production';
     const isDevelopment = process.env.NODE_ENV === 'development';
     

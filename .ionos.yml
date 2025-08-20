@@ -1,0 +1,46 @@
+# Configuration IONOS Deploy Now
+# Ce fichier sera automatiquement créé par IONOS mais vous pouvez le personnaliser
+
+version: 1.0
+
+setup:
+  - name: Setup Node.js
+    action: actions/setup-node@v4
+    properties:
+      node-version: 18
+
+build:
+  commands:
+    - name: Install dependencies
+      command: npm install -g pnpm@9.0.0 && pnpm install --frozen-lockfile
+    - name: Build for production
+      command: pnpm run build:ionos
+  publishDir: out
+
+# Configuration du déploiement
+headers:
+  - source: "**/*"
+    headers:
+      - key: Cache-Control
+        value: public, max-age=31536000, immutable
+      - key: X-Content-Type-Options
+        value: nosniff
+      - key: X-Frame-Options
+        value: SAMEORIGIN
+  
+  # Headers spécifiques pour les assets statiques
+  - source: "**/*.{js,css,png,jpg,jpeg,gif,ico,svg,woff,woff2}"
+    headers:
+      - key: Cache-Control
+        value: public, max-age=31536000, immutable
+  
+  # Headers pour les pages HTML
+  - source: "**/*.html"
+    headers:
+      - key: Cache-Control
+        value: public, max-age=0, must-revalidate
+
+redirects:
+  - source: /index.html
+    destination: /
+    permanent: true

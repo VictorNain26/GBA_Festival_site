@@ -683,6 +683,8 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  const isStaticExport = process.env['IONOS_STATIC'] === 'true';
+  
   try {
     console.log('🔍 Tentative de récupération de la story "festival-homepage"...');
     
@@ -695,31 +697,47 @@ export const getStaticProps: GetStaticProps = async () => {
         content_body_length: Object.keys(story.content || {}).length 
       });
       
-      return {
+      const result: any = {
         props: {
           story,
           hasStoryblokData: true
-        },
-        revalidate: 60 * 1, // Revalidate every 1 minute
+        }
       };
+      
+      // ISR (revalidate) n'est pas compatible avec output: export
+      if (!isStaticExport) {
+        result.revalidate = 60 * 1; // Revalidate every 1 minute
+      }
+      
+      return result;
     } else {
       console.log('⚠️ Aucune story trouvée, utilisation du contenu par défaut');
-      return {
+      const result: any = {
         props: {
           story: null,
           hasStoryblokData: false
-        },
-        revalidate: 60 * 5, // Revalidate every 5 minutes when no data
+        }
       };
+      
+      if (!isStaticExport) {
+        result.revalidate = 60 * 5; // Revalidate every 5 minutes when no data
+      }
+      
+      return result;
     }
   } catch (error) {
     console.error('❌ Erreur lors de la récupération de la story Storyblok:', error);
-    return {
+    const result: any = {
       props: {
         story: null,
         hasStoryblokData: false
-      },
-      revalidate: 60 * 5, // Revalidate every 5 minutes on error
+      }
     };
+    
+    if (!isStaticExport) {
+      result.revalidate = 60 * 5; // Revalidate every 5 minutes on error
+    }
+    
+    return result;
   }
 };
