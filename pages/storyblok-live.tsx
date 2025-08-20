@@ -3,7 +3,7 @@
  * Démontre l'intégration complète avec l'API Storyblok
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import { motion } from 'framer-motion';
@@ -86,6 +86,27 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
     await reloadContent();
   };
 
+  // Initialize Storyblok Visual Editor
+  useEffect(() => {
+    if (typeof window !== 'undefined' && (window as any).storyblok) {
+      (window as any).storyblok.init({
+        accessToken: process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN
+      });
+
+      // Listen for story changes in the editor
+      (window as any).storyblok.on(['input', 'published', 'change'], (payload: any) => {
+        if (payload.action === 'input') {
+          if (payload.story?.id === liveStory?.id) {
+            setLiveStory(payload.story);
+          }
+        } else {
+          // Reload story for published changes
+          reloadContent();
+        }
+      });
+    }
+  }, [liveStory?.id]);
+
   return (
     <>
       <Head>
@@ -103,6 +124,8 @@ export default function StoryblokLive({ story, isConfigured, error }: StoryblokL
               : 'Live Storyblok CMS Integration - Art Deco Festival'
           }
         />
+        {/* Storyblok Visual Editor */}
+        <script src="https://app.storyblok.com/f/storyblok-v2-latest.js" />
       </Head>
 
       {/* Background progressif */}

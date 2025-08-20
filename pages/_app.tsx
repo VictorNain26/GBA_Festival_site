@@ -1,6 +1,9 @@
 import '@/styles/globals.css';
 import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import Script from 'next/script';
+import { useRouter } from 'next/router';
 import { performanceLogger } from '@/utils/logger';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 
@@ -10,6 +13,13 @@ import GoogleAnalytics from '@/components/GoogleAnalytics';
  * providers if needed.
  */
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  
+  // Check if we're on a Storyblok page or in preview mode
+  const isStoryblokPage = router.pathname.includes('storyblok');
+  const isPreview = router.isPreview || pageProps.preview;
+  const shouldLoadStoryblokBridge = isStoryblokPage || isPreview;
+  
   // Add hydrated class to prevent scroll jumps
   useEffect(() => {
     document.documentElement.classList.add('hydrated');
@@ -20,8 +30,41 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, []);
   
+  // Initialize Storyblok Bridge when needed
+  useEffect(() => {
+    if (shouldLoadStoryblokBridge && typeof window !== 'undefined' && (window as any).storyblok) {
+      const token = process.env.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN;
+      if (token) {
+        (window as any).storyblok.init({
+          accessToken: token
+        });
+
+        // Listen for Visual Editor events
+        (window as any).storyblok.on(['input', 'published', 'change'], () => {
+          // Force reload to get new content
+          router.reload();
+        });
+      }
+    }
+  }, [shouldLoadStoryblokBridge, router]);
+  
   return (
     <>
+      <Head>
+        {/* Load Storyblok Bridge only when needed */}
+        {shouldLoadStoryblokBridge && (
+          <script src="https://app.storyblok.com/f/storyblok-v2-latest.js" />
+        )}
+      </Head>
+      
+      {/* Storyblok Bridge Script - Next.js optimized loading */}
+      {shouldLoadStoryblokBridge && (
+        <Script 
+          src="https://app.storyblok.com/f/storyblok-v2-latest.js"
+          strategy="afterInteractive"
+        />
+      )}
+      
       <GoogleAnalytics />
       <div className="font-body text-primary relative min-h-screen">
         <Component {...pageProps} />
