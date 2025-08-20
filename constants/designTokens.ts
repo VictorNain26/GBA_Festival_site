@@ -69,10 +69,10 @@ export const TYPOGRAPHY = {
 
   // Titre principal H1 - Version compacte pour titres longs
   heroTitleCompact: {
-    xs: 'text-lg',            // 18px - Mobile (réduit)
-    sm: 'text-2xl',           // 24px - Tablette (réduit)
-    lg: 'text-4xl',           // 36px - Laptop (réduit)
-    xl: 'text-5xl',           // 48px - Desktop (réduit)
+    xs: 'text-base',          // 16px - Mobile (encore plus réduit)
+    sm: 'text-xl',            // 20px - Tablette (encore plus réduit)
+    lg: 'text-3xl',           // 30px - Laptop (encore plus réduit)
+    xl: 'text-4xl',           // 36px - Desktop (encore plus réduit)
     weight: 'font-title',
     line: 'leading-tight',
     tracking: 'tracking-tight',
