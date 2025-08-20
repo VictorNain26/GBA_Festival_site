@@ -1,0 +1,46 @@
+name: IONOS Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install pnpm
+        run: npm install -g pnpm@9.0.0
+      
+      - name: Install dependencies (including devDependencies)
+        run: pnpm install --frozen-lockfile --prod=false
+        env:
+          NODE_ENV: development
+      
+      - name: Build for IONOS
+        run: pnpm run build:ionos
+        env:
+          NODE_ENV: production
+          IONOS_STATIC: true
+          NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_STORYBLOK_ACCESS_TOKEN }}
+          STORYBLOK_PREVIEW_SECRET: ${{ secrets.STORYBLOK_PREVIEW_SECRET }}
+          NEXT_TELEMETRY_DISABLED: 1
+      
+      - name: Deploy to IONOS
+        uses: ionos-deploy-now/deploy-to-ionos-action@v2
+        with:
+          api-key: ${{ secrets.IONOS_API_KEY }}
+          project-id: ${{ secrets.IONOS_PROJECT_ID }}
+          branch-id: ${{ secrets.IONOS_BRANCH_ID }}
+          dist-folder: out
+          runtime-placeholder: nodejs18

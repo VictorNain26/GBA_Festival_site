@@ -20,7 +20,8 @@
     "test:coverage": "jest --coverage",
     "clean": "rm -rf .next out node_modules pnpm-lock.yaml",
     "fresh-install": "pnpm clean && pnpm install",
-    "ionos:deploy": "pnpm build:ionos"
+    "ionos:deploy": "pnpm build:ionos",
+    "install:prod": "pnpm install --prod=false"
   },
   "dependencies": {
     "@storyblok/react": "^5.4.4",
