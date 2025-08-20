@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { render, type StoryblokRichtext } from 'storyblok-rich-text-react-renderer';
+import { PRESET_CLASSES } from '@/constants/designTokens';
 
 // Types pour la sécurité
 interface RichTextDocument {
@@ -56,7 +57,7 @@ const getRichTextOptions = () => ({
   nodeResolvers: {
     // Paragraphes avec les bonnes classes
     paragraph: (children: React.ReactNode) => (
-      <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
+      <p className={PRESET_CLASSES.richTextParagraph}>
         {children}
       </p>
     ),
@@ -152,7 +153,7 @@ export function renderRichText(document: StoryblokRichtext | any): React.ReactNo
   // Cas 2: String simple
   if (typeof document === 'string') {
     return (
-      <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
+      <p className={PRESET_CLASSES.richTextParagraph}>
         {document}
       </p>
     );
@@ -165,7 +166,7 @@ export function renderRichText(document: StoryblokRichtext | any): React.ReactNo
     if (!plainText) { return null; }
     
     return (
-      <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
+      <p className={PRESET_CLASSES.richTextParagraph}>
         {plainText}
       </p>
     );
@@ -183,7 +184,7 @@ export function renderRichText(document: StoryblokRichtext | any): React.ReactNo
     if (!plainText) { return null; }
     
     return (
-      <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
+      <p className={PRESET_CLASSES.richTextParagraph}>
         {plainText}
       </p>
     );

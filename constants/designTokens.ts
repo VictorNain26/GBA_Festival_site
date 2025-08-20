@@ -183,6 +183,7 @@ export function getTypography(
 
 /**
  * Classes prêtes à l'emploi pour les cas d'usage fréquents
+ * DRY : Évite la duplication des classes CSS complexes
  */
 export const PRESET_CLASSES = {
   // Section complète avec espacement
@@ -197,9 +198,15 @@ export const PRESET_CLASSES = {
   // Paragraphe de texte avec espacement
   bodyParagraph: `${getTypography('bodyText')} text-primary ${getVerticalSpacing('paragraph')} text-justify`,
   
+  // Texte Rich Text standard (DRY : utilisé dans plusieurs endroits)
+  richTextParagraph: 'font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify mb-3 xs:mb-4 sm:mb-4 lg:mb-4',
+  
   // Navigation responsive
   navigationLink: `${getTypography('navigationText')} transition-colors hover:text-accent cursor-pointer`,
   
   // Animation d'entrée standard
-  animationEnter: 'initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}'
+  animationEnter: 'initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}',
+  
+  // Fallback text styling (DRY : utilisé dans plusieurs services)
+  fallbackText: 'text-gray-400 italic'
 } as const;

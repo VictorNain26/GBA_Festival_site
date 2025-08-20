@@ -14,8 +14,8 @@ import { detectBrowserLanguage } from '@/hooks/useBrowserLanguage';
 import { useBackgroundTransition } from '@/hooks/useBackgroundTransition';
 import { getStoryblokStory, getStoryblokVersion } from '@/lib/storyblok-api';
 import type { StoryblokStory } from '@/lib/storyblok-api';
-import { renderRichText } from '@/lib/richTextRenderer';
 import { NAV_LABELS } from '@/constants/content';
+import { useStoryblokData } from '@/hooks/useStoryblokData';
 import type { Language } from '@/types';
 
 interface HomeProps {
@@ -32,115 +32,19 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
   const prefersReducedMotion = useReducedMotion();
   const { isCompactMode } = useBackgroundTransition();
   
+  // Utilise le service Storyblok centralisé (SOLID: DIP - Dependency Inversion Principle)
+  const storyblokData = useStoryblokData({ story, hasStoryblokData });
+  
   // Detect browser language on client side after mount
   useEffect(() => {
     const detectedLang = detectBrowserLanguage();
     setLang(detectedLang);
   }, []);
 
-  // Helper pour le texte simple depuis le hero-section
-  const getSimpleText = (field: string, fallback?: string): string => {
-    if (!hasStoryblokData || !story?.content || !story.content.body) {
-      return fallback || `${field}`;
-    }
-    
-    // Chercher le bloc hero-section
-    const heroSection = story.content.body.find((block: any) => block.component === 'hero-section');
-    if (heroSection && heroSection[field]) {
-      const fieldData = heroSection[field];
-      
-      // Si c'est déjà un string, le retourner
-      if (typeof fieldData === 'string') {
-        return fieldData;
-      }
-      
-      // Si c'est un objet Rich Text, extraire le texte
-      if (fieldData && typeof fieldData === 'object') {
-        try {
-          // Essayer d'extraire le texte brut des objets Rich Text
-          if (fieldData.type === 'doc' && fieldData.content) {
-            const extractText = (node: any): string => {
-              if (!node) {
-                return '';
-              }
-              if (typeof node === 'string') {
-                return node;
-              }
-              if (node.text) {
-                return node.text;
-              }
-              if (Array.isArray(node.content)) {
-                return node.content.map(extractText).join('');
-              }
-              if (Array.isArray(node)) {
-                return node.map(extractText).join('');
-              }
-              return '';
-            };
-            return extractText(fieldData);
-          }
-        } catch (error) {
-          console.warn(`Erreur extraction texte pour ${field}:`, error);
-        }
-      }
-      
-      // Fallback: convertir en string
-      return String(fieldData);
-    }
-    
-    return fallback || `${field}`;
-  };
-
-  // Helper pour récupérer des données depuis des blocs de section
-  const getSectionData = (sectionName: string, field: string, fallback?: string) => {
-    if (!hasStoryblokData || !story?.content || !story.content.body) {
-      return fallback || `${sectionName}_section.${field}`;
-    }
-    
-    // Chercher le bon composant dans body
-    const componentName = `${sectionName}-section`;
-    const sectionContent = story.content.body.find((block: any) => block.component === componentName);
-    
-    if (sectionContent && sectionContent[field]) {
-      return sectionContent[field];
-    }
-    return fallback || `${sectionName}_section.${field}`;
-  };
-
-  const getSectionRichText = (sectionName: string, field: string) => {
-    if (!hasStoryblokData || !story?.content || !story.content.body) {
-      return <span className="text-gray-400 italic">{sectionName}_section.{field}</span>;
-    }
-    
-    // Chercher le bon composant dans body
-    const componentName = `${sectionName}-section`;
-    const sectionContent = story.content.body.find((block: any) => block.component === componentName);
-    
-    if (sectionContent && sectionContent[field]) {
-      // Validation supplémentaire pour éviter les objets React invalides
-      const fieldData = sectionContent[field];
-      
-      // Si c'est un string simple
-      if (typeof fieldData === 'string') {
-        return (
-          <p className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
-            {fieldData}
-          </p>
-        );
-      }
-      
-      // Si c'est un objet Rich Text valide
-      if (fieldData && typeof fieldData === 'object') {
-        try {
-          return renderRichText(fieldData);
-        } catch (error) {
-          console.warn(`Erreur rendu Rich Text pour ${sectionName}.${field}:`, error);
-          return <span className="text-gray-400 italic">{sectionName}_section.{field} [erreur rendu]</span>;
-        }
-      }
-    }
-    return <span className="text-gray-400 italic">{sectionName}_section.{field}</span>;
-  };
+  // DRY et SOLID : Utilisation du service Storyblok centralisé (voir services/storyblokService.ts)
+  // - SRP : Séparation des responsabilités de data fetching
+  // - DIP : Inversion des dépendances via interface
+  // - DRY : Élimination de la duplication de logique
 
   // Memoize animation variants
   const getAnimationVariants = useMemo(() => {
@@ -193,7 +97,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         >
           {/* Festival subtitle */}
           <HeroSubtitle 
-            subtitle={getSimpleText(`hero_subtitle_${lang}`)} 
+            subtitle={storyblokData.getSimpleText(`hero_subtitle_${lang}`)} 
             getAnimationVariants={getAnimationVariants} 
           />
 
@@ -202,13 +106,13 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
             className="font-title text-base sm:text-lg lg:text-xl text-primary mb-2 xs:mb-3 sm:mb-3 lg:mb-2 xl:mb-3 relative z-10"
             {...getAnimationVariants(0.1)}
           >
-            {getSimpleText(`hero_date_${lang}`)}
+            {storyblokData.getSimpleText(`hero_date_${lang}`)}
           </motion.p>
 
           {/* Titre principal */}
           <HeroTitle 
             getAnimationVariants={getAnimationVariants} 
-            title={getSimpleText(`hero_title_${lang}`)}
+            title={storyblokData.getSimpleText(`hero_title_${lang}`)}
           />
 
           {/* Call to action */}
@@ -220,7 +124,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 className="inline-block px-6 xs:px-7 sm:px-7 py-3 xs:py-4 sm:py-3 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText(`hero_cta_${lang}`)}
+                {storyblokData.getSimpleText(`hero_cta_${lang}`)}
               </motion.a>
               
               <div className="flex flex-col items-center gap-2 xs:gap-3 sm:gap-2">
@@ -228,14 +132,14 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                   className="font-title text-sm lg:text-base text-accent"
                   {...getAnimationVariants(0.5)}
                 >
-                  {getSimpleText('hero_location_name')}
+                  {storyblokData.getSimpleText('hero_location_name')}
                 </motion.p>
                 
                 <motion.p
                   className="font-title text-sm lg:text-base text-accent"
                   {...getAnimationVariants(0.6)}
                 >
-                  {getSimpleText('hero_location_address')}
+                  {storyblokData.getSimpleText('hero_location_address')}
                 </motion.p>
               </div>
             </div>
@@ -246,7 +150,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 className="font-title text-base lg:text-lg xl:text-xl text-accent text-right"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText('hero_location_name')}
+                {storyblokData.getSimpleText('hero_location_name')}
               </motion.p>
               
               <motion.a
@@ -254,21 +158,21 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 className="inline-block px-8 lg:px-10 py-3 lg:py-4 font-title text-sm lg:text-base uppercase tracking-wider transition-all duration-300 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background text-center mx-auto"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText(`hero_cta_${lang}`)}
+                {storyblokData.getSimpleText(`hero_cta_${lang}`)}
               </motion.a>
               
               <motion.p
                 className="font-title text-base lg:text-lg xl:text-xl text-accent text-left"
                 {...getAnimationVariants(0.2)}
               >
-                {getSimpleText('hero_location_address')}
+                {storyblokData.getSimpleText('hero_location_address')}
               </motion.p>
             </div>
           </div>
         </section>
 
         {/* About section */}
-        <SectionGroup id="about" title={getSectionData('about', `title_${lang}`)} isCompactMode={isCompactMode}>
+        <SectionGroup id="about" title={storyblokData.getSectionData('about', `title_${lang}`)} isCompactMode={isCompactMode}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -277,7 +181,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
             {/* About content */}
             <div className="mb-3 xs:mb-4 sm:mb-4 lg:mb-4">
               <div className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base sm:text-lg lg:text-xl text-primary text-justify">
-                {getSectionRichText('about', `content_${lang}`)}
+                {storyblokData.getSectionRichText('about', `content_${lang}`)}
               </div>
             </div>
             
@@ -295,7 +199,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
             {/* Description after image */}
             <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10">
               <div className="leading-relaxed text-base sm:text-lg lg:text-xl text-primary text-justify">
-                {getSectionRichText('about', `description_${lang}`)}
+                {storyblokData.getSectionRichText('about', `description_${lang}`)}
               </div>
             </div>
             
@@ -312,19 +216,19 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               <div className="flex flex-col justify-center space-y-3 xs:space-y-4">
                 <div className="p-3 xs:p-4 sm:p-4 border border-primary">
                   <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
-                    {getSectionData('about', `target_audience_title_${lang}`)}
+                    {storyblokData.getSectionData('about', `target_audience_title_${lang}`)}
                   </h4>
                   <div className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
-                    {getSectionRichText('about', `target_audience_${lang}`)}
+                    {storyblokData.getSectionRichText('about', `target_audience_${lang}`)}
                   </div>
                 </div>
                 
                 <div className="p-3 xs:p-4 sm:p-4 border border-primary">
                   <h4 className="font-title text-lg sm:text-xl lg:text-2xl text-accent mb-2 xs:mb-3">
-                    {getSectionData('about', `objective_title_${lang}`)}
+                    {storyblokData.getSectionData('about', `objective_title_${lang}`)}
                   </h4>
                   <div className="font-body text-base sm:text-lg lg:text-xl text-primary leading-relaxed">
-                    {getSectionRichText('about', `objective_${lang}`)}
+                    {storyblokData.getSectionRichText('about', `objective_${lang}`)}
                   </div>
                 </div>
               </div>
@@ -333,10 +237,10 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         </SectionGroup>
 
         {/* Partners section */}
-        <SectionGroup id="partners" title={getSectionData('partners', `title_${lang}`)} isCompactMode={isCompactMode}>
+        <SectionGroup id="partners" title={storyblokData.getSectionData('partners', `title_${lang}`)} isCompactMode={isCompactMode}>
           <div className="mb-6 xs:mb-7 sm:mb-8 lg:mb-10">
             <div className="mb-7 xs:mb-8 sm:mb-9 lg:mb-6 xl:mb-7 leading-relaxed text-base sm:text-lg lg:text-xl text-primary text-justify">
-              {getSectionRichText('partners', `intro_${lang}`)}
+              {storyblokData.getSectionRichText('partners', `intro_${lang}`)}
             </div>
           </div>
           
@@ -348,7 +252,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               transition={{ duration: 0.6 }}
             >
               <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                {getSectionRichText('partners', `collaboration_${lang}`)}
+                {storyblokData.getSectionRichText('partners', `collaboration_${lang}`)}
               </div>
             </motion.div>
             
@@ -368,10 +272,10 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         {/* On the Way section */}
         <SectionGroup id="on-the-way" isCompactMode={isCompactMode} title={
           <div className="text-center space-y-1">
-            <div className="font-bold leading-tight">{getSectionData('on-the-way', `title_${lang}`)}</div>
+            <div className="font-bold leading-tight">{storyblokData.getSectionData('on-the-way', `title_${lang}`)}</div>
             <div className="h-px w-12 bg-accent mx-auto opacity-60"></div>
             <div className="font-body text-accent text-[0.5em] font-normal uppercase tracking-[0.3em] leading-none opacity-90">
-              {getSectionData('on-the-way', `subtitle_${lang}`)}
+              {storyblokData.getSectionData('on-the-way', `subtitle_${lang}`)}
             </div>
           </div>
         }>
@@ -385,7 +289,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                  {getSectionRichText('on-the-way', `content_1_${lang}`)}
+                  {storyblokData.getSectionRichText('on-the-way', `content_1_${lang}`)}
                 </div>
               </motion.div>
               
@@ -420,7 +324,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                  {getSectionRichText('on-the-way', `content_2_${lang}`)}
+                  {storyblokData.getSectionRichText('on-the-way', `content_2_${lang}`)}
                 </div>
               </motion.div>
             </div>
@@ -433,7 +337,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                  {getSectionRichText('on-the-way', `content_3_${lang}`)}
+                  {storyblokData.getSectionRichText('on-the-way', `content_3_${lang}`)}
                 </div>
               </motion.div>
               
@@ -468,7 +372,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                  {getSectionRichText('on-the-way', `content_4_${lang}`)}
+                  {storyblokData.getSectionRichText('on-the-way', `content_4_${lang}`)}
                 </div>
               </motion.div>
             </div>
@@ -481,7 +385,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6 }}
               >
                 <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                  {getSectionRichText('on-the-way', `content_5_${lang}`)}
+                  {storyblokData.getSectionRichText('on-the-way', `content_5_${lang}`)}
                 </div>
               </motion.div>
               
@@ -500,7 +404,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
         </SectionGroup>
 
         {/* Deco Ball section */}
-        <SectionGroup id="decoball" title={getSectionData('decoball', `title_${lang}`)} isCompactMode={isCompactMode}>
+        <SectionGroup id="decoball" title={storyblokData.getSectionData('decoball', `title_${lang}`)} isCompactMode={isCompactMode}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-7 sm:gap-8 lg:gap-10">
             <motion.div
               className="flex flex-col justify-center"
@@ -509,7 +413,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               transition={{ duration: 0.6 }}
             >
               <div className="text-base sm:text-lg lg:text-xl text-primary leading-relaxed text-justify">
-                {getSectionRichText('decoball', `intro_${lang}`)}
+                {storyblokData.getSectionRichText('decoball', `intro_${lang}`)}
               </div>
             </motion.div>
             
@@ -662,7 +566,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {getSectionData('contact', `title_${lang}`)}
+            {storyblokData.getSectionData('contact', `title_${lang}`)}
           </motion.h2>
           
           <div className="max-w-3xl mx-auto">
@@ -672,7 +576,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {getSectionData('contact', `heading_${lang}`)}
+              {storyblokData.getSectionData('contact', `heading_${lang}`)}
             </motion.h3>
             
             <motion.p
@@ -681,7 +585,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              {getSectionData('contact', `intro_${lang}`)}
+              {storyblokData.getSectionData('contact', `intro_${lang}`)}
             </motion.p>
             
             <motion.div
@@ -691,7 +595,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
               transition={{ duration: 0.5 }}
             >
               <motion.a
-                href={`https://wa.me/${getSectionData('contact', 'phone').replace(/\s+/g, '')}`}
+                href={`https://wa.me/${storyblokData.getSectionData('contact', 'phone').replace(/\s+/g, '')}`}
                 className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
                 whileHover={{ scale: 1.02 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -699,15 +603,15 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <span className="font-title text-sm lg:text-base block mb-1">
-                  {getSectionData('contact', `whatsapp_${lang}`)}
+                  {storyblokData.getSectionData('contact', `whatsapp_${lang}`)}
                 </span>
                 <span className="font-body text-sm lg:text-base text-accent">
-                  {getSectionData('contact', 'phone')}
+                  {storyblokData.getSectionData('contact', 'phone')}
                 </span>
               </motion.a>
               
               <motion.a
-                href={`mailto:${getSectionData('contact', 'email')}`}
+                href={`mailto:${storyblokData.getSectionData('contact', 'email')}`}
                 className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
                 whileHover={{ scale: 1.02 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -718,12 +622,12 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                   Email
                 </span>
                 <span className="font-body text-sm lg:text-base break-all text-accent leading-tight">
-                  {getSectionData('contact', 'email')}
+                  {storyblokData.getSectionData('contact', 'email')}
                 </span>
               </motion.a>
               
               <motion.a
-                href={getSectionData('contact', 'website')}
+                href={storyblokData.getSectionData('contact', 'website')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center justify-center px-1 xs:px-2 sm:px-2 py-3 xs:py-4 sm:py-4 border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-background transition-all duration-300 text-center min-h-[65px] xs:min-h-[70px] sm:min-h-[75px]"
@@ -755,7 +659,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
               >
-                {getSimpleText(`hero_cta_${lang}`)}
+                {storyblokData.getSimpleText(`hero_cta_${lang}`)}
               </motion.a>
 
               <motion.button
@@ -766,7 +670,7 @@ export default function Home({ story, hasStoryblokData }: HomeProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
               >
-                {getSectionData('contact', `back_to_top_${lang}`)}
+                {storyblokData.getSectionData('contact', `back_to_top_${lang}`)}
               </motion.button>
             </motion.div>
           </div>
