@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import type { HeroTitleProps } from '@/types';
 import { getTypography } from '@/constants/designTokens';
-import { formatTitleWithLineBreaks } from '@/utils/titleFormatter';
 
 interface ExtendedHeroTitleProps extends HeroTitleProps {
   title: React.ReactNode;
@@ -13,21 +12,23 @@ interface ExtendedHeroTitleProps extends HeroTitleProps {
  * Desktop: Title overlays the Eiffel Tower, Mobile: Images below title
  */
 export default function HeroTitle({ getAnimationVariants, title }: ExtendedHeroTitleProps) {
-  // Formater le titre avec des sauts de ligne automatiques
-  const formattedTitle = typeof title === 'string' ? formatTitleWithLineBreaks(title) : title;
+  // Détecter si le titre est long pour utiliser une taille compacte
+  const titleString = typeof title === 'string' ? title : '';
+  const isLongTitle = titleString.length > 20; // Titres longs comme "FLORILÈGE DE L'ART DÉCO" ou "ART DÉCO ET NÉO ART DÉCO"
+  const titleTypography = isLongTitle ? 'heroTitleCompact' : 'heroTitle';
   return (
     <div className="flex flex-col items-center">
       {/* Mobile/Tablet - Titre puis images */}
       <div className="lg:hidden flex flex-col items-center">
         {/* Titre principal - Mobile/Tablet */}
         <motion.h1
-          className={`${getTypography('heroTitle')} text-accent text-center mb-6 xs:mb-8 sm:mb-10 lg:mb-12 whitespace-pre-line`}
+          className={`${getTypography(titleTypography)} text-accent text-center mb-6 xs:mb-8 sm:mb-10 lg:mb-12`}
           style={{
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5)'
           }}
           {...getAnimationVariants(0)}
         >
-          {formattedTitle}
+          {title}
         </motion.h1>
 
         {/* Images - Mobile/Tablet */}
@@ -136,13 +137,13 @@ export default function HeroTitle({ getAnimationVariants, title }: ExtendedHeroT
         {/* Titre principal superposé - Desktop uniquement */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <motion.h1
-            className={`${getTypography('heroTitle')} text-accent text-center whitespace-pre-line`}
+            className={`${getTypography(titleTypography)} text-accent text-center`}
             style={{
               textShadow: '3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 0, 0, 0.5)'
             }}
             {...getAnimationVariants(0)}
           >
-            {formattedTitle}
+            {title}
           </motion.h1>
         </div>
       </div>

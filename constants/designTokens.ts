@@ -66,6 +66,17 @@ export const TYPOGRAPHY = {
     line: 'leading-tight',
     tracking: 'tracking-tight',
   },
+
+  // Titre principal H1 - Version compacte pour titres longs
+  heroTitleCompact: {
+    xs: 'text-lg',            // 18px - Mobile (réduit)
+    sm: 'text-2xl',           // 24px - Tablette (réduit)
+    lg: 'text-4xl',           // 36px - Laptop (réduit)
+    xl: 'text-5xl',           // 48px - Desktop (réduit)
+    weight: 'font-title',
+    line: 'leading-tight',
+    tracking: 'tracking-tight',
+  },
   
   // Sous-titre Hero (Festival Art Déco...)
   heroSubtitle: {
