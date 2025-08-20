@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import type { HeroTitleProps } from '@/types';
 import { getTypography } from '@/constants/designTokens';
+import { formatTitleWithLineBreaks } from '@/utils/titleFormatter';
 
 interface ExtendedHeroTitleProps extends HeroTitleProps {
   title: React.ReactNode;
@@ -12,19 +13,21 @@ interface ExtendedHeroTitleProps extends HeroTitleProps {
  * Desktop: Title overlays the Eiffel Tower, Mobile: Images below title
  */
 export default function HeroTitle({ getAnimationVariants, title }: ExtendedHeroTitleProps) {
+  // Formater le titre avec des sauts de ligne automatiques
+  const formattedTitle = typeof title === 'string' ? formatTitleWithLineBreaks(title) : title;
   return (
     <div className="flex flex-col items-center">
       {/* Mobile/Tablet - Titre puis images */}
       <div className="lg:hidden flex flex-col items-center">
         {/* Titre principal - Mobile/Tablet */}
         <motion.h1
-          className={`${getTypography('heroTitle')} text-accent text-center mb-6 xs:mb-8 sm:mb-10 lg:mb-12`}
+          className={`${getTypography('heroTitle')} text-accent text-center mb-6 xs:mb-8 sm:mb-10 lg:mb-12 whitespace-pre-line`}
           style={{
             textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5)'
           }}
           {...getAnimationVariants(0)}
         >
-          {title}
+          {formattedTitle}
         </motion.h1>
 
         {/* Images - Mobile/Tablet */}
@@ -133,13 +136,13 @@ export default function HeroTitle({ getAnimationVariants, title }: ExtendedHeroT
         {/* Titre principal superposé - Desktop uniquement */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <motion.h1
-            className={`${getTypography('heroTitle')} text-accent text-center`}
+            className={`${getTypography('heroTitle')} text-accent text-center whitespace-pre-line`}
             style={{
               textShadow: '3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 0, 0, 0.5)'
             }}
             {...getAnimationVariants(0)}
           >
-            {title}
+            {formattedTitle}
           </motion.h1>
         </div>
       </div>
