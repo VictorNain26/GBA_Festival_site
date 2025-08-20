@@ -46,13 +46,13 @@ pnpm start:static
 ### Étape 2: Configuration Build
 Dans l'interface IONOS, configurez :
 ```yaml
-Install Command: npm install -g pnpm@9.0.0 && pnpm install --frozen-lockfile --prod=false
-Build Command: pnpm run build:ionos
+Install Command: npm install -g pnpm@9.0.0 && NODE_ENV=development pnpm install --frozen-lockfile
+Build Command: IONOS_STATIC=true NODE_ENV=production pnpm run build:ionos
 Output Directory: out
 Node.js Version: 18.x
 ```
 
-⚠️ **IMPORTANT** : Utilisez `--prod=false` pour installer les devDependencies nécessaires au build (TypeScript, ESLint, etc.)
+⚠️ **IMPORTANT** : Utilisez `NODE_ENV=development` pendant l'installation pour inclure les devDependencies (TypeScript, ESLint, etc.)
 
 ### Étape 3: Variables d'Environnement
 Dans l'interface IONOS Deploy Now, ajoutez :

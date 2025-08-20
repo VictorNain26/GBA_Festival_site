@@ -12,9 +12,9 @@ setup:
 build:
   commands:
     - name: Install dependencies
-      command: npm install -g pnpm@9.0.0 && pnpm install --frozen-lockfile --prod=false
+      command: npm install -g pnpm@9.0.0 && NODE_ENV=development pnpm install --frozen-lockfile
     - name: Build for production
-      command: pnpm run build:ionos
+      command: IONOS_STATIC=true NODE_ENV=production pnpm run build:ionos
   publishDir: out
 
 # Configuration du déploiement
