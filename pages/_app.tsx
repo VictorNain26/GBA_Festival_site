@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
   // Le bridge ne doit se charger QUE dans l'éditeur Storyblok ou en preview
   const isStoryblokPage = router.pathname.includes('storyblok');
   const isPreview = router.isPreview || pageProps.preview;
-  const isInStoryblokEditor = router.query._storyblok !== undefined;
+  const isInStoryblokEditor = router.query['_storyblok'] !== undefined;
   const shouldLoadStoryblokBridge = isStoryblokPage || isPreview || isInStoryblokEditor;
   
   // Add hydrated class to prevent scroll jumps
